@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <title> 航天（试验）情报研究与服务平台</title>
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+        Please enable it to continue.</strong>
+  </noscript>
+  <script>
+    window._CONFIG = {};
+    // 请求前缀
+    window._CONFIG['prefix'] = 'http://49.233.189.45:1000/'
+    // window._CONFIG['prefix'] = 'http://192.168.1.122:9999/'
+    // 接口地址
+    window._CONFIG['baseURL'] = window._CONFIG['prefix'] + 'iallchain/';
+    window._CONFIG['orderURL'] = window._CONFIG['prefix'] + 'sys/';
+    // 跳转后台的地址
+    window._CONFIG['goURL'] = 'http://49.233.189.45:2000/';
+  </script>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+</body>
+
+</html>
