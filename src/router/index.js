@@ -39,6 +39,7 @@ const NewsList = resolve => require(['@/components/newsList/index'], resolve) //
 const FeedBack = resolve => require(['@/components/feedBack/index'], resolve) // 需求反馈列表页面
 const Nav = resolve => require(['@/components/nav/nav'], resolve) // 导航页面（方便验收）
 const Translate = resolve => require(['@/components/Translate/index'], resolve) // 翻译页面（翻译）
+const Ceshi = resolve => require(['@/components/ceshi'], resolve)
 
 Vue.use(Router)
 
@@ -70,7 +71,7 @@ export default new Router({
       path: '/EditPass',
       name: 'EditPass',
       component: EditPass
-    },{
+    }, {
       path: '/editor',
       name: 'Editor',
       component: Editor
@@ -86,7 +87,7 @@ export default new Router({
       path: '/Journal',
       name: 'Journal',
       component: Journal
-    },{
+    }, {
       path: '/Information',
       name: 'Information',
       component: Information
@@ -109,68 +110,72 @@ export default new Router({
       path: '/hello',
       name: 'hello',
       component: hello
-    },{
+    }, {
       path: '/Dictionary',
       name: 'Dictionary',
       component: Dictionary
     }, {
-        path: '/senior',
-        name: 'senior',
-        component: senior
-      },{
-        path: '/class',
-        name: 'Class',
-        component: Class
-      },{
-        path: '/News',
-        name: 'News',
-        component: News
-      },{
-        path: '/User',
-        name: 'User',
-        component: User,
-         children: [{
-          path: 'Info',
-          component: Info
-        },{
-          path: 'SearchHistory',
-          component: SearchHistory
-        },{
-          path: 'BrowsingHistory',
-          component: BrowsingHistory
-        },{
-          path: 'Collection',
-          component: Collection
-        },{
-          path: 'Note',
-          component: Note
-        }]
-      },{
-        path: '/view/:id',
-        name: 'Echarts',
-        component: Echarts
-      },
-      {
-        path: '/Echartss',
-        name: 'Echartss',
-        component: Echartss
-      },
-      {
-        path: '/Table/:id',
-        name: 'Table',
-        component: Table
-      },{
-        path: '/TrilalXml',
-        name: 'TrilalXml',
-        component: TrilalXml
-      },{
+      path: '/senior',
+      name: 'senior',
+      component: senior
+    }, {
+      path: '/class',
+      name: 'Class',
+      component: Class
+    }, {
+      path: '/News',
+      name: 'News',
+      component: News
+    }, {
+      path: '/User',
+      name: 'User',
+      component: User,
+      children: [{
+        path: 'Info',
+        component: Info
+      }, {
+        path: 'SearchHistory',
+        component: SearchHistory
+      }, {
+        path: 'BrowsingHistory',
+        component: BrowsingHistory
+      }, {
+        path: 'Collection',
+        component: Collection
+      }, {
+        path: 'Note',
+        component: Note
+      }]
+    }, {
+      path: '/view/:id',
+      name: 'Echarts',
+      component: Echarts
+    },
+    {
+      path: '/Echartss',
+      name: 'Echartss',
+      component: Echartss
+    },
+    {
+      path: '/Table/:id',
+      name: 'Table',
+      component: Table
+    }, {
+      path: '/TrilalXml',
+      name: 'TrilalXml',
+      component: TrilalXml
+    }, {
       path: '/NewsList',
       name: 'NewsList',
       component: NewsList
-    },{
+    }, {
       path: '/FeedBack',
       name: 'FeedBack',
       component: FeedBack
+    }, {
+      path: '/Ceshi',
+      name: 'Ceshi',
+      component: Ceshi
     }
   ]
 })

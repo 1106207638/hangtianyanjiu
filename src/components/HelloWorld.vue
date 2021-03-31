@@ -2,7 +2,9 @@
   <div class="hello">
     <div class="headers">
       <div>
-        <el-button size="small" icon="el-icon-arrow-left" @click="goback">返回</el-button>
+        <el-button size="small" icon="el-icon-arrow-left" @click="goback"
+          >返回</el-button
+        >
       </div>
       <span>{{ wechar.title }}</span>
       <div>
@@ -31,57 +33,58 @@
         v-if="type"
         style="height: 100%; overflow: scroll"
       >
-          <div class="left_catalog" style="width: 100%" v-html="catalogList" ></div>
+        <div
+          class="left_catalog"
+          style="width: 100%"
+          v-html="catalogList"
+        ></div>
       </div>
       <div style="height: 100%; overflow: scroll" id="left_content">
         <div v-if="type">
-          <div v-html="html" ref=html></div>
+          <div v-html="html" ref="html"></div>
         </div>
         <div v-if="!type" style="max-width: 677px; margin: 0 auto">
           <h2
-              class="title"
-              style="
-                font-size: 22px;
-                line-height: 1.4;
-                margin-bottom: 14px;
-                font-weight: 400;
-              "
+            class="title"
+            style="
+              font-size: 22px;
+              line-height: 1.4;
+              margin-bottom: 14px;
+              font-weight: 400;
+            "
           >
             {{ wechar.title }}
           </h2>
           <div>
-              <span
-                  style="
-                  color: rgba(0, 0, 0, 0.3);
-                  margin: 0 10px 10px 0;
-                  font-size: 15px;
-                  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-                "
-              >{{ wechar.author }}</span
-              >
             <span
-                style="margin: 0 10px 10px 0; font-size: 15px; color: #576b95"
-            >国家空间研究中心</span
+              style="
+                color: rgba(0, 0, 0, 0.3);
+                margin: 0 10px 10px 0;
+                font-size: 15px;
+                -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+              "
+              >{{ wechar.author }}</span
+            >
+            <span style="margin: 0 10px 10px 0; font-size: 15px; color: #576b95"
+              >国家空间研究中心</span
             >
             <span
-                style="
-                  color: rgba(0, 0, 0, 0.3);
-                  margin: 0 10px 10px 0;
-                  font-size: 15px;
-                  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-                "
-            >{{ wechar.date | dateformat("YYYY年MM月DD日") }}</span
+              style="
+                color: rgba(0, 0, 0, 0.3);
+                margin: 0 10px 10px 0;
+                font-size: 15px;
+                -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+              "
+              >{{ wechar.date | dateformat("YYYY年MM月DD日") }}</span
             >
             <div v-html="html" ref="htmls" id="contents"></div>
           </div>
-
 
           <!-- <iframe src="http://192.168.1.222:8080/conversion/wordToHtml/1301710369047318501" id="test_iframe" frameborder="0" width="100%" height="100%"></iframe> -->
         </div>
         <div class="add" :style="posi" v-show="isAdd">
           <button @click="enableNiteWriterPen()">笔记</button>
         </div>
-
       </div>
       <!-- 右侧列表 -->
       <div class="right" id="right">
@@ -102,13 +105,13 @@
               }}</span>
               <i
                 class="el-icon-delete"
-                @click.stop="del(item.id, index,item)"
+                @click.stop="del(item.id, index, item)"
                 style="color: rgb(254, 108, 111)"
               ></i>
               <i
                 class="el-icon-edit"
                 @click.stop="
-                  open(item.id, index, item.bookmarkName, item.kgLabels,item)
+                  open(item.id, index, item.bookmarkName, item.kgLabels, item)
                 "
                 style="color: #3594ff"
               ></i>
@@ -138,7 +141,14 @@
 
     <div
       v-show="show"
-      style="width:100vw;height:100vh;background:rgba(0,0,0,.5);position:fixed;top:0;left:0"
+      style="
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        position: fixed;
+        top: 0;
+        left: 0;
+      "
       class="dioge"
     >
       <div class="ask">
@@ -166,7 +176,11 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-button class="addFlag" type="primary" @click="toggleAdd" icon="el-icon-plus"
+          <el-button
+            class="addFlag"
+            type="primary"
+            @click="toggleAdd"
+            icon="el-icon-plus"
             >添加</el-button
           >
         </el-form>
@@ -184,21 +198,23 @@
         </el-form>
         <!-- <input type="text" v-model="text" placeholder="请输入标签" /> -->
         <div class="dialog-footer">
-          <el-button type="primary" @click="yes"  v-if="!editOpen">确 定</el-button>
-          <el-button type="primary" @click="editYes"  v-else>确 定</el-button>
-          <el-button @click="cancel" >取 消</el-button>
+          <el-button type="primary" @click="yes" v-if="!editOpen"
+            >确 定</el-button
+          >
+          <el-button type="primary" @click="editYes" v-else>确 定</el-button>
+          <el-button @click="cancel">取 消</el-button>
         </div>
       </div>
     </div>
     <!-- 收藏文件 -->
     <el-dialog title="选择收藏夹" :visible.sync="dialogFormVisible">
       <SelectTree
-          :props="props"
-          :options="optionData"
-          :value="valueId"
-          :clearable="isClearable"
-          :accordion="isAccordion"
-          @getValue="getValue($event)"
+        :props="props"
+        :options="optionData"
+        :value="valueId"
+        :clearable="isClearable"
+        :accordion="isAccordion"
+        @getValue="getValue($event)"
       />
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -212,8 +228,8 @@
 import Range from "../assets/js/Range";
 import SelectTree from "../common/dialog/select";
 import tree from "./ewTree";
-import { getAccessToDirectory, getWordToHtml, } from "../api/api";
-import $ from 'jquery'
+import { getAccessToDirectory, getWordToHtml } from "../api/api";
+import $ from "jquery";
 
 import {
   AddNote,
@@ -224,14 +240,14 @@ import {
   cancelCollection,
   Getflag,
   ADDflag,
-  geteFloder
+  geteFloder,
 } from "../api/apis";
 
 export default {
   name: "HelloWorld",
   components: {
     tree,
-    SelectTree
+    SelectTree,
   },
   data() {
     return {
@@ -300,44 +316,66 @@ export default {
         author: "",
         date: "",
       },
-      data: [{
-        label: '一级 1',
-        children: [{
-          label: '二级 1-1',
-          children: [{
-            label: '三级 1-1-1'
-          }]
-        }]
-      }, {
-        label: '一级 2',
-        children: [{
-          label: '二级 2-1',
-          children: [{
-            label: '三级 2-1-1'
-          }]
-        }, {
-          label: '二级 2-2',
-          children: [{
-            label: '三级 2-2-1'
-          }]
-        }]
-      }, {
-        label: '一级 3',
-        children: [{
-          label: '二级 3-1',
-          children: [{
-            label: '三级 3-1-1'
-          }]
-        }, {
-          label: '二级 3-2',
-          children: [{
-            label: '三级 3-2-1'
-          }]
-        }]
-      }],
+      data: [
+        {
+          label: "一级 1",
+          children: [
+            {
+              label: "二级 1-1",
+              children: [
+                {
+                  label: "三级 1-1-1",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: "一级 2",
+          children: [
+            {
+              label: "二级 2-1",
+              children: [
+                {
+                  label: "三级 2-1-1",
+                },
+              ],
+            },
+            {
+              label: "二级 2-2",
+              children: [
+                {
+                  label: "三级 2-2-1",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: "一级 3",
+          children: [
+            {
+              label: "二级 3-1",
+              children: [
+                {
+                  label: "三级 3-1-1",
+                },
+              ],
+            },
+            {
+              label: "二级 3-2",
+              children: [
+                {
+                  label: "三级 3-2-1",
+                },
+              ],
+            },
+          ],
+        },
+      ],
       defaultProps: {
-        children: 'children',
-        label: 'label'
+        children: "children",
+        label: "label",
       },
       isClearable: true, // 可清空（可选）
       isAccordion: false, // 可收起（可选）
@@ -346,18 +384,14 @@ export default {
         // 配置项（必选）
         value: "id",
         label: "name",
-        children: "children"
+        children: "children",
         // disabled:true
       },
-      place:'请选择笔记文件夹',
-      dialogFormVisible:false,
+      place: "请选择笔记文件夹",
+      dialogFormVisible: false,
       // 选项列表（必选）
-      list: [
-
-      ],
-      list1: [
-
-      ],
+      list: [],
+      list1: [],
       valueId1: 0, // 可收起（可选）
     };
   },
@@ -368,48 +402,62 @@ export default {
       return value;
     },
   },
-  watch:{
-    html:{
-      handler:function(val,oldval){
-        if(val!=null&&val!=''&&val!=undefined&&val!='undefined') {
-          this.$nextTick(()=>{
-            var aList = document.querySelectorAll('#left_content a')
-            for(var i = 0;i< aList.length;i++) {
-              console.log(aList[i])
-              var href = aList[i].getAttribute('href')
-              aList[i].setAttribute('href','javascript:void();')
-              aList[i].setAttribute('data-src',href)
+  watch: {
+    html: {
+      handler: function (val, oldval) {
+        if (
+          val != null &&
+          val != "" &&
+          val != undefined &&
+          val != "undefined"
+        ) {
+          this.$nextTick(() => {
+            var aList = document.querySelectorAll("#left_content a");
+            for (var i = 0; i < aList.length; i++) {
+              // console.log(aList[i]);
+              var href = aList[i].getAttribute("href");
+              aList[i].setAttribute("href", "javascript:void();");
+              aList[i].setAttribute("data-src", href);
             }
-            for(var i = 0;i< aList.length;i++) {
-              aList[i].onclick=function(e) {
-                if(e.target.nodeName=='A') {
-                  var str = e.target.getAttribute('data-src')
-                  var str = str.substring(1,str.length)
+            for (var i = 0; i < aList.length; i++) {
+              aList[i].onclick = function (e) {
+                if (e.target.nodeName == "A") {
+                  var str = e.target.getAttribute("data-src");
+                  var str = str.substring(1, str.length);
                   document.querySelector(`a[name=${str}]`).scrollIntoView({
                     behavior: "smooth",
                     block: "start",
                     inline: "nearest",
                   });
-                }else {
-                  if(e.target.parentElement.nodeName=='A') {
-                    var str = e.target.parentElement.getAttribute('data-src')
-                    var str = str.substring(1,str.length)
+                } else {
+                  if (e.target.parentElement.nodeName == "A") {
+                    var str = e.target.parentElement.getAttribute("data-src");
+                    var str = str.substring(1, str.length);
                     document.querySelector(`a[name=${str}]`).scrollIntoView({
                       behavior: "smooth",
                       block: "start",
                       inline: "nearest",
                     });
-                  }else if(e.target.parentElement.parentElement.nodeName=='A') {
-                    var str = e.target.parentElement.parentElement.getAttribute('data-src')
-                    var str = str.substring(1,str.length)
+                  } else if (
+                    e.target.parentElement.parentElement.nodeName == "A"
+                  ) {
+                    var str = e.target.parentElement.parentElement.getAttribute(
+                      "data-src"
+                    );
+                    var str = str.substring(1, str.length);
                     document.querySelector(`a[name=${str}]`).scrollIntoView({
                       behavior: "smooth",
                       block: "start",
                       inline: "nearest",
                     });
-                  }else if(e.target.parentElement.parentElement.parentElement.nodeName=='A') {
-                    var str = e.target.parentElement.parentElement.parentElement.getAttribute('data-src')
-                    var str = str.substring(1,str.length)
+                  } else if (
+                    e.target.parentElement.parentElement.parentElement
+                      .nodeName == "A"
+                  ) {
+                    var str = e.target.parentElement.parentElement.parentElement.getAttribute(
+                      "data-src"
+                    );
+                    var str = str.substring(1, str.length);
                     document.querySelector(`a[name=${str}]`).scrollIntoView({
                       behavior: "smooth",
                       block: "start",
@@ -417,89 +465,100 @@ export default {
                     });
                   }
                 }
-              }
+              };
             }
-          })
+          });
         }
       },
-      deep:true//对象内部的属性监听，也叫深度监听
+      deep: true, //对象内部的属性监听，也叫深度监听
     },
 
-    catalogList:{
-  handler:function(val,oldval){
-    if(val!=null&&val!=''&&val!=undefined&&val!='undefined') {
-      this.$nextTick(()=>{
-        var aList = document.querySelectorAll('a')
-        for(var i = 0;i< aList.length;i++) {
-          console.log(aList[i])
-          var href = aList[i].getAttribute('href')
-          aList[i].setAttribute('href','javascript:void();')
-          aList[i].setAttribute('data-src',href)
-        }
-        for(var i = 0;i< aList.length;i++) {
-          aList[i].onclick=function(e) {
-            if(e.target.nodeName=='A') {
-              var str = e.target.getAttribute('data-src')
-              var str = str.substring(1,str.length)
-              document.querySelector(`a[name=${str}]`).scrollIntoView({
-                behavior: "smooth",
-                block: "start",
-                inline: "nearest",
-              });
-            }else {
-              if(e.target.parentElement.nodeName=='A') {
-                var str = e.target.parentElement.getAttribute('data-src')
-                var str = str.substring(1,str.length)
-                document.querySelector(`a[name=${str}]`).scrollIntoView({
-                  behavior: "smooth",
-                  block: "start",
-                  inline: "nearest",
-                });
-              }else {
-                var str = e.target.parentElement.parentElement.getAttribute('data-src')
-                var str = str.substring(1,str.length)
-                document.querySelector(`a[name=${str}]`).scrollIntoView({
-                  behavior: "smooth",
-                  block: "start",
-                  inline: "nearest",
-                });
-              }
+    catalogList: {
+      handler: function (val, oldval) {
+        console.log(val);
+        if (
+          val != null &&
+          val != "" &&
+          val != undefined &&
+          val != "undefined"
+        ) {
+          this.$nextTick(() => {
+            var aList = document.querySelectorAll("a");
+            for (var i = 0; i < aList.length; i++) {
+              var href = aList[i].getAttribute("href");
+              aList[i].setAttribute("href", "javascript:void();");
+              aList[i].setAttribute("data-src", href);
             }
-          }
+            for (var i = 0; i < aList.length; i++) {
+              aList[i].onclick = function (e) {
+                if (e.target.nodeName == "A") {
+                  var str = e.target.getAttribute("data-src");
+                  //锚点
+                  var str = str.substring(1, str.length);
+                  console.log(str.substring(1, str.length));
+                  document.querySelector(`a[name=${str}]`).scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                    inline: "nearest",
+                  });
+                } else {
+                  if (e.target.parentElement.nodeName == "A") {
+                    var str = e.target.parentElement.getAttribute("data-src");
+                    var str = str.substring(1, str.length);
+                    document.querySelector(`a[name=${str}]`).scrollIntoView({
+                      behavior: "smooth",
+                      block: "start",
+                      inline: "nearest",
+                    });
+                  } else {
+                    var str = e.target.parentElement.parentElement.getAttribute(
+                      "data-src"
+                    );
+                    var str = str.substring(1, str.length);
+                    document.querySelector(`a[name=${str}]`).scrollIntoView({
+                      behavior: "smooth",
+                      block: "start",
+                      inline: "nearest",
+                    });
+                  }
+                }
+              };
+            }
+          });
         }
-      })
-    }
+      },
+      deep: true, //对象内部的属性监听，也叫深度监听
+    },
   },
-  deep:true//对象内部的属性监听，也叫深度监听
-},
-
-},
   created() {},
   computed: {
     /* 转树形数据 */
     optionData() {
       let cloneData = JSON.parse(JSON.stringify(this.list)); // 对源数据深度克隆
-      return cloneData.filter(father => {
+      return cloneData.filter((father) => {
         // 循环所有项，并添加children属性
-        let branchArr = cloneData.filter(child => father.id == child.parentId); // 返回每一项的子级数组
+        let branchArr = cloneData.filter(
+          (child) => father.id == child.parentId
+        ); // 返回每一项的子级数组
         branchArr.length > 0 ? (father.children = branchArr) : ""; //给父级添加一个children属性，并赋值
         return father.parentId == 0; //返回第一层
       });
     },
     optionData1() {
       let cloneData = JSON.parse(JSON.stringify(this.list1)); // 对源数据深度克隆
-      console.log(cloneData)
-      return cloneData.filter(father => {
+      // console.log(cloneData);
+      return cloneData.filter((father) => {
         // 循环所有项，并添加children属性
-        let branchArr = cloneData.filter(child => father.id == child.parentId); // 返回每一项的子级数组
+        let branchArr = cloneData.filter(
+          (child) => father.id == child.parentId
+        ); // 返回每一项的子级数组
         branchArr.length > 0 ? (father.children = branchArr) : ""; //给父级添加一个children属性，并赋值
         return father.parentId == 0; //返回第一层
       });
     },
-
   },
   mounted() {
-    this.getUserFloderList()
+    this.getUserFloderList();
     this.getHign();
     var that = this;
     this.getNote();
@@ -513,6 +572,7 @@ export default {
       that.isAdd = false;
       if (content.trim() != "") {
         var range = window.getSelection().getRangeAt(0);
+        // console.log(range);
         //  当前选中的文本的坐标信息
         var rect = range.getBoundingClientRect();
         //  中间区域的坐标信息
@@ -540,7 +600,7 @@ export default {
     document.addEventListener("click", (e) => {
       if (that.name == "" || that.name == undefined) {
       } else {
-        console.log(that.name);
+        // console.log(that.name);
         var eles = document.querySelectorAll(`a[point=${that.name}]`);
         for (var i = 0; i < eles.length; i++) {
           eles[i].style.background = "none";
@@ -552,45 +612,42 @@ export default {
     // 选择笔记文件夹
     getValue1(value) {
       this.valueId1 = value;
-      if(value == 9999999) {
+      if (value == 9999999) {
         this.$message({
-          type:'info',
-          message:'请在全部文件夹下的文件夹中添加笔记'
-        })
+          type: "info",
+          message: "请在全部文件夹下的文件夹中添加笔记",
+        });
       }
     },
     // 获取当前用户所有的收藏文件夹
-    getUserFloderList () {
-      geteFloder({
-      }).then((res)=>{
-        var { data } = res
-        if(data.code == 200 ) {
-
-          for(var i = 0;i<data.result.records.length;i++) {
-            data.result.records[i].parentId = 9999999
-            data.result.records[i].name = data.result.records[i].folderName
+    getUserFloderList() {
+      geteFloder({}).then((res) => {
+        var { data } = res;
+        if (data.code == 200) {
+          for (var i = 0; i < data.result.records.length; i++) {
+            data.result.records[i].parentId = 9999999;
+            data.result.records[i].name = data.result.records[i].folderName;
           }
           data.result.records.unshift({
-            id:9999999,
-            name:'全部文件夹',
-            parentId: 0
-          })
-          this.list = data.result.records
-          this.valueId= data.result.records[1].id
+            id: 9999999,
+            name: "全部文件夹",
+            parentId: 0,
+          });
+          this.list = data.result.records;
+          this.valueId = data.result.records[1].id;
         }
-      })
+      });
     },
     getValue(value) {
       this.valueId = value;
-      if(value == 9999999) {
+      if (value == 9999999) {
         this.$message({
-          type:'info',
-          message:'请在全部文件夹下的文件夹中添加收藏'
-        })
+          type: "info",
+          message: "请在全部文件夹下的文件夹中添加收藏",
+        });
       }
     },
-    handleNodeClick(data) {
-    },
+    handleNodeClick(data) {},
     addFLag() {
       if (this.value == "") {
         this.$message({
@@ -607,8 +664,8 @@ export default {
               type: "success",
               message: "添加成功",
             });
-            this.value = ''
-            this.getUserFlag()
+            this.value = "";
+            this.getUserFlag();
             this.addTitle = !this.addTitle;
           } else {
             this.$message({
@@ -621,7 +678,7 @@ export default {
     },
     // 获取当前用户的标签
     getUserFlag() {
-      Getflag({  }).then((res) => {
+      Getflag({}).then((res) => {
         var { data } = res;
         if (data.code == 200) {
           this.titleList = data.result;
@@ -630,7 +687,7 @@ export default {
     },
     toggleAdd() {
       this.addTitle = !this.addTitle;
-      this.value = ''
+      this.value = "";
       this.getUserFlag();
     },
     // 取消收藏
@@ -650,21 +707,21 @@ export default {
     },
     // 收藏确认
     collectYes() {
-      if(this.valueId == 9999999) {
-        return this.$message.error('请添加到全部文件夹下的文件夹')
-      }else{
+      if (this.valueId == 9999999) {
+        return this.$message.error("请添加到全部文件夹下的文件夹");
+      } else {
         Collection({
           kgDocId: this.id,
-          folderId:this.valueId,
+          folderId: this.valueId,
         }).then((res) => {
           var { data } = res;
-          console.log(data);
+          // console.log(data);
           if (data.code == 200) {
             this.$message({
               type: "success",
               message: "收藏成功",
             });
-            this.dialogFormVisible = false
+            this.dialogFormVisible = false;
             this.star = !this.star;
           } else {
             this.$message({
@@ -677,56 +734,59 @@ export default {
     },
     // 收藏
     collect() {
-      this.dialogFormVisible = true
+      this.dialogFormVisible = true;
     },
     // 删除笔记
-    del(id, index,item) {
-      this.$confirm('此操作将永久删除该笔记, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        var id = item.bookmarkId
-        var html = document.querySelectorAll(`a[point=${id}]`)
-        for(var i = 0;i< html.length;i++) {
-          var text = html[i].innerHTML
-          var parent = html[i].parentElement
-          var child = $(parent)[0].childNodes
-          var str = ''
-          for(var j=0;j<child.length;j++){
-            if(child[j].nodeName=='A') {
-              str+=child[j].innerHTML
-            }else if(child[j].nodeName == '#text') {
-              str+=child[j].data
-            }else {
-              str+=child[j].innerHTML
+    del(id, index, item) {
+      this.$confirm("此操作将永久删除该笔记, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          var id = item.bookmarkId;
+          var html = document.querySelectorAll(`a[point=${id}]`);
+          for (var i = 0; i < html.length; i++) {
+            var text = html[i].innerHTML;
+            var parent = html[i].parentElement;
+            var child = $(parent)[0].childNodes;
+            var str = "";
+            for (var j = 0; j < child.length; j++) {
+              if (child[j].nodeName == "A") {
+                str += child[j].innerHTML;
+              } else if (child[j].nodeName == "#text") {
+                str += child[j].data;
+              } else {
+                str += child[j].innerHTML;
+              }
             }
+            parent.innerHTML = str;
           }
-          parent.innerHTML = str
-        }
-        delNote({ id: item.id,fileid: item.textid,textContentKey:document.getElementById('left_content').innerHTML }).then((res) => {
-          var { data } = res;
-          if (data.code == 200) {
-            this.$message({
-              type: "success",
-              message: "删除成功!",
-            });
-            this.pointList.splice(index, 1);
-            this.star = !this.star;
-          } else {
-            this.$message({
-              type: "info",
-              message: "网络错误，请稍后再试!",
-            });
-          }
-        });
-      }).catch(() => {
-
-      });
-
+          delNote({
+            id: item.id,
+            fileid: item.textid,
+            textContentKey: document.getElementById("left_content").innerHTML,
+          }).then((res) => {
+            var { data } = res;
+            if (data.code == 200) {
+              this.$message({
+                type: "success",
+                message: "删除成功!",
+              });
+              this.pointList.splice(index, 1);
+              this.star = !this.star;
+            } else {
+              this.$message({
+                type: "info",
+                message: "网络错误，请稍后再试!",
+              });
+            }
+          });
+        })
+        .catch(() => {});
     },
     // 修改笔记标题
-    open(id, index, name, lableList,item) {
+    open(id, index, name, lableList, item) {
       this.editOpen = true;
       this.show = true;
       this.lableName = name;
@@ -735,7 +795,7 @@ export default {
       this.editObj.index = index;
       if (lableList.length == 0) {
       } else {
-        this.value1 = []
+        this.value1 = [];
         for (var i = 0; i < lableList.length; i++) {
           this.value1.push(lableList[i].id);
         }
@@ -745,7 +805,7 @@ export default {
     getHign() {
       this.name = this.$route.query.name;
       this.id = this.$route.query.id;
-      console.log(this.$route.query.type);
+      // console.log(this.$route.query.type);
       if (this.$route.query.type == undefined) {
         this.type = true;
       } else if (this.$route.query.type == "wechat") {
@@ -756,7 +816,7 @@ export default {
     },
     goLeft(url) {
       var str = url.substring(1, url.length);
-      console.log(str);
+      // console.log(str);
       document.querySelector(`a[name=${str}]`).scrollIntoView({
         behavior: "smooth",
         block: "start",
@@ -837,15 +897,15 @@ export default {
           });
         } else {
           var kgLabels = [];
-          console.log(this.value1)
+          // console.log(this.value1);
           for (var i = 0; i < this.value1.length; i++) {
-            kgLabels.push({ labelId: this.value1[i]});
+            kgLabels.push({ labelId: this.value1[i] });
           }
-          var arr = []
-          for(var i = 0;i< this.titleList.length;i++) {
-            for(var j = 0 ; j< this.value1.length;j++) {
-              if(this.value1[j]== this.titleList[i].id) {
-                arr.push(this.titleList[i])
+          var arr = [];
+          for (var i = 0; i < this.titleList.length; i++) {
+            for (var j = 0; j < this.value1.length; j++) {
+              if (this.value1[j] == this.titleList[i].id) {
+                arr.push(this.titleList[i]);
               }
             }
           }
@@ -854,7 +914,7 @@ export default {
             bookmarkName: this.lableName,
             kgLabels: arr,
           }).then((res) => {
-            console.log(res);
+            // console.log(res);
             var { data } = res;
             if (data.code == 200) {
               this.$message({
@@ -901,7 +961,7 @@ export default {
             point: timestamp,
           });
           this.seleText = this.seleText.substring(0, this.seleText.length / 2);
-          console.log(this.seleText)
+          // console.log(this.seleText);
           this.range.select();
           var dataList = this.value1;
           var kgLabel = [];
@@ -919,7 +979,7 @@ export default {
           var data = {
             textid: this.id, //文件id
             kgLabels: kgLabel, // 标签名字
-            filetitle:this.wechar.title,
+            filetitle: this.wechar.title,
             bookmarkName: this.lableName,
             bookmarkValue: this.seleText, // 标签内容
             textContentKey: html, //html
@@ -966,20 +1026,19 @@ export default {
             this.pointList = data.result.kgSaveTheBookmarks;
             this.html = data.result.contents;
             if (this.type == true) {
-              if (data.result.cententCatalog!='') {
-                this.catalogList = data.result.cententCatalog
+              if (data.result.cententCatalog != "") {
+                this.catalogList = data.result.cententCatalog;
               } else {
-                this.catalogList = ''
+                this.catalogList = "";
               }
             } else {
               this.isSentend = false;
             }
           } else if (this.type == false) {
             this.html = data.result.contents;
-
           } else {
             this.html = data.result.contents;
-            this.catalogList = data.result.cententCatalog
+            this.catalogList = data.result.cententCatalog;
           }
           this.wechar.title = data.result.title;
           // this.wechar.author = data.result.author;
@@ -989,16 +1048,16 @@ export default {
           // 文章是否被收藏
 
           setTimeout(function () {
-              // var imgs = document
-              //   .getElementById("left_content")
-              //   .querySelectorAll("img");
-              // for (var i = 0; i < imgs.length; i++) {
-              //   var strArr = imgs[i].getAttribute("data-src")
-              //   imgs[i].setAttribute(
-              //     "src", strArr);
-              // }
+            // var imgs = document
+            //   .getElementById("left_content")
+            //   .querySelectorAll("img");
+            // for (var i = 0; i < imgs.length; i++) {
+            //   var strArr = imgs[i].getAttribute("data-src")
+            //   imgs[i].setAttribute(
+            //     "src", strArr);
+            // }
 
-            if(name != undefined) {
+            if (name != undefined) {
               document.querySelector(`a[point=${name}]`).scrollIntoView({
                 behavior: "smooth",
                 block: "start",
@@ -1009,7 +1068,6 @@ export default {
                 eles[i].style.background = "rgb(153,205,255)";
               }
             }
-
           }, 200);
         }
       });
@@ -1034,7 +1092,7 @@ export default {
     enableNiteWriterPen() {
       this.isAdd = false;
       this.addTitle = true;
-      this.value = ''
+      this.value = "";
 
       // var word =document.getElementById("test_iframe").contentWindow.getSelection();
       // alert( word )
@@ -1063,37 +1121,42 @@ export default {
       };
       var selectionObj = window.getSelection();
       var selectedText = selectionObj.toString();
-　　　　var selectionObj = window.getSelection();
+      var selectionObj = window.getSelection();
       var rangeObj = selectionObj.getRangeAt(0);
-      console.log(rangeObj)
+      // console.log(rangeObj);
       var docFragment = rangeObj.cloneContents();
-      console.log(docFragment.parentNode)
-　　　var testDiv = document.createElement("div");
+      // console.log(docFragment.parentNode);
+      var testDiv = document.createElement("div");
       testDiv.appendChild(docFragment);
       var selectHtml = testDiv.innerHTML;
       var range = getRange();
 
       if (range.collapsed == false) {
-        var parentHtml = $(range.startContainer.parentElement).parents('a')
-        console.log(parentHtml)
-        var parentHtml1 = range.endContainer.parentElement.outerHTML
-        if(parentHtml.length!=0) {
-          if(selectHtml.indexOf('</a>')!=-1||selectHtml.indexOf('<a')!=-1||parentHtml[0].nodeName=='A') {
-            return this.$message.error('此处已有标签，请删除后再试')
-          }else {
+        var parentHtml = $(range.startContainer.parentElement).parents("a");
+        // console.log(parentHtml);
+        var parentHtml1 = range.endContainer.parentElement.outerHTML;
+        if (parentHtml.length != 0) {
+          if (
+            selectHtml.indexOf("</a>") != -1 ||
+            selectHtml.indexOf("<a") != -1 ||
+            parentHtml[0].nodeName == "A"
+          ) {
+            return this.$message.error("此处已有标签，请删除后再试");
+          } else {
             this.show = true;
             this.range = range;
           }
-        }else {
-          if(selectHtml.indexOf('</a>')!=-1||selectHtml.indexOf('<a')!=-1) {
-            return this.$message.error('此处已有标签，请删除后再试')
-          }else {
+        } else {
+          if (
+            selectHtml.indexOf("</a>") != -1 ||
+            selectHtml.indexOf("<a") != -1
+          ) {
+            return this.$message.error("此处已有标签，请删除后再试");
+          } else {
             this.show = true;
             this.range = range;
           }
         }
-
-
       } else {
         alert("请选择相应的文本");
       }
@@ -1102,14 +1165,16 @@ export default {
       let param = {
         accept: "text/html, text/plain",
       };
-      GetHtmL('https://mp.weixin.qq.com/s?__biz=MzA3NzgzODUwNA==&mid=2653476728&idx=1&sn=49dea7f4603d1c7df09278940eb6c9db&chksm=849796bfb3e01fa93829802990cce0203480e2cb08d36fd58830cb5319d2c7c7eda82f8891ca#rd', {}).then((res)=>{
-        console.log(res)
-      })
-
+      GetHtmL(
+        "https://mp.weixin.qq.com/s?__biz=MzA3NzgzODUwNA==&mid=2653476728&idx=1&sn=49dea7f4603d1c7df09278940eb6c9db&chksm=849796bfb3e01fa93829802990cce0203480e2cb08d36fd58830cb5319d2c7c7eda82f8891ca#rd",
+        {}
+      ).then((res) => {
+        // console.log(res);
+      });
     },
     goback() {
-      this.$router.go(-1)
-    }
+      this.$router.go(-1);
+    },
   },
 };
 </script>
@@ -1201,7 +1266,7 @@ a {
   color: #42b983;
 }
 /* 询问框 */
- .ask {
+.ask {
   position: fixed;
   text-align: center;
   width: 500px;
@@ -1411,7 +1476,7 @@ a {
   display: flex;
   padding: 0 20px;
   border-bottom: 2px solid #3474d9;
-  z-index:999
+  z-index: 999;
 }
 .headers span {
   padding: 0 20px;
@@ -1424,7 +1489,7 @@ a {
 }
 .dioge .ask {
   border-radius: 2px;
-  box-shadow: 0 1px 3px rgba(0,0,0,.3);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 .leftCatalog {
   width: 100%;
@@ -1432,13 +1497,15 @@ a {
 /deep/.left_catalog p {
   white-space: nowrap;
 }
-/deep/.left_catalog  a {
+/deep/.left_catalog a {
   color: #000;
   font-weight: bold;
 }
-/deep/#left_content a ,/deep/#left_content a:link,/deep/span.MsoHyperlink {
+/deep/#left_content a,
+/deep/#left_content a:link,
+/deep/span.MsoHyperlink {
   color: #333 !important;
-  text-decoration:none !important;
+  text-decoration: none !important;
 }
 .threedian {
   display: -webkit-box;

@@ -6,31 +6,6 @@
         <!--高级检索 start-->
         <div class="grade-search-content" style="display: flex">
           <div class="search-mainbox is-off" style>
-            <!--            <div class="search-sidebar-a" v-show="!isOff" @click="toggle">-->
-            <!--              <a class="icon-arrow">-->
-            <!--                文献分类-->
-            <!--                <i></i>-->
-            <!--              </a>-->
-            <!--            </div>-->
-            <!--            <div v-show="isOff" class="search-back">-->
-            <!--              <p>文献分类</p>-->
-            <!--              <i @click="close"></i>-->
-            <!--              <div class="operation">-->
-            <!--                <el-checkbox-->
-            <!--                  v-model="checkAll"-->
-            <!--                  @change="handleCheckAllChange"-->
-            <!--                />全选-->
-            <!--              </div>-->
-
-            <!--              <el-tree-->
-            <!--                :data="organizationData"-->
-            <!--                ref="organizationData"-->
-            <!--                show-checkbox-->
-            <!--                default-expand-all-->
-            <!--                node-key="id"-->
-            <!--                :props="defaultProps"-->
-            <!--              ></el-tree>-->
-            <!--            </div>-->
             <div class="search-middle" style="float: left; padding: 20px">
               <el-form ref="form" :model="form" label-width="90px">
                 <div
@@ -101,23 +76,7 @@
                 </div>
 
                 <div class="extend">
-                  <div class="extend-indent-labels">
-                    <!-- <el-checkbox-group v-model="form.type">
-                      <el-checkbox
-                        label="美食/餐厅线上活动"
-                        name="type"
-                      ></el-checkbox>
-                      <el-checkbox label="地推活动" name="type"></el-checkbox>
-                      <el-checkbox
-                        label="线下主题活动"
-                        name="type"
-                      ></el-checkbox>
-                      <el-checkbox
-                        label="单纯品牌曝光"
-                        name="type"
-                      ></el-checkbox>
-                    </el-checkbox-group> -->
-                  </div>
+                  <div class="extend-indent-labels"></div>
 
                   <div class="extend-row">
                     <!--日历日期 start-->
@@ -338,36 +297,6 @@
                 </li>
               </ul>
             </div>
-            <!--                  <li-->
-            <!--                      v-if="index==1"-->
-            <!--                      :class="'' == infoType ? 'active' : ''"-->
-            <!--                      @click="toggleCate(1,'')"-->
-            <!--                  >全部</li>-->
-            <!--                  <li-->
-            <!--                      v-if="index==1"-->
-            <!--                      v-for="(item1, index1) in item"-->
-            <!--                      :key="index1"-->
-            <!--                      :class="item1.itemValue == infoType ? 'active' : ''"-->
-            <!--                      @click="toggleCate(1,item1.itemValue)"-->
-            <!--                  >-->
-            <!--                    {{ item1.itemText }}-->
-            <!--                  </li>-->
-            <!--                  <li-->
-            <!--                      v-if="index==2"-->
-            <!--                      :class="'' == publishYear ? 'active' : ''"-->
-            <!--                      @click="toggleCate(2,'')"-->
-            <!--                  >全部</li>-->
-            <!--                  <li-->
-            <!--                      v-if="index==2"-->
-            <!--                      v-for="(item1, index1) in item"-->
-            <!--                      :key="index1"-->
-            <!--                      :class="item1.itemValue == publishYear ? 'active' : ''"-->
-            <!--                      @click="toggleCate(2,item1.itemValue)"-->
-            <!--                  >-->
-            <!--                    {{ item1.itemText }}-->
-            <!--                  </li>-->
-            <!--                </ul>-->
-            <!--              </div>-->
           </div>
         </div>
       </el-aside>
@@ -441,11 +370,6 @@
                       >
                       </el-rate>
                       <span v-else>无星级</span>
-                      <!--                      <img src="~@/assets/images/u60.png" alt />-->
-                      <!--                      <img src="~@/assets/images/u60.png" alt />-->
-                      <!--                      <img src="~@/assets/images/u60.png" alt />-->
-                      <!--                      <img src="~@/assets/images/u60.png" alt />-->
-                      <!--                      <img src="~@/assets/images/u60.png" alt />-->
                     </div>
                     <div class="right">
                       <ul>
@@ -472,20 +396,6 @@
         </div>
       </el-main>
     </div>
-    <!--    <el-dialog title="添加收藏" :visible.sync="dialogFormVisible">-->
-    <!--      <SelectTree-->
-    <!--          :props="props"-->
-    <!--          :options="optionData"-->
-    <!--          :value="valueId"-->
-    <!--          :clearable="isClearable"-->
-    <!--          :accordion="isAccordion"-->
-    <!--          @getValue="getValue($event)"-->
-    <!--      />-->
-    <!--      <div slot="footer" class="dialog-footer">-->
-    <!--        <el-button @click="dialogFormVisible = false">取 消</el-button>-->
-    <!--        <el-button type="primary" @click="collectYes">确 定</el-button>-->
-    <!--      </div>-->
-    <!--    </el-dialog>-->
     <CollDialog
       :switch1="false"
       :type="'collective'"
@@ -846,66 +756,7 @@ export default {
           obj.docUrl.length
         );
         var id = obj.id;
-        //  var frame = $('<iframe style="display: none;" class="multi-download"></iframe>');
-        //  frame.attr('src', url);
-        // $(document.body).append(frame);
-        //  setTimeout(function() {
-        //      frame.remove();
-        //    }, 1000);
         this.down(url, name, id);
-        // var xmlreq = new XMLHttpRequest();
-        // xmlreq.open('get', 'http://192.168.1.42:9999/iallchain/personalCenter/downloadFile?fileId='+id,true)
-        // xmlreq.responseType = 'blob';
-        // xmlreq.setRequestHeader('Content-Type', 'application/json');
-        // xmlreq.setRequestHeader("X-Access-Token", window.localStorage.getItem('token'));
-        // xmlreq.onload = function(req) {
-        //   console.log(req)
-        //   var data = req.target.response;
-        //   var blob = new Blob([data]);
-        //   var a = document.createElement('a');
-        //   a.setAttribute("id",'look'+i);
-        //   console.log(a)
-        //   a = document.getElementById('look'+i)
-        //   var blobUrl = window.URL.createObjectURL(blob);
-        //   //得到后台传到前台的文件名
-        //   // var filename = xmlreq.getResponseHeader("content-disposition");
-        //   // if(filename){
-        //   // a.download = filename.match(/filename="(\S*)"/)[1];
-        //   // }else{
-        //   a.download = name
-        //   // }
-        //
-        //   a.href = blobUrl;
-        //   a.click();
-        //
-        // };
-        // xmlreq.send()
-
-        // downloadFile({
-        //   fileId:this.checkedCities[0]
-        // }).then((res)=>{
-        //   // window.open('http://192.168.1.42:9999/iallchain/personalCenter/downloadFile?fileId='+this.checkedCities[0])
-        //   // var { data } = res
-        //   // const filename ='阿里巴巴Java开发手册终极版v1.3.0.pdf'
-        //   // let blob = new Blob([res.data],{type: "application/pdf"});
-        //   // let a = document.createElement('a');
-        //   // a.download = filename;
-        //   // a.href = URL.createObjectURL(blob);
-        //   // a.click();
-        //   // URL.revokeObjectURL(a.href); // 释放URL 对象
-        //   //  document.body.removeChild(a);//dom元素找不到，报错 this.$message.success("下载成功")
-        //   let blob = new Blob([res.data], {type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document;charset=utf-8'}); //application/vnd.openxmlformats-officedocument.wordprocessingml.document这里表示doc类型
-        //   let downloadElement = document.createElement('a');
-        //   let href = window.URL.createObjectURL(blob); //创建下载的链接
-        //   let filename = '阿里巴巴Java开发手册终极版v1.3.0.pdf'
-        // downloadElement.style.display = 'none';
-        // downloadElement.href = href;
-        // downloadElement.download = '阿里巴巴Java开发手册终极版v1.3.0.doc' //下载后文件名
-        // document.body.appendChild(downloadElement);
-        // downloadElement.click(); //点击下载
-        // document.body.removeChild(downloadElement); //下载完成移除元素
-        // window.URL.revokeObjectURL(href); //释放掉blob对象
-        // })
       } else {
         this.showLogin();
       }
@@ -949,20 +800,6 @@ export default {
             });
           }
         };
-        // xmlreq.onload = function (req) {
-        //   console.log(req)
-        //   var data = req.target.response;
-        //   var blob = new Blob([data]);
-        //   var a = document.createElement('a');
-        //   var blobUrl = window.URL.createObjectURL(blob);
-        //   a.download = name
-        //   that.$message({
-        //     type: 'success',
-        //     message: name + '开始下载'
-        //   })
-        //   a.href = blobUrl;
-        //   a.click();
-        // };
       }
     },
     // 下载文档记录

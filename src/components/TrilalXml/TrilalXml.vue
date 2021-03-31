@@ -32,7 +32,9 @@
                     style="width: 100%"
                     ref="mulu"
                     v-html="cententCatalog"
-                  ></div>
+                  >
+                    <!-- 左侧目录展示 -->
+                  </div>
                 </div>
                 <div
                   class="lContent"
@@ -47,10 +49,23 @@
                 </div>
                 <div
                   class="lContent"
+                  id="fatherimg"
                   v-else-if="kgInformationFile.docType == 'image'"
                   style="text-align: center; max-width: 100%"
                 >
-                  <img :src="kgInformationFile.docUrl" alt="" />
+                  <!-- 图片展示 -->
+                  <img
+                    :src="kgInformationFile.docUrl"
+                    alt=""
+                    style="
+                      position: absolute;
+                      top: 50%;
+                      left: 50%;
+                      transform: translate(-50%, -50%);
+                      max-width: 100%;
+                      max-height: 100%;
+                    "
+                  />
                 </div>
                 <div
                   class="lContent"
@@ -71,14 +86,6 @@
                     kgInformationFile.type == 'pdf'
                   "
                 >
-                  <!--                  <pdf-->
-                  <!--                      style="margin-bottom: 20px"-->
-                  <!--                      :src="src"-->
-                  <!--                      v-for="i in numPages"-->
-                  <!--                      :key="i"-->
-                  <!--                      :page="i"-->
-                  <!--                  >-->
-                  <!--                  </pdf>-->
                   <iframe :src="src" width="100%" height="100%"></iframe>
                 </div>
                 <!--              其他格式展示-->
@@ -423,7 +430,8 @@
               :key="index"
               :label="item.title"
               :value="item.value"
-            ></el-option>
+            >
+            </el-option>
           </el-select>
         </el-form-item>
       </el-form>
@@ -432,20 +440,6 @@
         <el-button type="primary" @click="chooseYes">确 定</el-button>
       </span>
     </el-dialog>
-    <!--    <el-dialog title="添加收藏" :visible.sync="dialogFormVisible2">-->
-    <!--      <SelectTree-->
-    <!--          :props="props"-->
-    <!--          :options="optionData"-->
-    <!--          :value="valueId"-->
-    <!--          :clearable="isClearable"-->
-    <!--          :accordion="isAccordion"-->
-    <!--          @getValue="getValue($event)"-->
-    <!--      />-->
-    <!--      <div slot="footer" class="dialog-footer">-->
-    <!--        <el-button @click="dialogFormVisible2 = false">取 消</el-button>-->
-    <!--        <el-button type="primary" @click="collectYes">确 定</el-button>-->
-    <!--      </div>-->
-    <!--    </el-dialog>-->
     <CollDialog
       :switch1="false"
       :type="'collective'"
@@ -697,11 +691,10 @@ export default {
     if (!window.sessionStorage.getItem("webpack-dev-server")) {
       this.user = false;
     } else {
-      console.log(
-        window.sessionStorage
-          .getItem("webpack-dev-server")
-          .indexOf("system_administrator") != -1
-      );
+      // console.log
+      window.sessionStorage
+        .getItem("webpack-dev-server")
+        .indexOf("system_administrator") != -1;
       this.user =
         window.sessionStorage
           .getItem("webpack-dev-server")
@@ -846,6 +839,7 @@ export default {
     },
     // 文件下载
     upload(obj) {
+      // console.log(window.localStorage.getItem("token"));
       if (window.localStorage.getItem("token")) {
         var url = obj.docUrl;
         var name = obj.docUrl.substring(
@@ -899,20 +893,6 @@ export default {
             });
           }
         };
-        // xmlreq.onload = function (req) {
-        //   console.log(req)
-        //   var data = req.target.response;
-        //   var blob = new Blob([data]);
-        //   var a = document.createElement('a');
-        //   var blobUrl = window.URL.createObjectURL(blob);
-        //   a.download = name
-        //   that.$message({
-        //     type: 'success',
-        //     message: name + '开始下载'
-        //   })
-        //   a.href = blobUrl;
-        //   a.click();
-        // };
       }
     },
     // 下载文档记录
@@ -941,7 +921,7 @@ export default {
           that.src = that.getObjectURL(response.data);
         })
         .catch(function (error) {
-          console.log(error);
+          // console.log(error);
         });
     },
 
@@ -968,14 +948,8 @@ export default {
         cMapUrl: CMAP_URL,
         cMapPacked: true,
       });
-      console.log(this.src);
+      // console.log(this.src);
       this.numPages = 4;
-      // loadingTask.promise.then(pdf => {
-      //   console.log(pdf)
-      //   this.numPages = pdf.numPages
-      // }).catch(err => {
-      //   console.error('pdf 加载失败', err);
-      // })
       return url;
     },
     // 发表评论
@@ -1056,6 +1030,7 @@ export default {
         },
       });
       this.switch = "contents";
+
       var obj = this.kgInformationFile;
       var obj1 = this.kgInformationFiles[index];
       if (obj1.source == "upload") {
@@ -1075,7 +1050,7 @@ export default {
       }).then((res) => {
         var { data } = res;
         if (data.code == 200) {
-          console.log(data);
+          // console.log(data);
           var obj = data.result.kgInformationFile;
           // 获取文件后缀
           obj.type = obj.docUrl.split(".")[obj.docUrl.split(".").length - 1];
@@ -1093,18 +1068,9 @@ export default {
             obj.come = "微信";
           }
           this.kgInformationFile = obj;
+          console.log(obj.contents);
           this.contents = obj.contents;
-          // if(obj.cententCatalog!=null&&obj.cententCatalog!=''&&obj.cententCatalog!=undefined&&obj.cententCatalog!='undefined') {
-          //   console.log(obj.cententCatalog)
-          //   var str = obj.cententCatalog
-          //   var hrefIndex = 0 //href的值出现的位置
-          //   for(var i = 0 ;i< str.length;i++) {
-          //     if(str[i]=='h'&&str[i+1]=='r'&&str[i+2]=='e') {
-          //       hrefIndex=i+6
-          //
-          //     }
-          //   }
-          // }
+          console.log(obj.contents);
           this.cententCatalog = obj.cententCatalog;
           var obj1 = data.result.kgInformationFiles;
           for (var i = 0; i < obj1.length; i++) {
@@ -1129,6 +1095,7 @@ export default {
     //   点击记笔记跳转到详情页
     goBook() {
       if (window.localStorage.getItem("token")) {
+        // console.log(this.kgInformationFile);
         if (this.kgInformationFile.source == "upload") {
           this.kgInformationFile.source = "html";
         }

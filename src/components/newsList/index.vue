@@ -3,7 +3,6 @@
   <div class="page">
     <!--    <Headers />-->
     <div class="containerr">
-
       <div class="container">
         <header>
           <span>航天新闻</span>
@@ -16,38 +15,66 @@
         </header>
         <div class="news_content" v-if="isDetail">
           <div>
-            <el-input style="width: 200px" v-model="input" placeholder="请输入检索关键字"></el-input>
-            <el-button style="margin-left: 10px;" type="primary" icon="el-icon-search" @click="search">搜索</el-button>
-            <el-button type="primary" icon="el-icon-refresh-right" @click="refrech">重置</el-button>
+            <el-input
+              style="width: 200px"
+              v-model="input"
+              placeholder="请输入检索关键字"
+            ></el-input>
+            <el-button
+              style="margin-left: 10px"
+              type="primary"
+              icon="el-icon-search"
+              @click="search"
+              >搜索</el-button
+            >
+            <el-button
+              type="primary"
+              icon="el-icon-refresh-right"
+              @click="refrech"
+              >重置</el-button
+            >
           </div>
           <div class="news_main">
-            <div class="newsItem" @click="detail(item)" v-for="(item,index) in newsList" :key="index">
-              <img :src="item.cover" alt="">
+            <div
+              class="newsItem"
+              @click="detail(item)"
+              v-for="(item, index) in newsList"
+              :key="index"
+            >
+              <img :src="item.cover" alt="" />
               <div>
-                <p>{{item.title}}</p>
-                <p style="height: 40px">{{item.digest}}</p>
+                <p>{{ item.title }}</p>
+                <p style="height: 40px">{{ item.digest }}</p>
                 <p>
-                  <span>发布时间：</span><span style="margin-right: 10px">{{item.createTime}}</span>
-                  <span>发布人：</span><span>{{item.author}}</span>
+                  <span>发布时间：</span
+                  ><span style="margin-right: 10px">{{ item.createTime }}</span>
+                  <span>发布人：</span><span>{{ item.author }}</span>
                 </p>
               </div>
             </div>
           </div>
           <div class="block">
             <el-pagination
-                @size-change="handleSizeChange"
-                @current-change="handleCurrentChange"
-                :current-page="pageNo"
-                :page-size="pageSize"
-                layout="total, prev, pager, next, jumper"
-                :total="fullpage.total">
+              @size-change="handleSizeChange"
+              @current-change="handleCurrentChange"
+              :current-page="pageNo"
+              :page-size="pageSize"
+              layout="total, prev, pager, next, jumper"
+              :total="fullpage.total"
+            >
             </el-pagination>
           </div>
         </div>
         <div class="news_content" v-if="!isDetail">
           <div class="message_Hbox">
-            <span class="title">{{newsObj.title}}</span>
-            <span class="date"><span style="margin-right: 30px;color: #999">发表时间：{{newsObj.createTime}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#999">作者：{{newsObj.author}}</span></span>
+            <span class="title">{{ newsObj.title }}</span>
+            <span class="date"
+              ><span style="margin-right: 30px; color: #999"
+                >发表时间：{{ newsObj.createTime }}</span
+              >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #999"
+                >作者：{{ newsObj.author }}</span
+              ></span
+            >
           </div>
           <div class="message_content">
             <span class="content" v-html="newsObj.content"></span>
@@ -55,101 +82,99 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
-import {GetNewsList } from "../../api/api";
+import { GetNewsList } from "../../api/api";
 export default {
-  components:{
-  },
+  components: {},
   data() {
     return {
-      input:'',
-      isDetail:true,
-      newsList:[],
-      newsObj:{},
-      pageNo:1,
-      pageSize:10,
-      fullpage:{},
-      type:'',
-      input1:'',
-      id:''
+      input: "",
+      isDetail: true,
+      newsList: [],
+      newsObj: {},
+      pageNo: 1,
+      pageSize: 10,
+      fullpage: {},
+      type: "",
+      input1: "",
+      id: "",
     };
   },
   //生命周期 - 创建完成（访问当前this实例）
-  created() {
-  },
+  created() {},
   //生命周期 - 挂载完成（访问DOM元素）
   mounted() {
-    if(this.$route.query.id) {
-      this.isDetail  = false
-      this.id = this.$route.query.id
+    if (this.$route.query.id) {
+      this.isDetail = false;
+      this.id = this.$route.query.id;
     }
-    this.getNewList()
+    this.getNewList();
   },
-  methods:{
+  methods: {
     // 重置
     refrech() {
-      this.input = ''
-      this.input1 = ''
-      this.type = ''
-      this.getNewList()
+      this.input = "";
+      this.input1 = "";
+      this.type = "";
+      this.getNewList();
     },
     // 搜索
     search() {
-      var input = this.input.trim()
-      if (input == '') {
+      var input = this.input.trim();
+      if (input == "") {
         // this.$message.info('请输入关键字在进行检索！')
-        this.getNewList()
-      }else {
-        this.input1 = "*"+this.input+"*"
-        this.type = 'search'
-        this.getNewList()
+        this.getNewList();
+      } else {
+        this.input1 = "*" + this.input + "*";
+        this.type = "search";
+        this.getNewList();
       }
     },
     handleSizeChange(val) {
-      this.pageSize = val
-      this.getNewList()
+      this.pageSize = val;
+      this.getNewList();
     },
     handleCurrentChange(val) {
-      this.pageNo = val
-      this.getNewList()
+      this.pageNo = val;
+      this.getNewList();
     },
     // 获取新闻列表
     getNewList() {
       GetNewsList({
-        pageNo:this.pageNo,
-        pageSize:this.pageSize,
-        title:this.input1,
-        type:this.type
-      }).then((res)=>{
-        var { data } = res
-        if(data.code == 200) {
-          this.newsList = data.result.records
-          this.fullpage = data.result
-          if(!this.isDetail) {
-            for(var i = 0;i<this.newsList.length;i++) {
-              if(this.id == this.newsList[i].id) {
-                this.newsObj = this.newsList[i]
+        pageNo: this.pageNo,
+        pageSize: this.pageSize,
+        title: this.input1,
+        type: this.type,
+      }).then((res) => {
+        var { data } = res;
+        if (data.code == 200) {
+          this.newsList = data.result.records;
+          this.fullpage = data.result;
+          if (!this.isDetail) {
+            for (var i = 0; i < this.newsList.length; i++) {
+              if (this.id == this.newsList[i].id) {
+                this.newsObj = this.newsList[i];
+                console.log(this.newsObj.content);
               }
             }
           }
         }
-      })
+      });
     },
     detail(item) {
-      this.isDetail = !this.isDetail
-      this.newsObj = item
+      this.isDetail = !this.isDetail;
+      this.newsObj = item;
     },
     goBack() {
-      this.isDetail = !this.isDetail
-    }
+      this.isDetail = !this.isDetail;
+    },
   },
   beforeDestroy() {
-    this.isDetail = true
-  }
+    this.isDetail = true;
+  },
 };
 </script>
 <style scoped>
@@ -160,7 +185,7 @@ div {
 .page {
   box-sizing: border-box;
   font-family: "微软雅黑 Bold", "微软雅黑 Regular", "微软雅黑", sans-serif;
-  background: rgb(52,87,145);
+  background: rgb(52, 87, 145);
 }
 .containerr {
   padding: 20px 30px;
@@ -208,7 +233,7 @@ header .btns {
   padding: 20px 30px;
   background: #fff;
 }
-.news_content{
+.news_content {
   margin-top: 20px;
 }
 .newsItem {
@@ -218,7 +243,7 @@ header .btns {
   border-bottom: 1px solid #ccc;
 }
 .newsItem img {
-  width:150px;
+  width: 150px;
   height: 100px;
   display: block;
 }
@@ -228,7 +253,7 @@ header .btns {
   height: 100%;
   height: 100px;
 }
-.newsItem >div p:first-child {
+.newsItem > div p:first-child {
   margin-top: 5px;
   font-weight: 700;
   font-style: normal;
@@ -238,7 +263,7 @@ header .btns {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.newsItem >div p:nth-child(2) {
+.newsItem > div p:nth-child(2) {
   margin-top: 10px;
   font-style: normal;
   font-size: 14px;
@@ -273,7 +298,7 @@ p {
   color: #333;
 }
 .message_content {
-  min-height: 500px
+  min-height: 500px;
 }
 .message_content .title {
   margin-top: 10px;
@@ -296,7 +321,13 @@ p {
 .block {
   text-align: right;
 }
-.autor{
+.autor {
   font-size: 14px;
+}
+/deep/video {
+  display: block;
+  max-width: 80% !important;
+  min-width: 1100px !important;
+  margin: 0 auto;
 }
 </style>
