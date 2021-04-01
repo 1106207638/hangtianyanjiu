@@ -39,7 +39,6 @@ const NewsList = resolve => require(['@/components/newsList/index'], resolve) //
 const FeedBack = resolve => require(['@/components/feedBack/index'], resolve) // 需求反馈列表页面
 const Nav = resolve => require(['@/components/nav/nav'], resolve) // 导航页面（方便验收）
 const Translate = resolve => require(['@/components/Translate/index'], resolve) // 翻译页面（翻译）
-const Ceshi = resolve => require(['@/components/ceshi'], resolve)
 
 Vue.use(Router)
 
@@ -172,10 +171,6 @@ export default new Router({
       path: '/FeedBack',
       name: 'FeedBack',
       component: FeedBack
-    }, {
-      path: '/Ceshi',
-      name: 'Ceshi',
-      component: Ceshi
     }
   ]
 })
