@@ -290,6 +290,12 @@
                           >
                             下载
                           </li>
+                          <li
+                            v-else-if="(item.source = 'wechat')"
+                            @click="prompt"
+                          >
+                            下载
+                          </li>
                         </ul>
                       </div>
                     </div>
@@ -496,6 +502,9 @@ export default {
     $route: "getParams",
   },
   methods: {
+    prompt() {
+      this.$message.error("文件来源自微信，暂时不支持下载");
+    },
     // 获取高级搜索的条件
     getconditionSearch() {
       conditionSearch().then((res) => {

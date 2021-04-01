@@ -316,6 +316,9 @@
                     <span v-if="item.source != 'wechat'" @click="upload(item)"
                       >下载</span
                     >
+                    <span v-else-if="item.source === 'wechat'" @click="prompt()"
+                      >下载</span
+                    >
                   </div>
                 </div>
               </li>
@@ -608,7 +611,9 @@ export default {
     this.getdepartment();
   },
   methods: {
-    // 文件下载
+    prompt() {
+      this.$message.error("文件来源自微信，暂时不支持下载");
+    }, // 文件下载
     upload(obj) {
       if (window.localStorage.getItem("token")) {
         var url = obj.docUrl;

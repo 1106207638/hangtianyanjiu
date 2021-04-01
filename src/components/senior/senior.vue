@@ -380,6 +380,12 @@
                         >
                           下载
                         </li>
+                        <li
+                          v-else-if="(item.source = 'wechat')"
+                          @click="pormpt"
+                        >
+                          下载
+                        </li>
                       </ul>
                     </div>
                   </div>
@@ -701,6 +707,9 @@ export default {
     this.getconditionSearch();
   },
   methods: {
+    pormpt() {
+      this.$message.error("文件来源自微信，暂时不支持下载");
+    },
     // 左侧分类点击事件
     toggleCate(index, str) {
       if (index == 0) {
