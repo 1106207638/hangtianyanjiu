@@ -5,68 +5,74 @@
       <!-- 搜索区域 -->
       <div class="search">
         <div class="input-box">
-<!--          <div id="DBFieldBox" class="sort reopt">-->
-<!--            <div class="sort-default" @click="toggleTypeShow">-->
-<!--              <span>{{ tagList[typeIndex].name }}</span>-->
-<!--              <i class="sort-icon">▼</i>-->
-<!--            </div>-->
-<!--            <div id="DBFieldList" class="sort-list" v-show="isType">-->
-<!--              <ul>-->
-<!--                <li-->
-<!--                    v-for="(item, index) in tagList"-->
-<!--                    :key="index"-->
-<!--                    @click="toggleType(index)"-->
-<!--                    :class="typeIndex == index ? 'active cur' : 'cur'"-->
-<!--                >-->
-<!--                  {{ item.name }}-->
-<!--                </li>-->
-<!--              </ul>-->
-<!--            </div>-->
-<!--          </div>-->
+          <!--          <div id="DBFieldBox" class="sort reopt">-->
+          <!--            <div class="sort-default" @click="toggleTypeShow">-->
+          <!--              <span>{{ tagList[typeIndex].name }}</span>-->
+          <!--              <i class="sort-icon">▼</i>-->
+          <!--            </div>-->
+          <!--            <div id="DBFieldList" class="sort-list" v-show="isType">-->
+          <!--              <ul>-->
+          <!--                <li-->
+          <!--                    v-for="(item, index) in tagList"-->
+          <!--                    :key="index"-->
+          <!--                    @click="toggleType(index)"-->
+          <!--                    :class="typeIndex == index ? 'active cur' : 'cur'"-->
+          <!--                >-->
+          <!--                  {{ item.name }}-->
+          <!--                </li>-->
+          <!--              </ul>-->
+          <!--            </div>-->
+          <!--          </div>-->
           <el-select v-model="select" placeholder="请选择">
             <el-option
-                v-for="item in tagList"
-                :key="item.value"
-                :label="item.name"
-                :value="item.value">
+              v-for="item in tagList"
+              :key="item.value"
+              :label="item.name"
+              :value="item.value"
+            >
             </el-option>
           </el-select>
           <input
-              id="txt_SearchText"
-              name="txt_SearchText"
-              type="text"
-              autocomplete="off"
-              placeholder="中文文献、外文文献"
-              @keyup.enter="search"
-              value
-              v-model="searchVal"
-              maxlength="100"
-              class="search-input"
-              style="color: rgb(125, 125, 125)"
+            id="txt_SearchText"
+            name="txt_SearchText"
+            type="text"
+            autocomplete="off"
+            placeholder="中文文献、外文文献"
+            @keyup.enter="search"
+            value
+            v-model="searchVal"
+            maxlength="100"
+            class="search-input"
+            style="color: rgb(125, 125, 125)"
           />
         </div>
         <div class="btns">
-          <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
-          <el-button type="primary" icon="el-icon-tickets" @click="resultSearch">在结果中搜索</el-button>
-          <el-button type="primary" icon="el-icon-s-operation" @click="goSenior">高级搜索</el-button>
-
+          <el-button type="primary" icon="el-icon-search" @click="search"
+            >搜索</el-button
+          >
+          <el-button type="primary" icon="el-icon-tickets" @click="resultSearch"
+            >在结果中搜索</el-button
+          >
+          <el-button type="primary" icon="el-icon-s-operation" @click="goSenior"
+            >高级搜索</el-button
+          >
         </div>
       </div>
-<!--      <div class="radio">-->
-<!--        <el-radio-->
-<!--            v-for="(item, index) in tagList"-->
-<!--            :key="index"-->
-<!--            v-model="radio.QueryfieId"-->
-<!--            :label="item.value"-->
-<!--        >{{ item.name }}-->
-<!--        </el-radio-->
-<!--        >-->
-<!--        |-->
-<!--        <el-radio v-model="radio.Queryrules" label="1">精确搜索</el-radio>-->
-<!--        <el-radio v-model="radio.Queryrules" label="2">模糊搜索</el-radio>-->
-<!--      </div>-->
+      <!--      <div class="radio">-->
+      <!--        <el-radio-->
+      <!--            v-for="(item, index) in tagList"-->
+      <!--            :key="index"-->
+      <!--            v-model="radio.QueryfieId"-->
+      <!--            :label="item.value"-->
+      <!--        >{{ item.name }}-->
+      <!--        </el-radio-->
+      <!--        >-->
+      <!--        |-->
+      <!--        <el-radio v-model="radio.Queryrules" label="1">精确搜索</el-radio>-->
+      <!--        <el-radio v-model="radio.Queryrules" label="2">模糊搜索</el-radio>-->
+      <!--      </div>-->
       <!-- 搜索条件 -->
-<!--      <div class="search_if">搜索条件</div>-->
+      <!--      <div class="search_if">搜索条件</div>-->
     </div>
     <div class="banner">
       <div class="content">
@@ -74,135 +80,144 @@
         <el-aside width="202px">
           <div class="banner-left">
             <!-- 每一个大分类 -->
-            <div class="headLine" v-for="(item, index) in conditionSearchList" :key="index">
+            <div
+              class="headLine"
+              v-for="(item, index) in conditionSearchList"
+              :key="index"
+            >
               <div @click="close(index)" class="box">
-                <div v-if="index==0">
-                  <span >国别</span>
+                <div v-if="index == 0">
+                  <span>国别</span>
                   <i class="el-icon-arrow-down" v-show="!class0"></i>
                   <i class="el-icon-arrow-up" v-show="class0"></i>
                 </div>
-                <div v-if="index==1">
-                  <span >分类</span>
+                <div v-if="index == 1">
+                  <span>分类</span>
                   <i class="el-icon-arrow-down" v-show="!class1"></i>
                   <i class="el-icon-arrow-up" v-show="class1"></i>
                 </div>
-                <div v-if="index==2">
-                  <span >年代</span>
+                <div v-if="index == 2">
+                  <span>年代</span>
                   <i class="el-icon-arrow-down" v-show="!class2"></i>
                   <i class="el-icon-arrow-up" v-show="class2"></i>
                 </div>
-
               </div>
-              <div v-if="index==0" v-show="class0" :class="index==activeHover?'box-visi isshow':'box-visi'">
+              <div
+                v-if="index == 0"
+                v-show="class0"
+                :class="index == activeHover ? 'box-visi isshow' : 'box-visi'"
+              >
                 <ul
-                    @mousemove="itemMousemove(index)"
-                    @mouseover="itemMouseover(index)"
-                    @mouseout="itemMouseout(index)"
-                    :class="index==activeHover?'isshow':''"
+                  @mousemove="itemMousemove(index)"
+                  @mouseover="itemMouseover(index)"
+                  @mouseout="itemMouseout(index)"
+                  :class="index == activeHover ? 'isshow' : ''"
                 >
-
                   <li
-                      v-for="(item1, index1) in item"
-                      :key="index1"
-                      :class="item1.itemValue == nationality ? 'active' : ''"
-                      @click="toggleCate(0,item1.itemValue)"
+                    v-for="(item1, index1) in item"
+                    :key="index1"
+                    :class="item1.itemValue == nationality ? 'active' : ''"
+                    @click="toggleCate(0, item1.itemValue)"
                   >
                     {{ item1.itemText }}
                   </li>
                 </ul>
               </div>
-              <div v-if="index==1" v-show="class1" :class="index==activeHover?'box-visi isshow':'box-visi'">
+              <div
+                v-if="index == 1"
+                v-show="class1"
+                :class="index == activeHover ? 'box-visi isshow' : 'box-visi'"
+              >
                 <ul
-                    @mousemove="itemMousemove(index)"
-                    @mouseover="itemMouseover(index)"
-                    @mouseout="itemMouseout(index)"
-                    :class="index==activeHover?'isshow':''"
+                  @mousemove="itemMousemove(index)"
+                  @mouseover="itemMouseover(index)"
+                  @mouseout="itemMouseout(index)"
+                  :class="index == activeHover ? 'isshow' : ''"
                 >
-
                   <li
-                      v-for="(item1, index1) in item"
-                      :key="index1"
-                      :class="item1.itemValue == infoType ? 'active' : ''"
-                      @click="toggleCate(1,item1.itemValue)"
+                    v-for="(item1, index1) in item"
+                    :key="index1"
+                    :class="item1.itemValue == infoType ? 'active' : ''"
+                    @click="toggleCate(1, item1.itemValue)"
                   >
                     {{ item1.itemText }}
                   </li>
                 </ul>
               </div>
-              <div v-if="index==2" v-show="class2" :class="index==activeHover?'box-visi isshow':'box-visi'">
+              <div
+                v-if="index == 2"
+                v-show="class2"
+                :class="index == activeHover ? 'box-visi isshow' : 'box-visi'"
+              >
                 <ul
-                    @mousemove="itemMousemove(index)"
-                    @mouseover="itemMouseover(index)"
-                    @mouseout="itemMouseout(index)"
-                    :class="index==activeHover?'isshow':''"
+                  @mousemove="itemMousemove(index)"
+                  @mouseover="itemMouseover(index)"
+                  @mouseout="itemMouseout(index)"
+                  :class="index == activeHover ? 'isshow' : ''"
                 >
-
                   <li
-                      v-for="(item1, index1) in item"
-                      :key="index1"
-                      :class="item1.itemValue == publishYear ? 'active' : ''"
-                      @click="toggleCate(2,item1.itemValue)"
+                    v-for="(item1, index1) in item"
+                    :key="index1"
+                    :class="item1.itemValue == publishYear ? 'active' : ''"
+                    @click="toggleCate(2, item1.itemValue)"
                   >
                     {{ item1.itemText }}
                   </li>
                 </ul>
               </div>
-<!--                  <li-->
-<!--                      v-if="index==1"-->
-<!--                      :class="'' == infoType ? 'active' : ''"-->
-<!--                      @click="toggleCate(1,'')"-->
-<!--                  >全部</li>-->
-<!--                  <li-->
-<!--                      v-if="index==1"-->
-<!--                      v-for="(item1, index1) in item"-->
-<!--                      :key="index1"-->
-<!--                      :class="item1.itemValue == infoType ? 'active' : ''"-->
-<!--                      @click="toggleCate(1,item1.itemValue)"-->
-<!--                  >-->
-<!--                    {{ item1.itemText }}-->
-<!--                  </li>-->
-<!--                  <li-->
-<!--                      v-if="index==2"-->
-<!--                      :class="'' == publishYear ? 'active' : ''"-->
-<!--                      @click="toggleCate(2,'')"-->
-<!--                  >全部</li>-->
-<!--                  <li-->
-<!--                      v-if="index==2"-->
-<!--                      v-for="(item1, index1) in item"-->
-<!--                      :key="index1"-->
-<!--                      :class="item1.itemValue == publishYear ? 'active' : ''"-->
-<!--                      @click="toggleCate(2,item1.itemValue)"-->
-<!--                  >-->
-<!--                    {{ item1.itemText }}-->
-<!--                  </li>-->
-<!--                </ul>-->
-<!--              </div>-->
-
+              <!--                  <li-->
+              <!--                      v-if="index==1"-->
+              <!--                      :class="'' == infoType ? 'active' : ''"-->
+              <!--                      @click="toggleCate(1,'')"-->
+              <!--                  >全部</li>-->
+              <!--                  <li-->
+              <!--                      v-if="index==1"-->
+              <!--                      v-for="(item1, index1) in item"-->
+              <!--                      :key="index1"-->
+              <!--                      :class="item1.itemValue == infoType ? 'active' : ''"-->
+              <!--                      @click="toggleCate(1,item1.itemValue)"-->
+              <!--                  >-->
+              <!--                    {{ item1.itemText }}-->
+              <!--                  </li>-->
+              <!--                  <li-->
+              <!--                      v-if="index==2"-->
+              <!--                      :class="'' == publishYear ? 'active' : ''"-->
+              <!--                      @click="toggleCate(2,'')"-->
+              <!--                  >全部</li>-->
+              <!--                  <li-->
+              <!--                      v-if="index==2"-->
+              <!--                      v-for="(item1, index1) in item"-->
+              <!--                      :key="index1"-->
+              <!--                      :class="item1.itemValue == publishYear ? 'active' : ''"-->
+              <!--                      @click="toggleCate(2,item1.itemValue)"-->
+              <!--                  >-->
+              <!--                    {{ item1.itemText }}-->
+              <!--                  </li>-->
+              <!--                </ul>-->
+              <!--              </div>-->
             </div>
           </div>
         </el-aside>
-
 
         <!-- 右侧表格 -->
         <el-main>
           <div class="banner-right">
             <el-card
-                class="box-card"
-                style="min-height: calc(100%-250px)"
-                element-loading-text="拼命加载中"
-                element-loading-spinner="el-icon-loading"
-                element-loading-background="rgba(0, 0, 0, 0.6)"
+              class="box-card"
+              style="min-height: calc(100%-250px)"
+              element-loading-text="拼命加载中"
+              element-loading-spinner="el-icon-loading"
+              element-loading-background="rgba(0, 0, 0, 0.6)"
             >
               <div class="head-box">
                 <!-- 头部操作栏 -->
                 <div class="toolTip">
                   <el-checkbox
-                      :indeterminate="isIndeterminate"
-                      v-model="checkAll"
-                      @change="handleCheckAllChange"
-                  >全选
-                  </el-checkbox
-                  >
+                    :indeterminate="isIndeterminate"
+                    v-model="checkAll"
+                    @change="handleCheckAllChange"
+                    >全选
+                  </el-checkbox>
                   <ul>
                     <li @click="grade">
                       星级排序
@@ -219,24 +234,24 @@
                 <!-- 分类蓝 -->
                 <div class="title-box">
                   <span class="title" style="margin-right: 20px">{{
-                      searchVal
-                    }}</span>
+                    searchVal
+                  }}</span>
                   <span class="title" style="margin-right: 20px"
-                  >共{{ recordsList.total }}篇</span
+                    >共{{ recordsList.total }}篇</span
                   >
                 </div>
               </div>
               <!-- 内容区域 -->
               <div class="right_content">
                 <div
-                    class="bookList"
-                    v-for="(item, index) in recordsList.records"
-                    :key="index"
+                  class="bookList"
+                  v-for="(item, index) in recordsList.records"
+                  :key="index"
                 >
                   <div>
                     <el-checkbox-group
-                        v-model="checkedCities"
-                        @change="handleCheckedCitiesChange"
+                      v-model="checkedCities"
+                      @change="handleCheckedCitiesChange"
                     >
                       <el-checkbox :label="item.id"></el-checkbox>
                     </el-checkbox-group>
@@ -251,29 +266,30 @@
                     <div class="bContent">{{ item.summary }}</div>
                     <!-- 分类 -->
                     <div class="class">
-                      <div class="class_item">{{item.infoType}}</div>
+                      <div class="class_item">{{ item.infoType }}</div>
                     </div>
                     <div class="bBottom">
                       <div class="left">
                         <span>星级：</span>
                         <el-rate
-                            v-if="item.star"
-                            v-model="item.star"
-                            disabled
-                            text-color="#ff9900"
-                            score-template="{value}"
+                          v-if="item.star"
+                          v-model="item.star"
+                          disabled
+                          text-color="#ff9900"
+                          score-template="{value}"
                         >
                         </el-rate>
                         <span v-else>无星级</span>
                       </div>
                       <div class="right">
                         <ul>
+                          <li @click="collect(item, index)">收藏</li>
                           <li
-                              @click="collect(item, index)"
+                            v-if="item.source != 'wechat'"
+                            @click="upload(item)"
                           >
-                            收藏
+                            下载
                           </li>
-                          <li @click="upload(item)">下载</li>
                         </ul>
                       </div>
                     </div>
@@ -282,13 +298,13 @@
               </div>
               <div class="fullPage">
                 <el-pagination
-                    @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange"
-                    :current-page="currentPage"
-                    :page-sizes="[10, 20, 30, 50]"
-                    :page-size="10"
-                    layout="total, prev, pager, next, jumper"
-                    :total="recordsList.total"
+                  @size-change="handleSizeChange"
+                  @current-change="handleCurrentChange"
+                  :current-page="currentPage"
+                  :page-sizes="[10, 20, 30, 50]"
+                  :page-size="10"
+                  layout="total, prev, pager, next, jumper"
+                  :total="recordsList.total"
                 ></el-pagination>
               </div>
             </el-card>
@@ -297,40 +313,49 @@
       </div>
     </div>
     <CollDialog
-        :switch1="false"
-        :type="'collective'"
-        :id="collid"
-        :title="''"
-        :name="''"
-        :dialogFormVisible="dialogFormVisible"
-        @cancel="ccancel"
-        @yesCancel="cyesCancel"
+      :switch1="false"
+      :type="'collective'"
+      :id="collid"
+      :title="''"
+      :name="''"
+      :dialogFormVisible="dialogFormVisible"
+      @cancel="ccancel"
+      @yesCancel="cyesCancel"
     />
-    <Login :dialogFormVisible="dialog" @cancel="cancel" @yesCancel="LoginReload"/>
+    <Login
+      :dialogFormVisible="dialog"
+      @cancel="cancel"
+      @yesCancel="LoginReload"
+    />
   </div>
 </template>
 
 <script>
-import {weChatList, Title, Collection, downloadRecord, conditionSearch} from "../../api/apis";
+import {
+  weChatList,
+  Title,
+  Collection,
+  downloadRecord,
+  conditionSearch,
+} from "../../api/apis";
 import SelectTree from "../../common/dialog/select";
-import Login from "../../common/Login/index"
+import Login from "../../common/Login/index";
 import CollDialog from "../../common/dialog/collectionFolder";
-
 
 export default {
   components: {
     SelectTree,
     Login,
-    CollDialog
+    CollDialog,
   },
   data() {
     return {
-      class0:true,
-      class1:false,
-      class2:false,
+      class0: true,
+      class1: false,
+      class2: false,
       // 左侧的数据
-      conditionSearchList:[],
-      activeHover:'none',
+      conditionSearchList: [],
+      activeHover: "none",
       dialog: false,
       // loading效果
       loading: false,
@@ -353,7 +378,7 @@ export default {
       // 排序
       isSort: true,
       // 等级
-      isGrade:true,
+      isGrade: true,
       // 当前的页码
       currentPage: 1,
       // 内容区域
@@ -372,9 +397,9 @@ export default {
       multipleSelection: [],
       // 当前选中的数据的集合
       checkedGameId: [],
-      nationality:'',  //国
-      publishYear:'', //发布年份
-      infoType:'',   //情报分类
+      nationality: "", //国
+      publishYear: "", //发布年份
+      infoType: "", //情报分类
       // 分类列表
       typeList: [
         {
@@ -448,10 +473,10 @@ export default {
       // 选项列表（必选）
       treeList: [],
       // 默认的选项
-      select:'title',
-      select1:'',
-      select2:'',
-      collid:''
+      select: "title",
+      select1: "",
+      select2: "",
+      collid: "",
     };
   },
   //生命周期 - 创建完成（访问当前this实例）
@@ -460,15 +485,12 @@ export default {
     this.getParams();
     // this.getUserFloderList()
   },
-  computed: {
-
-
-  },
+  computed: {},
   //生命周期 - 挂载完成（访问DOM元素）
   mounted() {
     // 获取所有的标签
     this.getTab();
-    this.getconditionSearch()
+    this.getconditionSearch();
   },
   watch: {
     $route: "getParams",
@@ -476,45 +498,48 @@ export default {
   methods: {
     // 获取高级搜索的条件
     getconditionSearch() {
-      conditionSearch().then((res)=>{
-        var { data } = res
-        if(data.code == 200) {
-          var datas = data.result
-          console.log(datas)
-          for(var i = 0;i< datas.length;i++) {
+      conditionSearch().then((res) => {
+        var { data } = res;
+        if (data.code == 200) {
+          var datas = data.result;
+          console.log(datas);
+          for (var i = 0; i < datas.length; i++) {
             var obj = {
               itemText: "全部",
-              itemValue: ""
-            }
-            datas[i].unshift(obj)
+              itemValue: "",
+            };
+            datas[i].unshift(obj);
           }
-          this.conditionSearchList = datas
+          this.conditionSearchList = datas;
         }
-      })
+      });
     },
     itemMouseover: function (id) {
-      this.activeHover = 'none'
+      this.activeHover = "none";
     },
 
     itemMouseout: function (id) {
-      this.activeHover = 'none'
+      this.activeHover = "none";
     },
     itemMousemove: function (id) {
-      this.activeHover = id
+      this.activeHover = id;
     },
     // 文件下载
     upload(obj) {
-      if(window.localStorage.getItem('token')) {
-        var url = obj.docUrl
-        var name = obj.docUrl.substring(obj.docUrl.lastIndexOf('/')+1,obj.docUrl.length)
-        var id = obj.id
+      if (window.localStorage.getItem("token")) {
+        var url = obj.docUrl;
+        var name = obj.docUrl.substring(
+          obj.docUrl.lastIndexOf("/") + 1,
+          obj.docUrl.length
+        );
+        var id = obj.id;
         //  var frame = $('<iframe style="display: none;" class="multi-download"></iframe>');
         //  frame.attr('src', url);
         // $(document.body).append(frame);
         //  setTimeout(function() {
         //      frame.remove();
         //    }, 1000);
-        this.down(url, name,id)
+        this.down(url, name, id);
         // var xmlreq = new XMLHttpRequest();
         // xmlreq.open('get', 'http://192.168.1.42:9999/iallchain/personalCenter/downloadFile?fileId='+id,true)
         // xmlreq.responseType = 'blob';
@@ -568,23 +593,24 @@ export default {
         // document.body.removeChild(downloadElement); //下载完成移除元素
         // window.URL.revokeObjectURL(href); //释放掉blob对象
         // })
-
-      }else {
-        this.showLogin()
+      } else {
+        this.showLogin();
       }
-
     },
-    down(url, name,id) {
-      var that = this
-      if (url.indexOf('rar') != -1) {
-        window.open(url)
+    down(url, name, id) {
+      var that = this;
+      if (url.indexOf("rar") != -1) {
+        window.open(url);
       } else {
         var xmlreq = new XMLHttpRequest();
-        xmlreq.open('get', url, true)
-        xmlreq.responseType = 'blob';
-        xmlreq.setRequestHeader('Content-Type', 'application/json');
-        xmlreq.setRequestHeader("X-Access-Token", window.localStorage.getItem('token'));
-        xmlreq.send()
+        xmlreq.open("get", url, true);
+        xmlreq.responseType = "blob";
+        xmlreq.setRequestHeader("Content-Type", "application/json");
+        xmlreq.setRequestHeader(
+          "X-Access-Token",
+          window.localStorage.getItem("token")
+        );
+        xmlreq.send();
 
         xmlreq.onreadystatechange = function () {
           // 为了保证 数据 完整返回，我们一般会判断 两个值
@@ -592,24 +618,24 @@ export default {
             xmlreq.onload = function () {
               var data = xmlreq.response;
               var blob = new Blob([data]);
-              var a = document.createElement('a');
+              var a = document.createElement("a");
               var blobUrl = window.URL.createObjectURL(blob);
-              a.download = name
+              a.download = name;
               that.$message({
-                type: 'success',
-                message: name + '开始下载'
-              })
+                type: "success",
+                message: name + "开始下载",
+              });
               a.href = blobUrl;
               a.click();
-              that.adddownloadRecord(id)
+              that.adddownloadRecord(id);
             };
-          }else if(xmlreq.status != 200) {
+          } else if (xmlreq.status != 200) {
             that.$message({
-              type: 'success',
-              message: name + '下载失败'
-            })
+              type: "success",
+              message: name + "下载失败",
+            });
           }
-        }
+        };
         // xmlreq.onload = function (req) {
         //   console.log(req)
         //   var data = req.target.response;
@@ -625,20 +651,18 @@ export default {
         //   a.click();
         // };
       }
-
     },
     // 下载文档记录
     adddownloadRecord(id) {
       downloadRecord({
-        id:id
-      }).then((res)=>{
-        var { data } = res
-        if(data.code == 200) {
-
+        id: id,
+      }).then((res) => {
+        var { data } = res;
+        if (data.code == 200) {
         }
-      })
+      });
     },
-    ccancel(){
+    ccancel() {
       this.dialogFormVisible = false;
     },
     cyesCancel() {
@@ -646,24 +670,26 @@ export default {
     },
     // 登录完成后的操作
     LoginReload() {
-      this.dialog = false
+      this.dialog = false;
     },
     cancel(val) {
-      this.dialog = false
-      this.feedBack = false
+      this.dialog = false;
+      this.feedBack = false;
     },
 
     // 收藏
     collect(obj, index) {
-      if (window.localStorage.getItem('token') != '' && window.localStorage.getItem('token') != null) {
-        this.dialogFormVisible = true
-        this.id = obj.id
-        this.collid = obj.id
+      if (
+        window.localStorage.getItem("token") != "" &&
+        window.localStorage.getItem("token") != null
+      ) {
+        this.dialogFormVisible = true;
+        this.id = obj.id;
+        this.collid = obj.id;
       } else {
-        this.$message.info('请登录后再试')
-        this.dialog = true
+        this.$message.info("请登录后再试");
+        this.dialog = true;
       }
-
     },
     // 全选和取消全选
     handleCheckAllChange(val) {
@@ -675,7 +701,7 @@ export default {
       let checkedCount = value.length;
       this.checkAll = checkedCount === this.checkedGameId.length;
       this.isIndeterminate =
-          checkedCount > 0 && checkedCount < this.checkedGameId.length;
+        checkedCount > 0 && checkedCount < this.checkedGameId.length;
     },
 
     // 搜索 == 第一次搜索
@@ -684,31 +710,29 @@ export default {
         return this.$message.error("内容不能为空");
       }
       var val = this.searchVal;
-      this.firstVal = val;//第一次搜索
+      this.firstVal = val; //第一次搜索
       this.resultVal = "";
-      this.select1 = this.select
-      this.select2 = ''
+      this.select1 = this.select;
+      this.select2 = "";
       this.getDetail();
     },
     // 在结果中搜索
     resultSearch() {
-      if(this.firstVal == '' ) {
-        this.search()
-      }else {
-        if(this.resultVal!='') {
-          this.select1 = this.select2
-          this.firstVal = this.resultVal
-          this.select2 = this.select
-          this.resultVal = this.searchVal
+      if (this.firstVal == "") {
+        this.search();
+      } else {
+        if (this.resultVal != "") {
+          this.select1 = this.select2;
+          this.firstVal = this.resultVal;
+          this.select2 = this.select;
+          this.resultVal = this.searchVal;
           this.getDetail();
-        }else {
-          this.select2 = this.select
-          this.resultVal = this.searchVal
+        } else {
+          this.select2 = this.select;
+          this.resultVal = this.searchVal;
           this.getDetail();
         }
-
       }
-
     },
     getParams() {
       // 取到路由带过来的参数
@@ -716,13 +740,13 @@ export default {
       // 将数据放在当前组件的数据内
       this.searchVal = routerParams;
       this.firstVal = routerParams;
-      this.getDetail()
+      this.getDetail();
     },
     // 获取所有的标签
     getTab() {
       Title().then((res) => {
         if (res.status == 200) {
-          var {data} = res;
+          var { data } = res;
           this.tagList = data.result;
           this.radio.QueryfieId = data.result[0].value;
           // 根据search值获取文章列表
@@ -736,7 +760,7 @@ export default {
       this.getDetail();
     },
     // 等级排序
-    grade(){
+    grade() {
       this.isGrade = !this.isGrade;
       this.getDetail();
     },
@@ -765,53 +789,53 @@ export default {
       this.isType = false;
     },
     // 左侧分类点击事件
-    toggleCate(index,str) {
-      if(index == 0) {
-        if(str == this.nationality){
-          return
-        }else {
-          this.nationality = str
-          var arr = this.conditionSearchList[0]
-          for(var i = 0;i<arr.length;i++) {
-            if(arr[i].itemValue == str) {
-              var str = arr.splice(i,1)
-              arr.unshift(str[0])
+    toggleCate(index, str) {
+      if (index == 0) {
+        if (str == this.nationality) {
+          return;
+        } else {
+          this.nationality = str;
+          var arr = this.conditionSearchList[0];
+          for (var i = 0; i < arr.length; i++) {
+            if (arr[i].itemValue == str) {
+              var str = arr.splice(i, 1);
+              arr.unshift(str[0]);
             }
           }
-          this.conditionSearchList[0] = arr
-          this.getDetail()
+          this.conditionSearchList[0] = arr;
+          this.getDetail();
         }
       }
-      if(index== 1) {
-        if(str == this.infoType){
-          return
-        }else {
-          this.infoType = str
-          var arr = this.conditionSearchList[1]
-          for(var i = 0;i<arr.length;i++) {
-            if(arr[i].itemValue == str) {
-              var str = arr.splice(i,1)
-              arr.unshift(str[0])
+      if (index == 1) {
+        if (str == this.infoType) {
+          return;
+        } else {
+          this.infoType = str;
+          var arr = this.conditionSearchList[1];
+          for (var i = 0; i < arr.length; i++) {
+            if (arr[i].itemValue == str) {
+              var str = arr.splice(i, 1);
+              arr.unshift(str[0]);
             }
           }
-          this.conditionSearchList[1] = arr
-          this.getDetail()
+          this.conditionSearchList[1] = arr;
+          this.getDetail();
         }
       }
-      if(index== 2) {
-        if(str == this.publishYear){
-          return
-        }else {
-          this.publishYear = str
-          var arr = this.conditionSearchList[2]
-          for(var i = 0;i<arr.length;i++) {
-            if(arr[i].itemValue == str) {
-              var str = arr.splice(i,1)
-              arr.unshift(str[0])
+      if (index == 2) {
+        if (str == this.publishYear) {
+          return;
+        } else {
+          this.publishYear = str;
+          var arr = this.conditionSearchList[2];
+          for (var i = 0; i < arr.length; i++) {
+            if (arr[i].itemValue == str) {
+              var str = arr.splice(i, 1);
+              arr.unshift(str[0]);
             }
           }
-          this.conditionSearchList[2] = arr
-          this.getDetail()
+          this.conditionSearchList[2] = arr;
+          this.getDetail();
         }
       }
     },
@@ -822,13 +846,12 @@ export default {
       });
     },
     close(index) {
-      if(index== 0) {
-        this.class0 = !this.class0
-      }else if(index == 1) {
-        this.class1 = !this.class1
-      }else if(index == 2) {
-        this.class2 = !this.class2
-
+      if (index == 0) {
+        this.class0 = !this.class0;
+      } else if (index == 1) {
+        this.class1 = !this.class1;
+      } else if (index == 2) {
+        this.class2 = !this.class2;
       }
     },
     // 获取文章 == 正序
@@ -839,17 +862,17 @@ export default {
         pageSize: this.limit, // 当前每页的条数
         title1: this.firstVal,
         orderingrule: this.isSort ? "1" : "2", //排序规则 1 倒序 2 正序
-        statorderingrule:this.isGrade?"1" : "2",
+        statorderingrule: this.isGrade ? "1" : "2",
         title2: this.resultVal,
         sortfieID: this.SortfieID, //排序字段
-        title1fieId: this.select1 , // 查询类别 默认为标题查询
-        title2fieId:this.select2,
+        title1fieId: this.select1, // 查询类别 默认为标题查询
+        title2fieId: this.select2,
         queryrules: this.radio.Queryrules, // 查询规则 1 精确查找 2 模糊查询
-        publishYear:this.publishYear,// 发布年份
-        infoType:this.infoType,//情报分类
-        nationality:this.nationality//国别
+        publishYear: this.publishYear, // 发布年份
+        infoType: this.infoType, //情报分类
+        nationality: this.nationality, //国别
       }).then((res) => {
-        var {data} = res
+        var { data } = res;
         if (data.code == 200) {
           this.loading = false;
           var result = data.result;
@@ -868,7 +891,7 @@ export default {
         path: "TrilalXml",
         query: {
           textid: item.id,
-          type: item.infoType
+          type: item.infoType,
         },
       });
       // if (url == 'wechat') {
@@ -1153,7 +1176,7 @@ li {
   cursor: pointer;
   margin-top: 20px;
   border: 1px solid #ebebeb;
-  box-shadow: 0 2px 3px 0 rgba(210,210,210,.75);
+  box-shadow: 0 2px 3px 0 rgba(210, 210, 210, 0.75);
 }
 .headLine:first-child {
   margin-top: 0;
@@ -1377,15 +1400,15 @@ li {
   padding: 0 20px;
 }
 .container .el-select::before {
-  content: '';
+  content: "";
   clear: both;
   position: absolute;
   width: 1px;
   height: 24px;
-  background: rgb(210,210,210);
+  background: rgb(210, 210, 210);
   right: 0px;
   top: 10px;
-  z-index:999
+  z-index: 999;
 }
 .el-aside {
   height: 100%;
@@ -1420,9 +1443,9 @@ li {
   border-bottom: 1px solid #ccc;
   background: #fff;
   width: 602px;
-  z-index:999999;
+  z-index: 999999;
   border-color: #ccc;
-  box-shadow: 2px 2px 5px #CCCBCB;
+  box-shadow: 2px 2px 5px #cccbcb;
 }
 .headLine ul li {
   box-sizing: border-box;
@@ -1443,7 +1466,7 @@ li {
   padding: 7px 2px;
   margin-top: -10px;
   cursor: default;
-  background: url('~@/assets/images/icon-jt (1).png');
+  background: url("~@/assets/images/icon-jt (1).png");
   background-repeat: no-repeat;
   background-position: 0 -33px;
 }
@@ -1458,7 +1481,7 @@ li {
   padding: 7px 2px;
   margin-top: -10px;
   cursor: default;
-  background: url('~@/assets/images/icon-jt (1).png');
+  background: url("~@/assets/images/icon-jt (1).png");
   background-repeat: no-repeat;
   background-position: -10px -33px;
 }

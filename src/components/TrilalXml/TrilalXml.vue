@@ -264,7 +264,10 @@
                         <i class="el-icon-edit-outline" title="记笔记"></i>
                       </div>
                     </li>
-                    <li @click="upload(kgInformationFile)">
+                    <li
+                      v-if="kgInformationFile.come != '微信'"
+                      @click="upload(kgInformationFile)"
+                    >
                       <div v-if="!isbig">
                         <i class="el-icon-download"></i>
                         <span>下载</span>

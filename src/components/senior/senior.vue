@@ -374,7 +374,12 @@
                     <div class="right">
                       <ul>
                         <li @click="collect(item, index)">收藏</li>
-                        <li @click="upload(item)">下载</li>
+                        <li
+                          v-if="item.source != 'wechat'"
+                          @click="upload(item)"
+                        >
+                          下载
+                        </li>
                       </ul>
                     </div>
                   </div>

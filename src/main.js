@@ -9,6 +9,7 @@ import VueLazyLoad from 'vue-lazyload'
 import $ from 'jquery'
 import echarts from 'echarts'
 import AFTableColumn from 'af-table-column'
+Vue.prototype.$echarts = echarts
 
 Vue.use(AFTableColumn)
 import 'fullpage.js/vendors/scrolloverflow' // Optional. When using scrollOverflow:true
@@ -17,7 +18,7 @@ import VueFullPage from 'vue-fullpage.js'
 
 Vue.use(VueFullPage);
 import 'lib-flexible' //引入flexible
-Vue.prototype.$echarts = echarts   
+Vue.prototype.$echarts = echarts
 //  全局过滤器 时间戳 
 Vue.filter('dateformat', function (dataStr, pattern = 'YYYY-MM-DD') {
   if (dataStr) {
@@ -32,23 +33,23 @@ import 'viewerjs/dist/viewer.css'
 Vue.use(Viewer, {
   defaultOptions: {
     zIndex: 9999,
-    rotatable:false,
-    scalable:false,
-    tooltip:false,
+    rotatable: false,
+    scalable: false,
+    tooltip: false,
   }
 })
 import '../src/utils/index.js'
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(Element)
 Vue.config.productionTip = false
-router.afterEach((to,from,next) => {
-  window.scrollTo(0,0);
+router.afterEach((to, from, next) => {
+  window.scrollTo(0, 0);
 });
-Vue.use(VueLazyLoad,{
-  error:require('./assets/images/error.jpg'), //加载失败的图
-  loading:require('./assets/images/loading.gif') //加载中的默认图
+Vue.use(VueLazyLoad, {
+  error: require('./assets/images/error.jpg'), //加载失败的图
+  loading: require('./assets/images/loading.gif') //加载中的默认图
 })
-Vue.prototype.Logindialog=false
+Vue.prototype.Logindialog = false
 Vue.prototype.$getBase64Image = img => {
   var canvas = document.createElement("canvas");
   canvas.width = img.width;
