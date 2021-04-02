@@ -40,6 +40,7 @@
         ></div>
       </div>
       <div style="height: 100%; overflow: scroll" id="left_content">
+        <!-- docx -->
         <div v-if="type">
           <div v-html="html" ref="html"></div>
         </div>
@@ -65,9 +66,12 @@
               "
               >{{ wechar.author }}</span
             >
-            <span style="margin: 0 10px 10px 0; font-size: 15px; color: #576b95"
-              >国家空间研究中心</span
+            <span
+              style="margin: 0 10px 10px 0; font-size: 15px; color: #576b95"
             >
+              来源： {{ kgInformationFile.data.result.publisher }} ;
+              {{ kgInformationFile.data.result.createTime }}
+            </span>
             <span
               style="
                 color: rgba(0, 0, 0, 0.3);
@@ -251,6 +255,7 @@ export default {
   },
   data() {
     return {
+      kgInformationFile: {},
       // 当前书籍的id
       id: 0,
       pointList: [],
@@ -566,24 +571,32 @@ export default {
     // 获取笔记文件夹
     // 获取选中的文本的位置信息并显示操作面板
     document.getElementById("left_content").onmouseup = function (e) {
+      var objss = window.getSelection();
+      var elements = objss.anchorNode.parentElement.localName;
+      console.log(elements);
+
       var content = window.getSelection().toString();
       var clientX = e.screenX;
       var clientY = e.screenY;
       that.isAdd = false;
-      if (content.trim() != "") {
-        var range = window.getSelection().getRangeAt(0);
-        // console.log(range);
-        //  当前选中的文本的坐标信息
-        var rect = range.getBoundingClientRect();
-        //  中间区域的坐标信息
-        var center = document
-          .getElementById("left_content")
-          .getBoundingClientRect();
-        that.isAdd = true;
-        that.posi = {
-          top: rect.top + that.scrollTop - 100 + "px",
-          left: rect.left - center.left + rect.width / 2 - 30 + "px",
-        };
+      if (elements === "h2") {
+        alert("标题不能记笔记");
+      } else {
+        if (content.trim() != "") {
+          var range = window.getSelection().getRangeAt(0);
+          // console.log(range);
+          //  当前选中的文本的坐标信息
+          var rect = range.getBoundingClientRect();
+          //  中间区域的坐标信息
+          var center = document
+            .getElementById("left_content")
+            .getBoundingClientRect();
+          that.isAdd = true;
+          that.posi = {
+            top: rect.top + that.scrollTop - 100 + "px",
+            left: rect.left - center.left + rect.width / 2 - 30 + "px",
+          };
+        }
       }
     };
     document.getElementById("left_content").onscroll = function (e) {
@@ -609,6 +622,9 @@ export default {
     });
   },
   methods: {
+    add() {
+      console.log(this.kgInformationFile.data.result);
+    },
     // 选择笔记文件夹
     getValue1(value) {
       this.valueId1 = value;
@@ -1018,6 +1034,8 @@ export default {
       GetlistUrl({
         textid: this.id,
       }).then((res) => {
+        this.kgInformationFile = res;
+
         var { data } = res;
         if (data.code == 200) {
           // 有笔记的情况下

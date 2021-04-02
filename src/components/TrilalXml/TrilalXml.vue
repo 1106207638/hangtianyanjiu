@@ -276,6 +276,15 @@
                         <i class="el-icon-upload" title="下载"></i>
                       </div>
                     </li>
+                    <li v-else @click="prompt">
+                      <div v-if="!isbig">
+                        <i class="el-icon-download"></i>
+                        <span>下载</span>
+                      </div>
+                      <div v-else>
+                        <i class="el-icon-upload" title="下载"></i>
+                      </div>
+                    </li>
                     <li @click="collect(kgInformationFile)">
                       <div v-if="!isbig">
                         <i class="el-icon-folder-add"></i>
@@ -718,6 +727,9 @@ export default {
     this.getMijiList();
   },
   methods: {
+    prompt() {
+      this.$message.error("文件来源自微信，暂时不支持下载");
+    },
     commentk() {
       if (window.localStorage.getItem("token")) {
         this.drawer = true;
@@ -1097,6 +1109,7 @@ export default {
     },
     //   点击记笔记跳转到详情页
     goBook() {
+      console.log(this.kgInformationFile);
       if (window.localStorage.getItem("token")) {
         // console.log(this.kgInformationFile);
         if (this.kgInformationFile.source == "upload") {
@@ -1107,6 +1120,7 @@ export default {
           query: {
             id: this.kgInformationFile.id,
             type: this.kgInformationFile.source,
+            title: this.kgInformationFile,
           },
         });
       } else {
