@@ -157,6 +157,12 @@
         >
           航天新闻
         </div>
+        <div
+          :class="activeNav == 'NewsList' ? 'left_item active' : 'left_item'"
+          @click="ceshi"
+        >
+          测试
+        </div>
       </div>
       <div class="right">
         <div
