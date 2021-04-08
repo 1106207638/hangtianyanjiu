@@ -5,23 +5,51 @@
     <div class="head_main" v-show="headers">
       <div class="logo">
         <img src="~@/assets/images/logo1.png" @click="logo" alt="" />
+        <span>航天（实验）情报研究与服务平台</span>
       </div>
       <div class="search" v-if="isSearch">
         <el-input
           v-model="input"
           @keyup.enter.native="search"
-          placeholder="请输入内容"
-        ></el-input>
-      </div>
-      <div class="btns" v-if="isSearch">
-        <el-button type="primary" @click="search" icon="el-icon-search"
-          ><span style="margin-left: 10px">搜索</span></el-button
+          placeholder="请输入关键词进行检索"
+          autosize="true"
+          style="
+            width: 400px;
+            height: 48px;
+            background: #f2f2f2;
+            box-shadow: 0px 1px 20px 0px rgba(36, 36, 36, 0.2);
+            border-radius: 6px;
+          "
         >
-        <el-button
-          type="primary"
+          <el-button
+            @click="search"
+            slot="append"
+            icon="el-icon-search"
+            style="
+              backwidth: 59px;
+              height: 45px;
+              background: #00cfff;
+              border-radius: 0px 6px 6px 0px;
+              color: #ffffff;
+              font-size: 20px;
+              height: 100%;
+            "
+          ></el-button>
+        </el-input>
+        <span
+          style="
+            width: 70px;
+            height: 18px;
+            font-size: 18px;
+            font-family: Adobe Heiti Std;
+            font-weight: normal;
+            color: #ffffff;
+            margin-left: 34px;
+
+            cursor: pointer;
+          "
           @click="senior"
-          icon="iconfont icon-gaojisousuo"
-          ><span style="margin-left: 10px">高级搜索</span></el-button
+          >高级检索></span
         >
       </div>
       <div class="btnss" v-if="isZoom">
@@ -156,12 +184,6 @@
           @click="news"
         >
           航天新闻
-        </div>
-        <div
-          :class="activeNav == 'NewsList' ? 'left_item active' : 'left_item'"
-          @click="ceshi"
-        >
-          测试
         </div>
       </div>
       <div class="right">
@@ -777,7 +799,7 @@ export default {
 </script>
 <style scoped>
 div {
-  box-sizing: content-box;
+  box-sizing: border-box;
 }
 
 /* @import url(); 引入css类 */
@@ -786,19 +808,28 @@ div {
 }
 
 .head_main {
+  border: 1px solid green;
   background: url("~@/assets/images/xing.png");
   background-size: auto 135px;
   padding: 0 20px;
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+
   height: 145px;
   line-height: 145px;
+}
+.search {
+  flex: 1;
+  text-align: right;
+  margin-right: -500px;
 }
 
 .header .logo {
   height: 100%;
   padding: 7px;
   line-height: 135px;
-  width: 110px;
 }
 
 .header .logo img {
@@ -807,12 +838,19 @@ div {
   height: 75px;
   vertical-align: middle;
 }
-
-.header .search {
-  width: 30%;
-  margin-right: 5%;
+.logo span {
+  width: 358px;
+  height: 23px;
+  font-size: 24px;
+  font-weight: 400;
+  color: #ffffff;
+  line-height: 12px;
+  margin-left: 20px;
 }
 
+/deep/.el-input__inner {
+  height: 100%;
+}
 .nav {
   padding: 0 20px;
   height: 50px;

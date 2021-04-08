@@ -22,7 +22,7 @@
           circle
           title="取消收藏"
           @click="cancelC"
-          v-show="star"
+          v-show="!star"
         ></el-button>
       </div>
     </div>
@@ -480,7 +480,6 @@ export default {
 
     catalogList: {
       handler: function (val, oldval) {
-        console.log(val);
         if (
           val != null &&
           val != "" &&
@@ -500,7 +499,6 @@ export default {
                   var str = e.target.getAttribute("data-src");
                   //锚点
                   var str = str.substring(1, str.length);
-                  console.log(str.substring(1, str.length));
                   document.querySelector(`a[name=${str}]`).scrollIntoView({
                     behavior: "smooth",
                     block: "start",
@@ -549,18 +547,6 @@ export default {
         return father.parentId == 0; //返回第一层
       });
     },
-    optionData1() {
-      let cloneData = JSON.parse(JSON.stringify(this.list1)); // 对源数据深度克隆
-      // console.log(cloneData);
-      return cloneData.filter((father) => {
-        // 循环所有项，并添加children属性
-        let branchArr = cloneData.filter(
-          (child) => father.id == child.parentId
-        ); // 返回每一项的子级数组
-        branchArr.length > 0 ? (father.children = branchArr) : ""; //给父级添加一个children属性，并赋值
-        return father.parentId == 0; //返回第一层
-      });
-    },
   },
   mounted() {
     this.getUserFloderList();
@@ -573,11 +559,7 @@ export default {
     document.getElementById("left_content").onmouseup = function (e) {
       var objss = window.getSelection();
       var elements = objss.anchorNode.parentElement.localName;
-      console.log(elements);
-
       var content = window.getSelection().toString();
-      var clientX = e.screenX;
-      var clientY = e.screenY;
       that.isAdd = false;
       if (elements === "h2") {
         alert("标题不能记笔记");
@@ -587,6 +569,7 @@ export default {
           // console.log(range);
           //  当前选中的文本的坐标信息
           var rect = range.getBoundingClientRect();
+
           //  中间区域的坐标信息
           var center = document
             .getElementById("left_content")
@@ -613,7 +596,7 @@ export default {
     document.addEventListener("click", (e) => {
       if (that.name == "" || that.name == undefined) {
       } else {
-        // console.log(that.name);
+        console.log(that.name);
         var eles = document.querySelectorAll(`a[point=${that.name}]`);
         for (var i = 0; i < eles.length; i++) {
           eles[i].style.background = "none";
@@ -622,23 +605,21 @@ export default {
     });
   },
   methods: {
-    add() {
-      console.log(this.kgInformationFile.data.result);
-    },
     // 选择笔记文件夹
-    getValue1(value) {
-      this.valueId1 = value;
-      if (value == 9999999) {
-        this.$message({
-          type: "info",
-          message: "请在全部文件夹下的文件夹中添加笔记",
-        });
-      }
-    },
+    // getValue1(value) {
+    //   this.valueId1 = value;
+    //   if (value == 9999999) {
+    //     this.$message({
+    //       type: "info",
+    //       message: "请在全部文件夹下的文件夹中添加笔记",
+    //     });
+    //   }
+    // },
     // 获取当前用户所有的收藏文件夹
     getUserFloderList() {
       geteFloder({}).then((res) => {
         var { data } = res;
+        console.log({ data });
         if (data.code == 200) {
           for (var i = 0; i < data.result.records.length; i++) {
             data.result.records[i].parentId = 9999999;
