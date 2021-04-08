@@ -3,17 +3,12 @@
   <div>
     <div
       class="bannerBox"
-      style="
-        padding: 0 30px;
-        width: 100%;
-        margin-top: 20px;
-        background: rgba(52, 87, 145, 1);
-      "
+      style="padding: 0 30px; width: 100%; margin-top: 40px"
     >
       <div style="display: flex; width: 100%">
         <div style="flex: 1; box-sizing: border-box">
           <el-carousel
-            height="450px"
+            height="462px"
             width="100%"
             trigger="click"
             @change="change"
@@ -379,7 +374,7 @@ export default {
       handler(newValue, oldValue) {
         var that = this;
         if (newValue) {
-          document.querySelector(".header").style.zoom = 1.5;
+          document.querySelector(".header").style.zoom = 1;
           document.querySelector(".bannerBox").style.zoom = 1.5;
           document.querySelector(".hot").style.zoom = 1.5;
           document.querySelector(".big_cate").style.zoom = 1.5;
@@ -1395,13 +1390,14 @@ ul {
   display: flex;
   flex-flow: column;
   height: 100%;
-  background-color: rgba(10, 60, 119, 1);
-  color: #fff;
+  color: #6e95ba;
 }
 .ban__right {
   width: 24%;
   margin-left: 20px;
-  background: #fff;
+  padding: 20px;
+  background: #0f325e;
+  border: 1px solid #397fa3;
 }
 .ban_right .ban_item {
   cursor: pointer;
@@ -1415,11 +1411,8 @@ ul {
   padding: 0 15px;
 }
 .ban_right .ban_item.active {
-  height: 20%;
   color: #fff;
-  line-height: 4.5;
-  background: rgb(69, 123, 230);
-  box-shadow: 0 0 5px rgb(8, 24, 57);
+  background: #345791;
 }
 
 .inlineBlock {

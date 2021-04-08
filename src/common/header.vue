@@ -323,7 +323,6 @@ import { LoginOut, getTool, uploadTool } from "../api/apis";
 import FeedBack from "./dialog/feedBack";
 import Login from "./Login/index";
 import $ from "jquery";
-import store from "@/store/store";
 
 export default {
   components: {
@@ -365,7 +364,6 @@ export default {
     },
     Logindialog: {
       handler: function (val, oldVal) {
-        console.log(val);
         if (val) {
         } else {
         }
@@ -374,7 +372,6 @@ export default {
     },
     $route: {
       handler(val, oldval) {
-        console.log(val);
         if (oldval.name == "Echarts") {
           this.indexEchart = "";
         }
@@ -776,7 +773,7 @@ export default {
     big() {
       this.issmall = false;
       if (this.$route.name == "home") {
-        document.querySelector(".header").style.zoom = 1.5;
+        document.querySelector(".header").style.zoom = 1;
         document.querySelector(".bannerBox").style.zoom = 1.5;
         document.querySelector(".hot").style.zoom = 1.5;
         document.querySelector(".big_cate").style.zoom = 1.5;
@@ -820,6 +817,11 @@ div {
   height: 145px;
   line-height: 145px;
 }
+.left > div,
+.right > div {
+  padding-left: 20px;
+  padding-right: 20px;
+}
 .search {
   flex: 1;
   text-align: right;
@@ -855,7 +857,7 @@ div {
   padding: 0 20px;
   height: 50px;
   line-height: 50px;
-  background: rgba(10, 60, 119, 1);
+  background: url("../assets/images/bg.jpg");
 }
 
 .nav .left {
@@ -875,6 +877,8 @@ div {
 .nav .left .left_item.active,
 .nav .right .right_item.active {
   color: #0ab6f2;
+  border-bottom: 2px solid #00cfff;
+  background: rgb(22, 46, 89);
 }
 .nav .right .right_item {
   font-size: 16px;
