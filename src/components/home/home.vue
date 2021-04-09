@@ -30,7 +30,7 @@
           </el-carousel>
         </div>
         <div class="ban__right">
-          <div class="ban_right">
+          <div class="ban_right" style="display: flex">
             <div
               :class="activeIndex == index ? 'ban_item active' : 'ban_item'"
               v-for="(item, index) in banner"
@@ -53,25 +53,33 @@
       <div class="container">
         <div class="hot">
           <div class="hot_box_left">
-            <div style="">
-              <div class="hot_item">
+            <div style="hot_box">
+              <div
+                class="hot_item"
+                style="
+                  border: 1px solid #397fa3;
+                  background: rgb(15, 50, 94, 0.6);
+                  margin-top: 10px;
+                  margin-bottom: 35px;
+                "
+              >
                 <p>
                   <span
-                    :class="classActive == '热搜' ? 'active' : ''"
+                    :class="classActive == '热搜' ? 'active' : 'noactive'"
                     @click="toggleClass('热搜')"
                   >
                     <i class="el-icon-s-data"></i>
                     热搜
                   </span>
                   <span
-                    :class="classActive == '推荐' ? 'active' : ''"
+                    :class="classActive == '推荐' ? 'active' : 'noactive'"
                     @click="toggleClass('推荐')"
                   >
                     <i class="el-icon-s-management"></i>
                     推荐
                   </span>
                   <span
-                    :class="classActive == '最近更新' ? 'active' : ''"
+                    :class="classActive == '最近更新' ? 'active' : 'noactive'"
                     @click="toggleClass('最近更新')"
                   >
                     <i class="el-icon-s-unfold"></i>
@@ -95,12 +103,22 @@
             </div>
           </div>
         </div>
-        <div class="big_cate">
-          <p class="class left">情报分类</p>
-        </div>
         <!--        大分类-->
         <!-- 分类 -->
-        <div class="category">
+        <div
+          class="category"
+          style="
+            border: 1px solid #397fa3;
+            padding-left: 30px;
+            padding-right: 30px;
+            background: rgb(15, 50, 94, 0.6);
+            margin-top: 20px;
+          "
+        >
+          <div class="big_cate">
+            <p class="class left" style="">情报分类</p>
+          </div>
+
           <div class="left">
             <div class="cate classBox">
               <div class="inlineBlock">
@@ -265,29 +283,53 @@
         </div>
         <!-- 词云 -->
         <footer class="footer ciYun">
-          <div class="left cici">
-            <p class="class left classleft">词云</p>
+          <div class="left cici" style="">
             <div
-              id="value"
-              ref="myChart"
-              style="zoom: 1; width: 100%; height: 420px"
-            ></div>
+              class="big_cate"
+              style="border-bottom: 1px solid #1e3e74; margin-bottom: -2px"
+            >
+              <p
+                class="class left"
+                style="
+                  margin-top: 20px;
+                  margin-bottom: -2px;
+                  text-align: center;
+                  width: 124px;
+                  padding-left: 0;
+                "
+              >
+                词云
+              </p>
+            </div>
+            <div id="value" ref="myChart"></div>
           </div>
         </footer>
         <div class="lastBom">
-          <div class="big_cate">
-            <p class="class left foot">我的足迹</p>
-            <p class="class left user">活跃用户</p>
-          </div>
+          <div class="big_cate"></div>
           <div
             class="hot category"
-            style="display: flex; justify-content: space-between"
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-top: 40px;
+            "
           >
-            <div class="hot_box_right" style="width: 49%">
-              <div class="hot_item" style="background-color: rgb(21, 53, 105)">
-                <!--              <p style="color:#fff">-->
-                <!--                <i class="el-icon-s-flag"></i>-->
-                <!--                我的足迹</p>-->
+            <div
+              class="hot_box_right"
+              style="
+                width: 49%;
+                background: rgb(15, 50, 94, 0.6);
+                border: 1px solid #397fa3;
+              "
+            >
+              <p
+                class="class left user"
+                style="margin-left: 30px; margin-right: 30px; width: 850px"
+              >
+                活跃用户
+              </p>
+
+              <div class="hot_item" style="">
                 <ul>
                   <li v-for="(item, index) in Footprint" :key="index">
                     <div class="time_line">
@@ -296,32 +338,26 @@
                     </div>
                     <div class="content">{{ item.content }}</div>
                   </li>
-                  <!--          <li>-->
-                  <!--            <div class="time_line">-->
-                  <!--              <i class="el-icon-time"></i>-->
-                  <!--              <span>2020-01-13 10:14:26</span>-->
-                  <!--            </div>-->
-                  <!--            <div class="content">查看词条 - 金刚级驱逐舰</div>-->
-                  <!--          </li>-->
-                  <!--          <li>-->
-                  <!--            <div class="time_line">-->
-                  <!--              <i class="el-icon-time"></i>-->
-                  <!--              <span>2020-01-13 10:14:26</span>-->
-                  <!--            </div>-->
-                  <!--            <div class="content">查看词条 - 金刚级驱逐舰</div>-->
-                  <!--          </li>-->
-                  <!--          <li>-->
-                  <!--            <div class="time_line">-->
-                  <!--              <i class="el-icon-time"></i>-->
-                  <!--              <span>2020-01-13 10:14:26</span>-->
-                  <!--            </div>-->
-                  <!--            <div class="content">查看词条 - 金刚级驱逐舰</div>-->
-                  <!--          </li>-->
                 </ul>
               </div>
             </div>
-            <div class="right" style="width: 49%">
-              <div class="content_item">
+            <div
+              class="right"
+              style="
+                width: 49%;
+                border: 1px solid #397fa3;
+                background: rgb(15, 50, 94, 0.6);
+                overflow: hidden;
+              "
+            >
+              <p
+                class="class left foot"
+                style="margin-left: 30px; margin-right: 30px; width: 850px"
+              >
+                我的足迹
+              </p>
+
+              <div class="content_item" style="">
                 <div
                   class="content_box"
                   v-for="(item, index) in activeList"
@@ -337,8 +373,6 @@
           </div>
         </div>
       </div>
-      <!--    需求反馈-->
-      <!--    <FeedBack :feedBack="feedBack" @cancel="cancel" />-->
     </div>
   </div>
 </template>
@@ -802,7 +836,6 @@ export default {
       // })
       // 绘制图表
       myChart.setOption({
-        backgroundColor: "rgba(52,87,145)",
         tooltip: {
           trigger: "item",
           // padding: [0, 15],
@@ -815,6 +848,7 @@ export default {
                 `;
           },
         },
+        // backgroundColor: "rgba(15,50,94)",
         series: [
           {
             type: "wordCloud",
@@ -870,7 +904,6 @@ ul {
 }
 .home {
   box-sizing: border-box;
-  background-color: rgb(52, 87, 145);
   width: 100%;
   overflow: hidden;
   padding: 0 0px 36px 0px;
@@ -936,14 +969,12 @@ ul {
   background-size: 100% 100%;
 }
 .hot_box_right {
-  background: #fff;
   /*background: url(~@/assets/images/box.svg)  no-repeat;*/
   background-size: 100% 100%;
 }
 .hot_item {
   width: 100%;
   padding-top: 10px;
-  background: #fff;
   margin-bottom: 20px;
 }
 .hot_item ul {
@@ -981,20 +1012,27 @@ ul {
 .hot_item > p {
   /*margin-left: 30px;*/
   /*width: 100%;*/
-  height: 35px;
-  border-bottom: 2px solid rgb(115, 138, 177);
+  border-bottom: 2px solid #1e3e74;
   font-weight: 700;
   font-style: normal;
   font-size: 20px;
-  color: rgb(70, 70, 70);
+  color: #7ba7db;
+  height: 42px;
 }
 .hot_item > p .active {
-  color: #0ab6f2;
+  color: whitesmoke;
+  background: url("../../assets/images/button.png") no-repeat;
 }
 .hot_item > p span {
   display: inline-block;
   cursor: pointer;
   margin-right: 20px;
+  padding: auto;
+  width: 124px;
+  background: url(../../assets/images/nobutton.png) no-repeat;
+  text-align: center;
+  line-height: 42px;
+  height: 42px;
 }
 .hot_item li {
   height: 63px;
@@ -1015,9 +1053,6 @@ ul {
   padding: 0 30px;
   list-style: none;
 }
-.hot .hot_box_right .hot_item ul {
-}
-
 .hot .hot_box_right .hot_item ul::-webkit-scrollbar {
   width: 8px;
   background-color: #f5f7f8;
@@ -1037,7 +1072,7 @@ ul {
 .hot_item li p:nth-child(1) {
   font-size: 16px;
   font-weight: 700;
-  color: rgb(96, 96, 96);
+  color: #ffffff;
   cursor: pointer;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1049,7 +1084,7 @@ ul {
 .hot_item li p:nth-child(2) {
   margin-top: 5px;
   font-size: 16px;
-  color: #999;
+  color: #6488b3;
 }
 .hot_item .time_line i {
   margin-right: 10px;
@@ -1084,21 +1119,26 @@ ul {
 }
 .class {
   box-sizing: border-box;
-  width: 100%;
+  width: 121px;
+
   font-weight: 700;
   font-style: normal;
   font-size: 20px;
   color: #ffffff;
-  height: 50px;
-  line-height: 50px;
+  height: 43px;
+  line-height: 43px;
   padding-left: 20px;
-  background: rgb(59, 112, 230);
+  border-bottom: 2px solid #1e3e74;
+  display: inline-block;
+  background: url(../../assets/images/button.png) no-repeat;
+}
+.noactive {
+  font-size: 16px;
 }
 .class.right {
   flex: 1;
   margin-left: 20px;
-}
-.category {
+  margin-right: 20px;
 }
 .category .left {
   width: 100%;
@@ -1113,12 +1153,10 @@ ul {
 .category .right .content_item {
   width: 100%;
   max-width: 100%;
-  background: #fff;
   padding-top: 40px;
   padding-bottom: 40px;
 }
 .category .right .content_item {
-  background: rgb(21, 53, 105);
 }
 .classBox {
   /*display: flex;*/
@@ -1253,20 +1291,17 @@ ul {
 }
 .footer {
   display: flex;
+  box-sizing: border-box;
 }
 .footer .left {
   width: 100%;
 }
 .footer .left .class {
   width: 100%;
-  height: 50px;
+  height: 46px;
+  margin-left: 30px;
 }
 .footer .left > p {
-  height: 35px;
-  font-weight: 700;
-  font-style: normal;
-  font-size: 20px;
-  color: rgb(254, 254, 254);
 }
 .footer .right {
   flex: 1;
@@ -1287,8 +1322,8 @@ ul {
   border-bottom: 2px solid rgb(115, 138, 177);
 }
 #value {
-  width: 100%;
-  height: 380px;
+  max-width: 100%;
+  height: 410px;
 }
 .footer .right li span:first-child {
   display: inline-block;
@@ -1371,20 +1406,20 @@ ul {
 }
 .cateItem {
   display: inline-block;
-  padding: 10px 10px;
-  color: #fff;
+  padding: 4px 10px;
+  color: #00f0ff;
   font-size: 18px;
   cursor: pointer;
-  border-radius: 5px;
-  background: rgba(14, 45, 89);
   margin-right: 10px;
+  border: 1px solid #00f0ff;
+  border-radius: 6px;
 }
 .cateItem:hover {
   color: #fff;
 }
 .cateItem.active {
   color: #fff;
-  background: rgba(57, 137, 115);
+  background: #00abcc;
 }
 .ban_right {
   display: flex;
@@ -1396,7 +1431,7 @@ ul {
   width: 24%;
   margin-left: 20px;
   padding: 20px;
-  background: #0f325e;
+  background: rgb(15, 50, 94, 0.6);
   border: 1px solid #397fa3;
 }
 .ban_right .ban_item {
@@ -1424,5 +1459,13 @@ ul {
   padding-left: 15px;
   border: 1px dashed rgba(255, 255, 255, 0.3);
   margin-right: 15px;
+}
+.footer {
+  box-sizing: border-box;
+  border: 1px solid #397fa3;
+  background: rgb(15, 50, 94, 0.6);
+  margin-top: 40px;
+}
+.hot_box > .hot_item {
 }
 </style>

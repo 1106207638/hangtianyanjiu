@@ -45,7 +45,6 @@
             font-weight: normal;
             color: #ffffff;
             margin-left: 34px;
-
             cursor: pointer;
           "
           @click="senior"
@@ -65,7 +64,6 @@
           icon="el-icon-zoom-in"
           ><span style="margin-left: 10px">研讨模式</span></el-button
         >
-        x
       </div>
     </div>
     <div class="nav">
@@ -201,13 +199,7 @@
           <i class="el-icon-bell"></i>
           信息推送
         </div>
-        <div
-          :class="activeNav == 'Personal' ? 'right_item active' : 'right_item'"
-          @click="goUser"
-        >
-          <i class="el-icon-user-solid"></i>
-          个人中心
-        </div>
+
         <div
           class="right_item"
           style="position: relative"
@@ -276,7 +268,7 @@
               transform-origin: center top;
               z-index: 2026;
               position: absolute;
-              width: 80px;
+              width: 90px;
               top: 50px;
               left: 50%;
               margin-left: -40px;
@@ -287,11 +279,12 @@
               v-if="isrule"
               @click="handleCommand2(2)"
             >
-              后台
+              后台页面
             </li>
             <li class="el-dropdown-menu__item" @click="handleCommand2(1)">
-              退出
+              退出登录
             </li>
+            <li class="el-dropdown-menu__item" @click="goUser">个人中心</li>
             <div
               x-arrow=""
               class="popper__arrow"
@@ -774,7 +767,7 @@ export default {
       this.issmall = false;
       if (this.$route.name == "home") {
         document.querySelector(".header").style.zoom = 1;
-        document.querySelector(".bannerBox").style.zoom = 1.5;
+        document.querySelector(".bannerBox").style.zoom = 1;
         document.querySelector(".hot").style.zoom = 1.5;
         document.querySelector(".big_cate").style.zoom = 1.5;
         document.querySelector(".category").style.zoom = 1.5;
@@ -825,7 +818,7 @@ div {
 .search {
   flex: 1;
   text-align: right;
-  margin-right: -500px;
+  margin-right: 150px;
 }
 
 .header .logo {
@@ -879,6 +872,7 @@ div {
   color: #0ab6f2;
   border-bottom: 2px solid #00cfff;
   background: rgb(22, 46, 89);
+  font-size: 20px;
 }
 .nav .right .right_item {
   font-size: 16px;
@@ -942,8 +936,6 @@ div {
   display: none;
 }
 .btnss {
-  flex: 1;
-  text-align: right;
 }
 .aaaaaa .active {
   background-color: #0ab6f2;
