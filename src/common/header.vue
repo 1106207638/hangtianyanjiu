@@ -744,12 +744,20 @@ export default {
       });
     },
     small() {
+      let bannersize = document.querySelectorAll(" .bannerBox p");
+      let banitem = document.querySelectorAll(".ban_item");
+
       this.issmall = true;
       this.$store.dispatch("init", false);
       this.$store.dispatch("toggleSmall", true);
       if (this.$route.name == "home") {
         document.querySelector(".header").style.zoom = 1;
-        document.querySelector(".bannerBox").style.zoom = 1;
+        for (let i = 0; i < bannersize.length; i++) {
+          bannersize[i].style.fontSize = "18px";
+        }
+        for (let i = 0; i < banitem.length; i++) {
+          banitem[i].style.fontSize = "18px";
+        }
         document.querySelector(".hot").style.zoom = 1;
         document.querySelector(".big_cate").style.zoom = 1;
         document.querySelector(".category").style.zoom = 1;
@@ -765,16 +773,24 @@ export default {
     },
     big() {
       this.issmall = false;
+      let bannersize = document.querySelectorAll(" .bannerBox p");
+      let banitem = document.querySelectorAll(".ban_item");
+
       if (this.$route.name == "home") {
-        document.querySelector(".header").style.zoom = 1;
-        document.querySelector(".bannerBox").style.zoom = 1;
+        document.querySelector(".header .head_main").style.zoom = 1;
+        for (let i = 0; i < bannersize.length; i++) {
+          bannersize[i].style.fontSize = "23px";
+        }
+        for (let i = 0; i < banitem.length; i++) {
+          banitem[i].style.fontSize = "23px";
+        }
         document.querySelector(".hot").style.zoom = 1.5;
         document.querySelector(".big_cate").style.zoom = 1.5;
         document.querySelector(".category").style.zoom = 1.5;
         document.querySelector(".big_cate").style.zoom = 1.5;
         document.querySelector(".lastBom").style.zoom = 1.5;
         document.querySelector(".classleft").style.zoom = 1.5;
-        document.querySelector(".ciYun").style.height = "526px";
+        document.querySelector(".nav").style.zoom = 1.3;
 
         // document.querySelector('header').style.zoom=1.5
       } else {
@@ -798,7 +814,6 @@ div {
 }
 
 .head_main {
-  border: 1px solid green;
   background: url("~@/assets/images/xing.png");
   background-size: auto 135px;
   padding: 0 20px;
@@ -856,16 +871,17 @@ div {
 .nav .left {
   float: left;
 }
-
+.nav .left .left_item {
+  margin-right: 30px;
+}
 .nav .left .left_item,
 .nav .right .right_item {
   display: inline-block;
   cursor: pointer;
   font-weight: 700;
   font-style: normal;
-  font-size: 16px;
+  font-size: 18px;
   color: #fbfbfb;
-  margin-right: 30px;
 }
 .nav .left .left_item.active,
 .nav .right .right_item.active {
@@ -875,7 +891,8 @@ div {
   font-size: 20px;
 }
 .nav .right .right_item {
-  font-size: 16px;
+  font-size: 18px;
+  margin-right: -5px;
 }
 
 .nav .right {

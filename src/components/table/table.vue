@@ -27,6 +27,21 @@
               <span></span>
             </li>
           </ul>
+          <el-select
+            v-model="value"
+            @change="changeStar"
+            :popper-append-to-body="false"
+            placeholder="请选择"
+            size="medium"
+          >
+            <el-option
+              v-for="(item, index) in startList"
+              :key="index"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
         </div>
         <div class="tab">
           <ul v-if="!isInOut">
@@ -49,31 +64,20 @@
               value-format="yyyy"
               type="year"
               placeholder="选择年"
+              size="medium"
             >
             </el-date-picker>
           </div>
-          <el-select
-            v-model="value"
-            @change="changeStar"
-            :popper-append-to-body="false"
-            placeholder="请选择"
-          >
-            <el-option
-              v-for="(item, index) in startList"
-              :key="index"
-              :label="item.label"
-              :value="item.value"
-            >
-            </el-option>
-          </el-select>
         </div>
 
         <el-table
           v-if="!isInOut && !ispersonnel && !isassessment"
           :data="cuttingEdgeList"
           :max-height="mheight"
-          border
+          border:false
           style="width: 100%; text-align: center !important"
+          :header-cell-style="{ color: '#CAEDFF' }"
+          :cell-style="changeCellstyle"
         >
           <el-table-column
             fixed
@@ -102,6 +106,7 @@
                 v-for="(item1, index1) in cuttingEdgeList[scope.$index][
                   item.childnode
                 ].child"
+                style="border: 1px solid green"
               >
                 <div @click="look(item1)" style="cursor: pointer">
                   {{ item1.name }}
@@ -115,7 +120,11 @@
           :data="inoutList"
           :max-height="mheight"
           border
-          style="width: 100%; text-align: center !important"
+          style="
+            width: 100%;
+            text-align: center !important ;
+            border: 5px solid blue;
+          "
         >
           <el-table-column fixed prop="month" label="月份"></el-table-column>
           <el-table-column
@@ -406,6 +415,13 @@ export default {
     console.log(document.getElementsByTagName("body")[0].style.zoom);
   },
   methods: {
+    changeCellstyle(row) {
+      if (row.column.label === "在任领导人") {
+        return " background: rgb(102,138,204,0.2);color: #CAEDFF";
+      } else {
+        return " background: rgb(0,103,198,0.2); color: #CAEDFF";
+      }
+    },
     change(val) {
       this.year = val;
       this.toggleCuttingEdge();
@@ -852,7 +868,7 @@ export default {
 .bg-box {
   width: 100%;
   background-color: #f2f2f2;
-  background: rgb(52, 87, 145);
+  background: #1e3e74;
 }
 /* @import url(); 引入css类 */
 ul,
@@ -881,34 +897,35 @@ td {
 .tabs li {
   vertical-align: bottom;
   display: inline-block;
-  height: 40px;
-  line-height: 40px;
-  font-size: 13px;
-  padding: 0 30px;
+  height: 46px;
+  line-height: 46px;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 0 20px;
   color: #fff;
   text-align: center;
-  background-color: #3b78ee;
+  background: #2f5799;
+  border-radius: 10px 0px 10px 0px;
   cursor: pointer;
-  margin-right: 5px;
-}
-.tabs li a {
-  color: initial;
-  text-decoration: none;
+  margin-right: 12px;
 }
 
 .tabs li.active {
-  background-color: #fff;
-  height: 50px;
-  padding: 0 30px;
+  padding: 0 18px;
   line-height: 50px;
   font-weight: 700;
-  font-size: 20px;
-  color: #333;
-  border-top-right-radius: 6px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffffff;
+  height: 50px;
+  background: #06789e;
+  border-radius: 10px 0px 10px 0px;
+  border: 2px solid #00cfff;
 }
 .table {
-  background-color: #fff;
+  background: url(../../assets/images/bigbg.jpg);
   padding: 20px 20px;
+  border: 1px solid #397fa3;
 }
 .tab {
   display: flex;
@@ -919,14 +936,16 @@ td {
 }
 .tab > ul li {
   display: inline-block;
-  font-size: 16px;
-  color: #999999;
+  font-size: 18px;
+  color: #eeeeee;
   cursor: pointer;
 }
 .tab > ul li.active {
-  font-size: 20px;
   font-weight: 700;
-  color: #333;
+  font-size: 20px;
+  font-family: Microsoft YaHei;
+  font-weight: bold;
+  color: #3cdaff;
 }
 .tab > ul li span {
   display: inline-block;
@@ -1015,10 +1034,18 @@ td {
 /deep/.el-table__row .el-button {
   border: none;
 }
-::v-deep .el-table tbody tr:hover > td {
+/deep/.el-table {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+/deep/.el-input__inner {
+  background-color: #2e4f82;
+  color: #fff;
+}
+/deep/.el-table th {
   background-color: transparent;
 }
-/*/deep/.el-table__body-wrapper {*/
-/*  padding-bottom: 20px;*/
-/*}*/
+/deep/.el-table tr {
+  background-color: transparent;
+}
 </style>

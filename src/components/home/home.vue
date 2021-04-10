@@ -286,7 +286,11 @@
           <div class="left cici" style="">
             <div
               class="big_cate"
-              style="border-bottom: 1px solid #1e3e74; margin-bottom: -2px"
+              style="
+                border-bottom: 1px solid #1e3e74;
+                margin-bottom: -2px;
+                margin: 0 30px;
+              "
             >
               <p
                 class="class left"
@@ -296,6 +300,7 @@
                   text-align: center;
                   width: 124px;
                   padding-left: 0;
+                  margin-left: 0;
                 "
               >
                 词云
