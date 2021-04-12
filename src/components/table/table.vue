@@ -119,7 +119,7 @@
           :data="inoutList"
           :max-height="mheight"
           border
-          style="width: 100%; text-align: center !important "
+          style="width: 100%; text-align: center !important"
           :header-cell-style="{ color: '#CAEDFF' }"
           :cell-style="changeCellstyle"
         >
@@ -1064,7 +1064,6 @@ td {
 }
 .el-table__fixed-right::before,
 .el-table__fixed::before {
-  background: red;
 }
 
 /* 表格边框颜色修改 */
