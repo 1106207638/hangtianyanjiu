@@ -106,7 +106,6 @@
                 v-for="(item1, index1) in cuttingEdgeList[scope.$index][
                   item.childnode
                 ].child"
-                style="border: 1px solid green"
               >
                 <div @click="look(item1)" style="cursor: pointer">
                   {{ item1.name }}
@@ -120,11 +119,9 @@
           :data="inoutList"
           :max-height="mheight"
           border
-          style="
-            width: 100%;
-            text-align: center !important ;
-            border: 5px solid blue;
-          "
+          style="width: 100%; text-align: center !important "
+          :header-cell-style="{ color: '#CAEDFF' }"
+          :cell-style="changeCellstyle"
         >
           <el-table-column fixed prop="month" label="月份"></el-table-column>
           <el-table-column
@@ -151,6 +148,8 @@
           :max-height="mheight"
           border
           style="width: 100%; text-align: center !important"
+          :header-cell-style="{ color: '#CAEDFF' }"
+          :cell-style="changeCellstyle"
         >
           <el-table-column
             fixed
@@ -178,6 +177,8 @@
           :max-height="mheight"
           border
           style="width: 100%; text-align: center !important"
+          :header-cell-style="{ color: '#CAEDFF' }"
+          :cell-style="changeCellstyle"
         >
           <el-table-column
             fixed
@@ -1028,6 +1029,8 @@ td {
   background: #fff;
   color: #000;
 }
+
+/* 表格背景色调整 */
 /deep/.el-table__body-wrapper {
   height: 504px;
 }
@@ -1035,7 +1038,7 @@ td {
   border: none;
 }
 /deep/.el-table {
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(0, 103, 198, 0.2);
 }
 
 /deep/.el-input__inner {
@@ -1047,5 +1050,47 @@ td {
 }
 /deep/.el-table tr {
   background-color: transparent;
+}
+
+/* 表格滚动条样式修改 */
+/deep/ .el-table__body-wrapper::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+/deep/ .el-table__body-wrapper::-webkit-scrollbar-thumb {
+  background-color: #ddd;
+  border-radius: 3px;
+}
+.el-table__fixed-right::before,
+.el-table__fixed::before {
+  background: red;
+}
+
+/* 表格边框颜色修改 */
+/deep/.el-table--border:after,
+.el-table--group:after,
+.el-table:before {
+  background-color: rgb(73, 191, 209, 0.4);
+}
+
+/deep/.el-table--border,
+.el-table--group {
+  border-color: rgb(73, 191, 209, 0.4);
+}
+
+/deep/.el-table td,
+.el-table th.is-leaf {
+  border-bottom: 1px solid rgb(73, 191, 209, 0.4);
+}
+
+/deep/.el-table--border th,
+.el-table--border th.gutter:last-of-type {
+  border-bottom: 1px solid rgb(73, 191, 209, 0.4);
+}
+
+/deep/.el-table--border td,
+.el-table--border th {
+  border-right: 1px solid rgb(73, 191, 209, 0.4);
 }
 </style>

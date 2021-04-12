@@ -1,364 +1,362 @@
 <!-- 记笔记 -->
 <template>
-  <div class="bg-box" v-loading="loading">
+  <div class="bg-box" v-loading="loading" style="border: 10px solid red">
     <div class="container">
+      <div class="left">
+        <el-button size="small" icon="el-icon-arrow-left" @click="goback"
+          >返回</el-button
+        >
+        <div
+          class="left_catalog"
+          style="width: 100%; border: 5px solid green"
+          ref="mulu"
+          v-html="cententCatalog"
+        >
+          <!-- 左侧目录展示 -->
+        </div>
+      </div>
       <!-- 主题内容 -->
-      <div class="content">
-        <!--        <div class="title">-->
-        <!--          美国 /-->
-        <!--          <span @click="goTable">{{kgInformationFile.title}} .doc</span>-->
-        <!--        </div>-->
-        <div class="main">
-          <div class="head">
-            <el-button size="small" icon="el-icon-arrow-left" @click="goback"
-              >返回</el-button
-            >
-            <span>{{ kgInformationFile.docFilename }}</span>
-          </div>
-          <div class="cont">
-            <div class="left">
-              <div class="top">
-                <!--              文档展示-->
-                <div
-                  class="catalog"
-                  v-show="
-                    cententCatalog != '' &&
-                    cententCatalog != null &&
-                    cententCatalog != undefined
+      <div class="main" style="border: 1px solid blue">
+        <div class="head" style="border: 1px solid green">
+          <!-- 返回上一页面 -->
+
+          <!-- 文章标题 -->
+          <span>{{ kgInformationFile.docFilename }}</span>
+        </div>
+        <div class="cont" style="border: 1px solid red">
+          <div class="left" style="border: 1px solid black">
+            <div class="top">
+              <!--              文档展示-->
+              <div
+                class="catalog"
+                v-show="
+                  cententCatalog != '' &&
+                  cententCatalog != null &&
+                  cententCatalog != undefined
+                "
+              ></div>
+              <div
+                class="lContent"
+                v-show="kgInformationFile.contents != null"
+                v-if="
+                  kgInformationFile.type == 'docx' ||
+                  kgInformationFile.type == 'doc' ||
+                  kgInformationFile.type == 'txt'
+                "
+              >
+                <div class="leftCatalog" v-html="contents"></div>
+              </div>
+              <div
+                class="lContent"
+                id="fatherimg"
+                v-else-if="kgInformationFile.docType == 'image'"
+                style="text-align: center; max-width: 100%"
+              >
+                <!-- 图片展示 -->
+                <img
+                  :src="kgInformationFile.docUrl"
+                  alt=""
+                  style="
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    max-width: 100%;
+                    max-height: 100%;
                   "
-                >
-                  <div
-                    class="left_catalog"
-                    style="width: 100%"
-                    ref="mulu"
-                    v-html="cententCatalog"
-                  >
-                    <!-- 左侧目录展示 -->
-                  </div>
-                </div>
+                />
+              </div>
+              <div
+                class="lContent"
+                v-else-if="kgInformationFile.source == 'wechat'"
+              >
                 <div
-                  class="lContent"
-                  v-show="kgInformationFile.contents != null"
-                  v-if="
-                    kgInformationFile.type == 'docx' ||
-                    kgInformationFile.type == 'doc' ||
-                    kgInformationFile.type == 'txt'
-                  "
-                >
-                  <div class="leftCatalog" v-html="contents"></div>
-                </div>
-                <div
-                  class="lContent"
-                  id="fatherimg"
-                  v-else-if="kgInformationFile.docType == 'image'"
-                  style="text-align: center; max-width: 100%"
-                >
-                  <!-- 图片展示 -->
-                  <img
-                    :src="kgInformationFile.docUrl"
-                    alt=""
-                    style="
-                      position: absolute;
-                      top: 50%;
-                      left: 50%;
-                      transform: translate(-50%, -50%);
-                      max-width: 100%;
-                      max-height: 100%;
-                    "
-                  />
-                </div>
-                <div
-                  class="lContent"
-                  v-else-if="kgInformationFile.source == 'wechat'"
-                >
-                  <div
-                    class="leftCatalog"
-                    v-html="contents"
-                    style="text-align: center"
-                  ></div>
-                </div>
-                <!--              pdf展示-->
-                <div
-                  class="lContent pdf"
-                  style="background: rgb(82, 86, 89)"
-                  v-else-if="
-                    kgInformationFile.docType == 'text' &&
-                    kgInformationFile.type == 'pdf'
-                  "
-                >
-                  <iframe :src="src" width="100%" height="100%"></iframe>
-                </div>
-                <!--              其他格式展示-->
-                <div class="lContent other" v-else>
-                  <div>
-                    <img src="~@/assets/images/nosee.png" alt="" />
-                    <p>该文档无法在线预览，请下载后进行查看</p>
-                  </div>
+                  class="leftCatalog"
+                  v-html="contents"
+                  style="text-align: center"
+                ></div>
+              </div>
+              <!--              pdf展示-->
+              <div
+                class="lContent pdf"
+                style="background: rgb(82, 86, 89)"
+                v-else-if="
+                  kgInformationFile.docType == 'text' &&
+                  kgInformationFile.type == 'pdf'
+                "
+              >
+                <iframe :src="src" width="100%" height="100%"></iframe>
+              </div>
+              <!--              其他格式展示-->
+              <div class="lContent other" v-else>
+                <div>
+                  <img src="~@/assets/images/nosee.png" alt="" />
+                  <p>该文档无法在线预览，请下载后进行查看</p>
                 </div>
               </div>
-              <!-- 评论 -->
             </div>
-            <div class="right">
-              <div class="detail">
-                <div class="Dtitle">文档简介</div>
-                <div class="dInfo">
-                  <div
-                    class="infoItem"
-                    v-show="
-                      kgInformationFile.publisher != '' &&
-                      kgInformationFile.publisher != null
-                    "
-                  >
-                    <div class="lable">
-                      <div>作者</div>
-                    </div>
-                    <div class="font">{{ kgInformationFile.publisher }}</div>
+            <!-- 评论 -->
+          </div>
+          <div class="right">
+            <div class="detail">
+              <div class="Dtitle">文档简介</div>
+              <div class="dInfo">
+                <div
+                  class="infoItem"
+                  v-show="
+                    kgInformationFile.publisher != '' &&
+                    kgInformationFile.publisher != null
+                  "
+                >
+                  <div class="lable">
+                    <div>作者</div>
                   </div>
-                  <div
-                    class="infoItem"
-                    v-show="
-                      kgInformationFile.publishYear != '' &&
-                      kgInformationFile.publishYear != null
-                    "
-                  >
-                    <div class="lable">
-                      <div>发表年份</div>
-                    </div>
-                    <div class="font">{{ kgInformationFile.publishYear }}</div>
-                  </div>
-                  <div
-                    class="infoItem"
-                    v-show="
-                      kgInformationFile.come != '' &&
-                      kgInformationFile.come != null
-                    "
-                  >
-                    <div class="lable">
-                      <div>情报来源</div>
-                    </div>
-                    <div class="font">{{ kgInformationFile.come }}</div>
-                  </div>
-                  <div
-                    class="infoItem"
-                    v-show="
-                      kgInformationFile.publishAddress != '' &&
-                      kgInformationFile.publishAddress != null
-                    "
-                  >
-                    <div class="lable">
-                      <div>国别</div>
-                    </div>
-                    <div class="font">
-                      {{ kgInformationFile.publishAddress }}
-                    </div>
-                  </div>
-                  <div
-                    class="infoItem"
-                    v-show="
-                      kgInformationFile.infoType != '' &&
-                      kgInformationFile.infoType != null
-                    "
-                  >
-                    <div class="lable">
-                      <div>类别</div>
-                    </div>
-                    <div class="font">{{ kgInformationFile.infoType }}</div>
-                  </div>
-                  <div
-                    class="infoItem"
-                    v-show="
-                      kgInformationFile.securityClassification != '' &&
-                      kgInformationFile.securityClassification != null
-                    "
-                  >
-                    <div class="lable">
-                      <div>密级</div>
-                    </div>
-                    <div class="font">
-                      {{ kgInformationFile.securityClassification | formDATA }}
-                    </div>
-                  </div>
-
-                  <div
-                    class="infoItem"
-                    v-show="
-                      kgInformationFile.publisher != '' &&
-                      kgInformationFile.realname != null
-                    "
-                  >
-                    <div class="lable">
-                      <div>上传用户</div>
-                    </div>
-                    <div class="font">{{ kgInformationFile.realname }}</div>
-                  </div>
-                  <div
-                    class="infoItem"
-                    v-show="
-                      kgInformationFile.createTime != '' &&
-                      kgInformationFile.createTime != null
-                    "
-                  >
-                    <div class="lable">
-                      <div>上传时间</div>
-                    </div>
-                    <div class="font">{{ kgInformationFile.createTime }}</div>
-                  </div>
-                  <div
-                    class="infoItem"
-                    v-show="
-                      kgInformationFile.docSize != '' &&
-                      kgInformationFile.docSize != null
-                    "
-                  >
-                    <div class="lable">
-                      <div>上传大小</div>
-                    </div>
-                    <div class="font">{{ kgInformationFile.docSize }}</div>
-                  </div>
-
-                  <div
-                    class="infoItem last"
-                    v-show="
-                      kgInformationFile.summary != '' &&
-                      kgInformationFile.summary != null
-                    "
-                  >
-                    <div class="lable">
-                      <div>简介</div>
-                    </div>
-                    <div class="font jianjie">
-                      {{ kgInformationFile.summary }}
-                    </div>
-                  </div>
-                  <ul>
-                    <li
-                      class="look"
-                      @click="toggleLauch"
-                      v-show="kgInformationFile.contentTranferCnKey"
-                      v-if="
-                        kgInformationFile.source == 'wechat' &&
-                        kgInformationFile.contentTranferCnKey != ''
-                      "
-                    >
-                      <div v-if="!isbig">
-                        <i class="el-icon-edit-outline"></i>
-                        <span>切换语言</span>
-                      </div>
-                      <div v-else>
-                        <i class="el-icon-edit-outline" title="切换语言"></i>
-                      </div>
-                    </li>
-                    <li
-                      class="look"
-                      v-if="
-                        kgInformationFile.contents != null &&
-                        kgInformationFile.contents != 'undefined'
-                      "
-                      @click="goBook"
-                    >
-                      <div v-if="!isbig">
-                        <i class="el-icon-edit-outline"></i>
-                        <span>记笔记</span>
-                      </div>
-                      <div v-else>
-                        <i class="el-icon-edit-outline" title="记笔记"></i>
-                      </div>
-                    </li>
-                    <li
-                      v-if="kgInformationFile.come != '微信'"
-                      @click="upload(kgInformationFile)"
-                    >
-                      <div v-if="!isbig">
-                        <i class="el-icon-download"></i>
-                        <span>下载</span>
-                      </div>
-                      <div v-else>
-                        <i class="el-icon-upload" title="下载"></i>
-                      </div>
-                    </li>
-                    <li v-else @click="prompt">
-                      <div v-if="!isbig">
-                        <i class="el-icon-download"></i>
-                        <span>下载</span>
-                      </div>
-                      <div v-else>
-                        <i class="el-icon-upload" title="下载"></i>
-                      </div>
-                    </li>
-                    <li @click="collect(kgInformationFile)">
-                      <div v-if="!isbig">
-                        <i class="el-icon-folder-add"></i>
-                        <span>收藏</span>
-                      </div>
-                      <div v-else>
-                        <i class="el-icon-folder-add" title="收藏"></i>
-                      </div>
-                    </li>
-                    <li @click="commentk">
-                      <div v-if="!isbig">
-                        <i class="el-icon-s-comment"></i>
-                        <span>评论</span>
-                      </div>
-                      <div v-else>
-                        <i class="el-icon-s-comment" title="评论"></i>
-                      </div>
-                    </li>
-                    <li @click="seting" v-if="user">
-                      <div v-if="!isbig">
-                        <i class="el-icon-s-tools"></i>
-                        <span>设置密级</span>
-                      </div>
-                      <div v-else>
-                        <i class="el-icon-s-tools" title="设置密级"></i>
-                      </div>
-                    </li>
-                  </ul>
+                  <div class="font">{{ kgInformationFile.publisher }}</div>
                 </div>
-              </div>
-              <div class="detail relation">
-                <div class="Dtitle">关联文档</div>
-                <ul v-if="kgInformationFiles.length != 0">
+                <div
+                  class="infoItem"
+                  v-show="
+                    kgInformationFile.publishYear != '' &&
+                    kgInformationFile.publishYear != null
+                  "
+                >
+                  <div class="lable">
+                    <div>发表年份</div>
+                  </div>
+                  <div class="font">{{ kgInformationFile.publishYear }}</div>
+                </div>
+                <div
+                  class="infoItem"
+                  v-show="
+                    kgInformationFile.come != '' &&
+                    kgInformationFile.come != null
+                  "
+                >
+                  <div class="lable">
+                    <div>情报来源</div>
+                  </div>
+                  <div class="font">{{ kgInformationFile.come }}</div>
+                </div>
+                <div
+                  class="infoItem"
+                  v-show="
+                    kgInformationFile.publishAddress != '' &&
+                    kgInformationFile.publishAddress != null
+                  "
+                >
+                  <div class="lable">
+                    <div>国别</div>
+                  </div>
+                  <div class="font">
+                    {{ kgInformationFile.publishAddress }}
+                  </div>
+                </div>
+                <div
+                  class="infoItem"
+                  v-show="
+                    kgInformationFile.infoType != '' &&
+                    kgInformationFile.infoType != null
+                  "
+                >
+                  <div class="lable">
+                    <div>类别</div>
+                  </div>
+                  <div class="font">{{ kgInformationFile.infoType }}</div>
+                </div>
+                <div
+                  class="infoItem"
+                  v-show="
+                    kgInformationFile.securityClassification != '' &&
+                    kgInformationFile.securityClassification != null
+                  "
+                >
+                  <div class="lable">
+                    <div>密级</div>
+                  </div>
+                  <div class="font">
+                    {{ kgInformationFile.securityClassification | formDATA }}
+                  </div>
+                </div>
+
+                <div
+                  class="infoItem"
+                  v-show="
+                    kgInformationFile.publisher != '' &&
+                    kgInformationFile.realname != null
+                  "
+                >
+                  <div class="lable">
+                    <div>上传用户</div>
+                  </div>
+                  <div class="font">{{ kgInformationFile.realname }}</div>
+                </div>
+                <div
+                  class="infoItem"
+                  v-show="
+                    kgInformationFile.createTime != '' &&
+                    kgInformationFile.createTime != null
+                  "
+                >
+                  <div class="lable">
+                    <div>上传时间</div>
+                  </div>
+                  <div class="font">{{ kgInformationFile.createTime }}</div>
+                </div>
+                <div
+                  class="infoItem"
+                  v-show="
+                    kgInformationFile.docSize != '' &&
+                    kgInformationFile.docSize != null
+                  "
+                >
+                  <div class="lable">
+                    <div>上传大小</div>
+                  </div>
+                  <div class="font">{{ kgInformationFile.docSize }}</div>
+                </div>
+
+                <div
+                  class="infoItem last"
+                  v-show="
+                    kgInformationFile.summary != '' &&
+                    kgInformationFile.summary != null
+                  "
+                >
+                  <div class="lable">
+                    <div>简介</div>
+                  </div>
+                  <div class="font jianjie">
+                    {{ kgInformationFile.summary }}
+                  </div>
+                </div>
+                <ul>
                   <li
-                    v-for="(item, index) in kgInformationFiles"
-                    :key="index"
-                    @click="toggle(item, index)"
+                    class="look"
+                    @click="toggleLauch"
+                    v-show="kgInformationFile.contentTranferCnKey"
+                    v-if="
+                      kgInformationFile.source == 'wechat' &&
+                      kgInformationFile.contentTranferCnKey != ''
+                    "
                   >
-                    <div>
-                      <img
-                        src="~@/assets/images/doc.jpg"
-                        v-if="item.docType == 'text' && item.type != 'pdf'"
-                        alt
-                      />
-                      <img
-                        src="~@/assets/images/pdf.jpg"
-                        v-if="item.docType == 'text' && item.type == 'pdf'"
-                        alt
-                      />
-                      <img
-                        src="~@/assets/images/movie.jpg"
-                        v-if="item.docType == 'video'"
-                        alt
-                      />
-                      <img
-                        src="~@/assets/images/img.jpg"
-                        v-if="item.docType == 'image'"
-                        alt
-                      />
-                      <img
-                        src="~@/assets/images/else.jpg"
-                        v-if="item.docType == 'else'"
-                        alt
-                      />
-                      <span :title="item.docFilename">{{
-                        item.docFilename
-                      }}</span>
+                    <div v-if="!isbig">
+                      <i class="el-icon-edit-outline"></i>
+                      <span>切换语言</span>
+                    </div>
+                    <div v-else>
+                      <i class="el-icon-edit-outline" title="切换语言"></i>
+                    </div>
+                  </li>
+                  <li
+                    class="look"
+                    v-if="
+                      kgInformationFile.contents != null &&
+                      kgInformationFile.contents != 'undefined'
+                    "
+                    @click="goBook"
+                  >
+                    <div v-if="!isbig">
+                      <i class="el-icon-edit-outline"></i>
+                      <span>记笔记</span>
+                    </div>
+                    <div v-else>
+                      <i class="el-icon-edit-outline" title="记笔记"></i>
+                    </div>
+                  </li>
+                  <li
+                    v-if="kgInformationFile.come != '微信'"
+                    @click="upload(kgInformationFile)"
+                  >
+                    <div v-if="!isbig">
+                      <i class="el-icon-download"></i>
+                      <span>下载</span>
+                    </div>
+                    <div v-else>
+                      <i class="el-icon-upload" title="下载"></i>
+                    </div>
+                  </li>
+                  <li v-else @click="prompt">
+                    <div v-if="!isbig">
+                      <i class="el-icon-download"></i>
+                      <span>下载</span>
+                    </div>
+                    <div v-else>
+                      <i class="el-icon-upload" title="下载"></i>
+                    </div>
+                  </li>
+                  <li @click="collect(kgInformationFile)">
+                    <div v-if="!isbig">
+                      <i class="el-icon-folder-add"></i>
+                      <span>收藏</span>
+                    </div>
+                    <div v-else>
+                      <i class="el-icon-folder-add" title="收藏"></i>
+                    </div>
+                  </li>
+                  <li @click="commentk">
+                    <div v-if="!isbig">
+                      <i class="el-icon-s-comment"></i>
+                      <span>评论</span>
+                    </div>
+                    <div v-else>
+                      <i class="el-icon-s-comment" title="评论"></i>
+                    </div>
+                  </li>
+                  <li @click="seting" v-if="user">
+                    <div v-if="!isbig">
+                      <i class="el-icon-s-tools"></i>
+                      <span>设置密级</span>
+                    </div>
+                    <div v-else>
+                      <i class="el-icon-s-tools" title="设置密级"></i>
                     </div>
                   </li>
                 </ul>
-                <div class="nullData" v-else>
-                  <img src="~@/assets/images/dataNone.png" alt="" />
-                  <p>暂无数据</p>
-                </div>
+              </div>
+            </div>
+            <div class="detail relation">
+              <div class="Dtitle">关联文档</div>
+              <ul v-if="kgInformationFiles.length != 0">
+                <li
+                  v-for="(item, index) in kgInformationFiles"
+                  :key="index"
+                  @click="toggle(item, index)"
+                >
+                  <div>
+                    <img
+                      src="~@/assets/images/doc.jpg"
+                      v-if="item.docType == 'text' && item.type != 'pdf'"
+                      alt
+                    />
+                    <img
+                      src="~@/assets/images/pdf.jpg"
+                      v-if="item.docType == 'text' && item.type == 'pdf'"
+                      alt
+                    />
+                    <img
+                      src="~@/assets/images/movie.jpg"
+                      v-if="item.docType == 'video'"
+                      alt
+                    />
+                    <img
+                      src="~@/assets/images/img.jpg"
+                      v-if="item.docType == 'image'"
+                      alt
+                    />
+                    <img
+                      src="~@/assets/images/else.jpg"
+                      v-if="item.docType == 'else'"
+                      alt
+                    />
+                    <span :title="item.docFilename">{{
+                      item.docFilename
+                    }}</span>
+                  </div>
+                </li>
+              </ul>
+              <div class="nullData" v-else>
+                <img src="~@/assets/images/dataNone.png" alt="" />
+                <p>暂无数据</p>
               </div>
             </div>
           </div>
@@ -1133,8 +1131,6 @@ export default {
 <style scoped>
 .bg-box {
   width: 100%;
-  background-color: #f2f2f2;
-  background: rgb(52, 87, 145);
 }
 /* @import url(); 引入css类 */
 .page {
@@ -1152,8 +1148,11 @@ div {
   font-style: normal;
 }
 .container {
-  margin: 0 auto;
-  padding: 20px 30px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
 }
 table {
   width: 100% !important;
@@ -1181,7 +1180,6 @@ table {
 .main {
   box-sizing: border-box;
   background-color: #fff;
-  padding: 36px;
   height: 100%;
   width: 100%;
 }
