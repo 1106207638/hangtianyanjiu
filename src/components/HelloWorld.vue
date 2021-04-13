@@ -1,100 +1,110 @@
 <template>
   <div class="hello">
-    <div class="headers">
-      <div>
-        <el-button size="small" icon="el-icon-arrow-left" @click="goback"
+    <div class="left">
+      <div class="heads">
+        <el-button
+          size="mini"
+          icon="el-icon-arrow-left"
+          @click="goback"
+          style="
+            border: 1px solid #ffffff;
+            border-radius: 2px;
+            margin: 19px 0 19px 46px;
+            background: #002140;
+            color: #fff;
+          "
           >返回</el-button
         >
       </div>
-      <span>{{ wechar.title }}</span>
-      <div>
-        <el-button
-          type="success"
-          icon="el-icon-star-off"
-          title="收藏"
-          @click="collect"
-          circle
-          v-show="!star"
-        ></el-button>
-        <el-button
-          type="danger"
-          icon="el-icon-star-off"
-          circle
-          title="取消收藏"
-          @click="cancelC"
-          v-show="!star"
-        ></el-button>
-      </div>
-    </div>
-    <div class="main_container">
-      <div
-        class="left"
-        id="left"
-        v-if="type"
-        style="height: 100%; overflow: scroll"
-      >
+      <div class="catalog" id="left" v-if="type" style="overflow: auto">
         <div
           class="left_catalog"
           style="width: 100%"
           v-html="catalogList"
         ></div>
       </div>
-      <div style="height: 100%; overflow: scroll" id="left_content">
-        <!-- docx -->
-        <div v-if="type">
-          <div v-html="html" ref="html"></div>
-        </div>
-        <div v-if="!type" style="max-width: 677px; margin: 0 auto">
-          <h2
-            class="title"
-            style="
-              font-size: 22px;
-              line-height: 1.4;
-              margin-bottom: 14px;
-              font-weight: 400;
-            "
-          >
-            {{ wechar.title }}
-          </h2>
-          <div>
-            <span
-              style="
-                color: rgba(0, 0, 0, 0.3);
-                margin: 0 10px 10px 0;
-                font-size: 15px;
-                -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-              "
-              >{{ wechar.author }}</span
-            >
-            <span
-              style="margin: 0 10px 10px 0; font-size: 15px; color: #576b95"
-            >
-              来源： {{ kgInformationFile.data.result.publisher }} ;
-              {{ kgInformationFile.data.result.createTime }}
-            </span>
-            <span
-              style="
-                color: rgba(0, 0, 0, 0.3);
-                margin: 0 10px 10px 0;
-                font-size: 15px;
-                -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-              "
-              >{{ wechar.date | dateformat("YYYY年MM月DD日") }}</span
-            >
-            <div v-html="html" ref="htmls" id="contents"></div>
+    </div>
+    <div class="main">
+      <div class="heads">
+        <span class="main_title">{{ wechar.title }}</span>
+        <div
+          style="
+            display: inline-block;
+            position: absolute;
+            height: 100%;
+            top: 0;
+            right: 10px;
+          "
+        >
+          <div class="favorite" v-if="!star" @click="collect">
+            <img src="../assets/images/shoucang.png" alt="" />
+            <span>收藏</span>
           </div>
-
-          <!-- <iframe src="http://192.168.1.222:8080/conversion/wordToHtml/1301710369047318501" id="test_iframe" frameborder="0" width="100%" height="100%"></iframe> -->
-        </div>
-        <div class="add" :style="posi" v-show="isAdd">
-          <button @click="enableNiteWriterPen()">笔记</button>
+          <div @click="cancelC" v-else-if="star">
+            <img src="../assets/images/noshoucang.png" alt="" />
+            <span>取消收藏</span>
+          </div>
         </div>
       </div>
-      <!-- 右侧列表 -->
-      <div class="right" id="right">
-        <div class="footer">
-          <h2>书签列表</h2>
+      <div class="main_content">
+        <div style="height: clac(100vh-64px); overflow: auto" id="main_content">
+          <!-- docx -->
+          <div v-if="type">
+            <div v-html="html" ref="html"></div>
+          </div>
+          <div v-if="!type" style="max-width: 677px; margin: 0 auto">
+            <h2
+              class="title"
+              style="
+                font-size: 22px;
+                line-height: 1.4;
+                margin-bottom: 14px;
+                font-weight: 400;
+                color: #fff;
+              "
+            >
+              {{ wechar.title }}
+            </h2>
+            <div>
+              <span
+                style="
+                  color: #fff;
+                  margin: 0 10px 10px 0;
+                  font-size: 15px;
+                  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+                "
+                >{{ wechar.author }}</span
+              >
+              <span style="margin: 0 10px 10px 0; font-size: 15px; color: #fff">
+                来源： {{ kgInformationFile.data.result.publisher }} ;
+                {{ kgInformationFile.data.result.createTime }}
+              </span>
+              <span
+                style="
+                  color: #fff;
+                  margin: 0 10px 10px 0;
+                  font-size: 15px;
+                  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+                "
+                >{{ wechar.date | dateformat("YYYY年MM月DD日") }}</span
+              >
+              <div v-html="html" ref="htmls" id="contents"></div>
+            </div>
+          </div>
+          <div class="add" :style="posi" v-show="isAdd">
+            <button @click="enableNiteWriterPen()">笔记</button>
+          </div>
         </div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="heads">
+        <h2 style="color: #fff; font-size: 18px; line-height: 64px">
+          | 书签列表
+        </h2>
+      </div>
+      <!-- 右侧列表 -->
+      <div class="right_main" id="right">
         <span class="none" v-if="pointList.length == 0">请添加书签</span>
         <ul>
           <li
@@ -110,26 +120,27 @@
               <i
                 class="el-icon-delete"
                 @click.stop="del(item.id, index, item)"
-                style="color: rgb(254, 108, 111)"
+                style="color: #67707c"
               ></i>
               <i
                 class="el-icon-edit"
                 @click.stop="
                   open(item.id, index, item.bookmarkName, item.kgLabels, item)
                 "
-                style="color: #3594ff"
+                style="color: #00cfff"
               ></i>
             </div>
-            <p class="content threedian">
-              <i class="el-icon-reading"></i><span class="lable">原文：</span>
+            <p class="content threedian" style="margin-top: 30px">
+              <i class="el-icon-reading" style="width: 19px; height: 17px"></i
+              ><span class="lable">原文：</span>
               {{ item.bookmarkValue }}
             </p>
-            <p class="content note">
+            <p class="content note" style="margin-top: 22px">
               <i class="el-icon-edit-outline"></i
               ><span class="lable">笔记：</span>
               {{ item.bookmarkName }}
             </p>
-            <p class="content note tag">
+            <p class="content note tag" style="margin-top: 22px">
               <i class="el-icon-collection-tag"></i
               ><span class="lable">标签：</span>
               <span class="tag_box">
@@ -143,6 +154,7 @@
       </div>
     </div>
 
+    <!-- 记笔记页面 -->
     <div
       v-show="show"
       style="
@@ -417,7 +429,7 @@ export default {
           val != "undefined"
         ) {
           this.$nextTick(() => {
-            var aList = document.querySelectorAll("#left_content a");
+            var aList = document.querySelectorAll("#main_content a");
             for (var i = 0; i < aList.length; i++) {
               // console.log(aList[i]);
               var href = aList[i].getAttribute("href");
@@ -556,7 +568,7 @@ export default {
     this.getUserFlag();
     // 获取笔记文件夹
     // 获取选中的文本的位置信息并显示操作面板
-    document.getElementById("left_content").onmouseup = function (e) {
+    document.getElementById("main_content").onmouseup = function (e) {
       var objss = window.getSelection();
       var elements = objss.anchorNode.parentElement.localName;
       var content = window.getSelection().toString();
@@ -572,7 +584,7 @@ export default {
 
           //  中间区域的坐标信息
           var center = document
-            .getElementById("left_content")
+            .getElementById("main_content")
             .getBoundingClientRect();
           that.isAdd = true;
           that.posi = {
@@ -582,8 +594,8 @@ export default {
         }
       }
     };
-    document.getElementById("left_content").onscroll = function (e) {
-      that.scrollTop = document.getElementById("left_content").scrollTop || 0;
+    document.getElementById("main_content").onscroll = function (e) {
+      that.scrollTop = document.getElementById("main_content").scrollTop || 0;
     };
     // 监听鼠标点击右侧的区域，并把操作面板隐藏
     document.getElementById("right").addEventListener("click", function () {
@@ -762,7 +774,7 @@ export default {
           delNote({
             id: item.id,
             fileid: item.textid,
-            textContentKey: document.getElementById("left_content").innerHTML,
+            textContentKey: document.getElementById("main_content").innerHTML,
           }).then((res) => {
             var { data } = res;
             if (data.code == 200) {
@@ -1048,7 +1060,7 @@ export default {
 
           setTimeout(function () {
             // var imgs = document
-            //   .getElementById("left_content")
+            //   .getElementById("main_content")
             //   .querySelectorAll("img");
             // for (var i = 0; i < imgs.length; i++) {
             //   var strArr = imgs[i].getAttribute("data-src")
@@ -1178,79 +1190,216 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-html,
-body {
-  height: 100vh;
-  overflow: hidden;
+h2 {
+  padding: 0;
+  margin: 0;
+  text-indent: 0;
 }
 a {
   cursor: pointer !important;
 }
-.main_container {
-  display: flex;
-  width: 100%;
-  padding-top: 50px;
-}
-#left_content {
-  flex: 1;
-}
-.left {
-  width: 20%;
-  min-width: 300px;
-  text-align: center;
-}
-.left li {
-  display: block;
-  padding: 10px 0;
-  text-align: left;
-}
-.left li a {
-  font-weight: bold;
-  font-size: 16px;
-  text-decoration: none;
-  color: #333;
-}
 .hello {
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   width: 100%;
-  height: 100vh;
-  background: #fff;
+  background: #001529;
 }
-#left_content {
+.heads {
+  max-height: 64px;
+  min-height: 64px;
+}
+.left {
+  max-width: 359px;
+  min-width: 359px;
+}
+.left .heads {
+  background: #002140;
+}
+.left_catalog {
+  max-width: 286px;
+  overflow: auto;
+}
+::-webkit-scrollbar {
+  width: 0px;
+  height: 5px;
+  background-color: #f5f5f5;
+}
+/*定义滚动条轨道
+ 内阴影+圆角*/
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 3px #001529;
+  background-color: #001529;
+}
+/*定义滑块
+ 内阴影+圆角*/
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+}
+/deep/.left_catalog p {
+  white-space: nowrap;
+}
+.un,
+.un:link,
+.un:visited,
+.un:hover,
+.un:active {
+  text-decoration: none;
+  color: inherit;
+}
+
+/deep/.left_catalog a {
+  font-size: 16px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #ffffff;
+  line-height: 38px;
+  font-weight: bold;
+  text-decoration: none;
+}
+/deep/.left_catalog p {
+  white-space: nowrap;
+}
+/deep/.left_catalog a {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+  margin: 20px 46px;
+}
+/deep/.left_catalog span {
+  color: #fff;
+}
+.left_catalog {
+  margin-left: 20px;
+  height: 90vh;
+}
+.main {
+  background: #022343;
+  flex: 1;
+  overflow: hidden;
+}
+.main .heads {
+  background: #00305f;
+  text-align: center;
   position: relative;
-  box-shadow: 0 0 20px #999;
-  padding: 0 50px;
-  overflow-y: scroll;
+}
+.main .heads span {
+  color: #fff;
+}
+.main_content {
+}
+#main_content {
+  position: relative;
+  padding: 0 30px;
+  overflow: auto;
+  height: calc(100vh - 65px);
+}
+.main_title {
+  font-size: 18px;
+  font-family: Microsoft YaHei;
+  font-weight: bold;
+  line-height: 64px;
+  display: inline;
+}
+.favorite {
+  height: 100%;
+  line-height: 64px;
+  margin-right: 30px;
+  cursor: pointer;
+}
+.favorite img {
+  width: 25px;
+  height: 25px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+.favorite span {
+  font-size: 16px;
+  font-family: Adobe Heiti Std;
+  font-weight: normal;
+  vertical-align: middle;
 }
 .right {
   text-align: center;
-  height: 100%;
-  min-width: 284px;
-  max-width: 284px;
-  overflow: hidden;
+  max-width: 381px;
+  min-width: 381px;
 }
-.top {
-  position: fixed;
-  box-sizing: border-box;
-  width: 60%;
-  text-align: right;
-  padding: 20px;
-  top: 0;
-  left: 20%;
+.right .right_main {
+  height: calc(100vh - 64px);
+  overflow: auto;
 }
-.top div {
-  background: #fff;
-  display: inline;
+.right .heads {
+  padding-left: 30px;
+  background: #002140;
 }
-.top div a {
-  margin-left: 20px;
+.right li {
+  margin-top: 30px;
+  width: 324px;
+  height: 192px;
+  padding: 26px 14px 28px 22px;
 }
-h3 {
-  margin: 40px 0 0;
+.right li:hover {
+  outline: 1px solid #0f3961;
+}
+.right li.active {
+  background: #092d4f;
+}
+.right .head {
+  text-align: left;
+  color: #a0a0a0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.right .head i {
+  float: right;
+  font-size: 18px;
+  margin-left: 10px;
 }
 
+.right .content {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #a0a0a0;
+  text-align: left;
+}
+.right .content.tag {
+  display: flex;
+}
+.right .tag .tag_box {
+  flex: 1;
+}
+.right .date {
+  font-size: 16px;
+  font-family: Adobe Heiti Std;
+  font-weight: normal;
+  color: #ffffff;
+}
+.right .content i {
+  color: #ffffff;
+  margin-right: 5px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.right .content {
+  font-size: 16px;
+}
+.right .content .lable {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #fff;
+}
+.right .none {
+  display: inline-block;
+  text-align: center;
+  font-size: 16px;
+  font-family: Adobe Heiti Std;
+  font-weight: bold;
+  color: #ffffff;
+  margin-top: 30px;
+}
 ul {
   list-style-type: none;
   padding: 0;
@@ -1261,9 +1410,6 @@ li {
   margin: 0 10px;
 }
 
-a {
-  color: #42b983;
-}
 /* 询问框 */
 .ask {
   position: fixed;
@@ -1317,94 +1463,26 @@ a {
   margin-bottom: 20px;
 }
 
-.success {
-  color: #fff;
-  background-color: #409eff;
-  border-color: #409eff;
-}
 .cancel {
   color: #fff;
   background-color: #dd6161;
   border-color: #dd6161;
 }
-.right {
-  position: relative;
-}
 
-.right .footer h2 {
-  text-align: center;
-}
-.right li {
-  display: block;
-  cursor: pointer;
-  margin-top: 10px;
-  padding: 10px 10px;
-}
-.right .head {
-  text-align: left;
-  color: #999;
-  font-size: 14px;
-  line-height: 1.5;
-}
-.right .head i {
-  float: right;
-  font-size: 18px;
-  margin-left: 10px;
-}
-.right ul {
-  overflow-y: scroll;
-  height: calc(100vh - 112px);
-  box-sizing: border-box;
-  padding-bottom: 20px;
-}
-.right li:hover {
-  outline: 1px solid #c4daf3;
-  box-shadow: 0px 3px 6px rgba(53, 148, 255, 0.3);
-}
-.right li.active {
-  background: #fff;
-  outline: 1px solid #3594ff;
-  box-shadow: 0px 3px 6px rgba(53, 148, 255, 0.3);
-}
-.right .content {
-  font-size: 14px;
-  line-height: 1.5;
-  color: #999;
-  text-align: left;
-}
-.right .content.tag {
-  display: flex;
-}
-.right .tag .tag_box {
-  flex: 1;
-}
-.el-tag {
-  height: 20px;
-  line-height: 20px;
-  margin-right: 10px;
+/deep/.right .el-tag {
+  height: 26px;
+  line-height: 26px;
+  margin-right: 20px;
   margin-bottom: 5px;
+  background: #001529;
+  border: 1px solid #00cfff;
+  border-radius: 4px;
+  font-size: 16px;
+  font-family: Adobe Heiti Std;
+  font-weight: normal;
+  color: #00cfff;
 }
 
-.right .content i {
-  color: #999;
-  margin-right: 5px;
-  font-size: 14px;
-  line-height: 1.5;
-}
-.right .content .lable {
-  font-size: 14px;
-  line-height: 1.5;
-  color: #666;
-}
-.right .none {
-  display: inline-block;
-  text-align: center;
-  font-size: 12px;
-  color: #666;
-}
-::-webkit-scrollbar {
-  display: none;
-}
 /* 添加书签区域 */
 .add {
   position: absolute;
@@ -1423,8 +1501,8 @@ a {
   text-align: center;
   font-size: 14px;
   color: #fff;
-  background-color: #545454;
-  border: none;
+  background-color: #001529;
+  border: 1px solid #fff;
   outline: none;
   border-radius: 4px;
 }
@@ -1437,7 +1515,7 @@ a {
   width: 0;
   height: 0;
   border: 8px solid transparent;
-  border-top-color: #545454;
+  border-top-color: #fff;
 }
 /deep/.el-form-item__label {
   float: left;
@@ -1463,52 +1541,24 @@ a {
   margin-right: 20px;
 }
 /* 头部 */
-.headers {
-  box-sizing: border-box;
-  position: fixed;
-  width: 100%;
-  height: 50px;
-  line-height: 50px;
-  top: 0;
-  left: 0;
-  background-color: #fff;
-  display: flex;
-  padding: 0 20px;
-  border-bottom: 2px solid #3474d9;
-  z-index: 999;
-}
-.headers span {
-  padding: 0 20px;
-  width: 80%;
-  font-size: 20px;
-  font-weight: bold;
-}
 /deep/.el-button.is-circle {
   padding: 7px;
 }
-.dioge .ask {
-  border-radius: 2px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-}
+
 .leftCatalog {
   width: 100%;
 }
-/deep/.left_catalog p {
-  white-space: nowrap;
-}
-/deep/.left_catalog a {
-  color: #000;
-  font-weight: bold;
-}
-/deep/#left_content a,
-/deep/#left_content a:link,
+
+/deep/#main_content a,
+/deep/#main_content span,
+/deep/#main_content p,
+/deep/#main_content a:link,
 /deep/span.MsoHyperlink {
-  color: #333 !important;
+  color: #fff !important;
   text-decoration: none !important;
 }
 .threedian {
   display: -webkit-box;
-  overflow: hidden;
   text-overflow: ellipsis;
   word-wrap: break-word;
   white-space: normal !important;

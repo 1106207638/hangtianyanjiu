@@ -9,6 +9,7 @@
           kgInformationFile.type == 'doc' ||
           kgInformationFile.type == 'txt'
         "
+        style="hright: 100vh"
       >
         <el-button
           size="small"
@@ -33,11 +34,12 @@
           "
           ref="mulu"
           v-html="cententCatalog"
+          style="height: 70vh"
         >
           <!-- 左侧目录展示 -->
         </div>
       </div>
-      <div class="main" style="background: #022343">
+      <div class="main" style="background: #022343; height: 100vh">
         <div class="head" style="height: 64px; background: #00305f">
           <el-button
             size="small"
@@ -62,7 +64,7 @@
           <!-- 文章标题 -->
           <span>{{ kgInformationFile.docFilename }}</span>
         </div>
-        <div class="cont">
+        <div class="cont" style="overflow: auto">
           <div class="top">
             <!--              文档展示-->
             <div
@@ -362,27 +364,27 @@
             >
               <div class="Associate_img">
                 <img
-                  src="~@/assets/images/doc.jpg"
+                  src="~@/assets/images/doc.png"
                   v-if="item.docType == 'text' && item.type != 'pdf'"
                   alt
                 />
                 <img
-                  src="~@/assets/images/pdf.jpg"
+                  src="~@/assets/images/pdf.png"
                   v-if="item.docType == 'text' && item.type == 'pdf'"
                   alt
                 />
                 <img
-                  src="~@/assets/images/movie.jpg"
+                  src="~@/assets/images/movie.png"
                   v-if="item.docType == 'video'"
                   alt
                 />
                 <img
-                  src="~@/assets/images/img.jpg"
+                  src="~@/assets/images/img.png"
                   v-if="item.docType == 'image'"
                   alt
                 />
                 <img
-                  src="~@/assets/images/else.jpg"
+                  src="~@/assets/images/else.png"
                   v-if="item.docType == 'else'"
                   alt
                 />
@@ -532,7 +534,13 @@ export default {
             var fatherBox = document.querySelector(".left_catalog");
             var str = "";
             // for (var i = 0; i < pList.length; i++) {
-            //   str += pList[i].innerHTML + "<hr />";
+            //   str +=
+            //     "<p class='" +
+            //     pList[i].className +
+            //     "' >" +
+            //     pList[i].innerHTML +
+            //     "<hr />" +
+            //     "</p>";
             // }
             // console.log(str);
             // fatherBox.innerHTML = str;
@@ -1192,6 +1200,7 @@ li {
   margin: 0;
   padding: 0;
 }
+
 div {
   font-family: "Arial Normal", "Arial", sans-serif;
   font-weight: 400;
@@ -1215,10 +1224,12 @@ table {
 .main {
   box-sizing: border-box;
   flex: 1;
-  width: 1180px;
+  min-width: 750px;
+  position: relative;
 }
 .cont {
   padding: 0 45px;
+  height: calc(100vh - 64px);
 }
 .main .head {
   display: flex;
@@ -1378,15 +1389,16 @@ table {
 }
 .left {
   background: #001529;
-  width: 370px;
+  max-width: 370px;
 }
 .left_catalog {
   max-width: 286px;
-  margin-left: 46px;
+  padding-left: 26px;
+  margin-right: 20px;
   overflow: auto;
 }
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 0px;
   height: 5px;
   background-color: #f5f5f5;
 }
@@ -1404,10 +1416,11 @@ table {
   background-color: #fff;
 }
 .right {
-  width: 370px;
+  max-width: 370px;
   box-sizing: border-box;
-  overflow: scroll;
+  overflow: auto;
   background: #001529;
+  height: 100vh;
 }
 .rightt .username {
   font-size: 20px;
@@ -1473,6 +1486,8 @@ table {
 /*目录*/
 .leftCatalog {
   width: 100%;
+  height: calc(100vh - 64px);
+  position: relative;
 }
 /deep/.left_catalog p {
   white-space: nowrap;
