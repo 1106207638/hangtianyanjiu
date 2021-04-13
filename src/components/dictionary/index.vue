@@ -1,233 +1,198 @@
 <!-- 数据字典 -->
 <template>
-  <div class="page">
-    <!--    <Headers />-->
-    <div class="containerr">
-      <div class="container">
-        <header>
-          <span>词典查询服务</span>
-          <!--          <div class="btns">-->
-          <!--            <el-button>-->
-          <!--              <i class="el-icon-refresh"></i>-->
-          <!--              刷新-->
-          <!--            </el-button>-->
-          <!--            <el-button @click="goBack">-->
-          <!--              <i class="el-icon-arrow-left"></i>-->
-          <!--              返回-->
-          <!--            </el-button>-->
-          <!--          </div>-->
-        </header>
-        <el-tabs
-          type="card"
-          :tab-position="tabPosition"
-          v-model="activeName"
-          @tab-click="handleClick"
-        >
-          <el-tab-pane name="first">
-            <span slot="label">中文首字母</span>
-            <!-- 筛选 -->
-            <div class="screen">
-              <el-row>
-                <el-col :span="4">
-                  <el-form :model="numberValidateForm" ref="numberValidateForm">
-                    <el-form-item prop="search">
-                      <div style="display: flex">
-                        <el-input
-                          v-model="searchVal"
-                          placeholder="请输入查询词条"
-                        ></el-input>
-                        <el-button
-                          style="display: inline-block; margin-left: 5px"
-                          type="primary"
-                          @click="submitForm"
-                          >搜索</el-button
-                        >
-                      </div>
-                    </el-form-item>
-                  </el-form>
-                </el-col>
-                <el-col :span="18" style="padding: 0 10px">
-                  <!--                  <el-button-->
-                  <!--                      type="primary"-->
-                  <!--                      class="margin-left:20px"-->
-                  <!--                      @click="submitForm"-->
-                  <!--                  >-->
-                  <!--                    <i class="el-icon-search"></i>-->
-                  <!--                    查询-->
-                  <!--                  </el-button>-->
-                  <!--                  <el-button @click="resetForm('numberValidateForm')">-->
-                  <!--                    <i class="el-icon-refresh-right"></i>-->
-                  <!--                    重置-->
-                  <!--                  </el-button>-->
-                </el-col>
-              </el-row>
-            </div>
+  <!--    <Headers />-->
+  <div class="containerr">
+    <div class="container">
+      <el-tabs
+        type="card"
+        :tab-position="tabPosition"
+        v-model="activeName"
+        @tab-click="handleClick"
+      >
+        <el-tab-pane name="first">
+          <span slot="label">中文首字母</span>
+          <!-- 筛选 -->
+          <div class="screen">
+            <el-row>
+              <el-col :span="4">
+                <el-form :model="numberValidateForm" ref="numberValidateForm">
+                  <el-form-item prop="search">
+                    <div style="display: flex">
+                      <el-input
+                        v-model="searchVal"
+                        placeholder="请输入查询词条"
+                      ></el-input>
+                      <el-button
+                        style="
+                          display: inline-block;
+                          margin-left: 5px;
+                          background: #00cfff;
+                        "
+                        type="primary"
+                        icon="el-icon-search"
+                        @click="submitForm"
+                        >搜索</el-button
+                      >
+                    </div>
+                  </el-form-item>
+                </el-form>
+              </el-col>
+            </el-row>
+          </div>
 
-            <div class="dictionaryBox">
-              <div class="leftBox">
-                <el-tree
-                  v-show="!isearch"
-                  :accordion="true"
-                  :highlight-current="true"
-                  :props="props"
-                  :load="loadNode"
-                  @node-click="nodeClick"
-                  ref="tree"
-                  lazy
-                >
-                </el-tree>
-                {{ isSearch }}
-                <div v-show="isearch">
-                  <div v-show="dictionaryList.length == 0">暂无数据</div>
-                  <div v-show="dictionaryList.length != 0">
+          <div class="dictionaryBox">
+            <div class="leftBox">
+              <el-tree
+                v-show="!isearch"
+                :accordion="true"
+                :highlight-current="true"
+                :props="props"
+                :load="loadNode"
+                @node-click="nodeClick"
+                ref="tree"
+                lazy
+              >
+              </el-tree>
+              {{ isSearch }}
+              <div v-show="isearch">
+                <div v-show="dictionaryList.length == 0">暂无数据</div>
+                <div v-show="dictionaryList.length != 0">
+                  <div
+                    :class="
+                      item.dictName == activeNames
+                        ? 'class_item active'
+                        : 'class_item '
+                    "
+                    v-for="(item, index) in dictionaryList"
+                    :key="index"
+                    @click="snodeClick(item)"
+                    style=""
+                  >
+                    {{ item.dictName }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="rightBox">
+              <div class="checkOut">
+                <div class="cHead">
+                  <p v-if="lableObj.dictName != '' && lableObj.dictName">
+                    {{ lableObj.dictName }}
+                  </p>
+                </div>
+                <div class="cContent">
+                  <div v-for="(item, index) in lableObj.sign" :key="index">
                     <div
-                      :class="
-                        item.dictName == activeNames
-                          ? 'class_item active'
-                          : 'class_item '
+                      v-show="
+                        lableObj['dictAnnotation' + (index + 1)] != '' &&
+                        lableObj['dictSource' + (index + 1)] != '' &&
+                        lableObj['dictAnnotation' + (index + 1)] &&
+                        lableObj['dictSource' + (index + 1)]
                       "
-                      v-for="(item, index) in dictionaryList"
-                      :key="index"
-                      @click="snodeClick(item)"
                     >
-                      {{ item.dictName }}
+                      <p v-text="lableObj['dictAnnotation' + (index + 1)]"></p>
+                      <p style="text-align: right">
+                        ——来源：{{ lableObj["dictSource" + (index + 1)] }}
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="rightBox">
-                <div class="checkOut">
-                  <div class="cHead">
-                    <p v-if="lableObj.dictName != '' && lableObj.dictName">
-                      {{ lableObj.dictName }}
-                    </p>
-                  </div>
-                  <div class="cContent">
-                    <div v-for="(item, index) in lableObj.sign" :key="index">
-                      <div
-                        v-show="
-                          lableObj['dictAnnotation' + (index + 1)] != '' &&
-                          lableObj['dictSource' + (index + 1)] != '' &&
-                          lableObj['dictAnnotation' + (index + 1)] &&
-                          lableObj['dictSource' + (index + 1)]
+            </div>
+          </div>
+          <!-- 检索所有的词 -->
+          <!-- 当前选中 -->
+        </el-tab-pane>
+        <el-tab-pane label="军语" name="second">
+          <!-- 筛选 -->
+          <div class="screen">
+            <el-row>
+              <el-col :span="4">
+                <el-form :model="numberValidateForm" ref="numberValidateForm">
+                  <el-form-item prop="search">
+                    <div style="display: flex">
+                      <el-input
+                        v-model="searchVal"
+                        placeholder="请输入查询词条"
+                      ></el-input>
+                      <el-button
+                        style="
+                          display: inline-block;
+                          margin-left: 5px;
+                          background: #00cfff;
                         "
+                        type="primary"
+                        icon="el-icon-search"
+                        @click="submitForm"
+                        >搜索</el-button
                       >
-                        <p
-                          v-text="lableObj['dictAnnotation' + (index + 1)]"
-                        ></p>
-                        <p style="text-align: right">
-                          ——来源：{{ lableObj["dictSource" + (index + 1)] }}
-                        </p>
-                      </div>
                     </div>
+                  </el-form-item>
+                </el-form>
+              </el-col>
+              <el-col :span="18" style="padding: 0 10px"> </el-col>
+            </el-row>
+          </div>
+          <div class="dictionaryBox">
+            <div class="leftBox">
+              <el-tree
+                v-show="!isearch"
+                :accordion="true"
+                :highlight-current="true"
+                :props="props1"
+                :load="loadNode1"
+                @node-click="nodeClick1"
+                ref="trees"
+                lazy
+              >
+              </el-tree>
+              <div v-show="isearch">
+                <div v-show="dictionaryList.length == 0">暂无数据</div>
+                <div v-show="dictionaryList.length != 0">
+                  <div
+                    :class="
+                      item.dictName == activeNames
+                        ? 'class_item active'
+                        : 'class_item'
+                    "
+                    v-for="(item, index) in dictionaryList"
+                    :key="index"
+                    @click="snodeClick(item)"
+                  >
+                    {{ item.dictName }}
                   </div>
                 </div>
               </div>
             </div>
-            <!-- 检索所有的词 -->
-            <!-- 当前选中 -->
-          </el-tab-pane>
-          <el-tab-pane label="军语" name="second">
-            <!-- 筛选 -->
-            <div class="screen">
-              <el-row>
-                <el-col :span="4">
-                  <el-form :model="numberValidateForm" ref="numberValidateForm">
-                    <el-form-item prop="search">
-                      <div style="display: flex">
-                        <el-input
-                          v-model="searchVal"
-                          placeholder="请输入查询词条"
-                        ></el-input>
-                        <el-button
-                          style="display: inline-block; margin-left: 5px"
-                          type="primary"
-                          @click="submitForm"
-                          >搜索</el-button
-                        >
-                      </div>
-                    </el-form-item>
-                  </el-form>
-                </el-col>
-                <el-col :span="18" style="padding: 0 10px">
-                  <!--                  <el-button-->
-                  <!--                      type="primary"-->
-                  <!--                      class="margin-left:20px"-->
-                  <!--                      @click="submitForm()"-->
-                  <!--                  >-->
-                  <!--                    <i class="el-icon-search"></i>-->
-                  <!--                    查询-->
-                  <!--                  </el-button>-->
-                  <!--                  <el-button @click="resetForm('numberValidateForm')">-->
-                  <!--                    <i class="el-icon-refresh-right"></i>-->
-                  <!--                    重置-->
-                  <!--                  </el-button>-->
-                </el-col>
-              </el-row>
-            </div>
-            <div class="dictionaryBox">
-              <div class="leftBox">
-                <el-tree
-                  v-show="!isearch"
-                  :accordion="true"
-                  :highlight-current="true"
-                  :props="props1"
-                  :load="loadNode1"
-                  @node-click="nodeClick1"
-                  ref="trees"
-                  lazy
-                >
-                </el-tree>
-                <div v-show="isearch">
-                  <div v-show="dictionaryList.length == 0">暂无数据</div>
-                  <div v-show="dictionaryList.length != 0">
+            <div class="rightBox">
+              <div class="checkOut">
+                <div class="cHead">
+                  <p v-if="lableObj.dictName != ''">
+                    {{ lableObj.dictName }}
+                  </p>
+                </div>
+                <div class="cContent">
+                  <div v-for="(item, index) in lableObj.sign" :key="index">
                     <div
-                      :class="
-                        item.dictName == activeNames
-                          ? 'class_item active'
-                          : 'class_item'
+                      v-show="
+                        lableObj['dictAnnotation' + (index + 1)] != '' &&
+                        lableObj['dictSource' + (index + 1)] != '' &&
+                        lableObj['dictAnnotation' + (index + 1)] &&
+                        lableObj['dictSource' + (index + 1)]
                       "
-                      v-for="(item, index) in dictionaryList"
-                      :key="index"
-                      @click="snodeClick(item)"
                     >
-                      {{ item.dictName }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="rightBox">
-                <div class="checkOut">
-                  <div class="cHead">
-                    <p v-if="lableObj.dictName != ''">
-                      {{ lableObj.dictName }}
-                    </p>
-                  </div>
-                  <div class="cContent">
-                    <div v-for="(item, index) in lableObj.sign" :key="index">
-                      <div
-                        v-show="
-                          lableObj['dictAnnotation' + (index + 1)] != '' &&
-                          lableObj['dictSource' + (index + 1)] != '' &&
-                          lableObj['dictAnnotation' + (index + 1)] &&
-                          lableObj['dictSource' + (index + 1)]
-                        "
-                      >
-                        <p
-                          v-text="lableObj['dictAnnotation' + (index + 1)]"
-                        ></p>
-                        <p style="text-align: right">
-                          ——来源：{{ lableObj["dictSource" + (index + 1)] }}
-                        </p>
-                      </div>
+                      <p v-text="lableObj['dictAnnotation' + (index + 1)]"></p>
+                      <p style="text-align: right">
+                        ——来源：{{ lableObj["dictSource" + (index + 1)] }}
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </el-tab-pane>
-        </el-tabs>
-      </div>
+          </div>
+        </el-tab-pane>
+      </el-tabs>
     </div>
   </div>
 </template>
@@ -765,130 +730,43 @@ export default {
 div {
   box-sizing: border-box;
 }
-.page {
-  box-sizing: border-box;
-  font-family: "微软雅黑 Bold", "微软雅黑 Regular", "微软雅黑", sans-serif;
-  background: rgb(52, 87, 145);
-}
+
 .containerr {
   padding: 20px 30px;
   padding-top: 28px;
+  box-sizing: border-box;
+  font-family: "微软雅黑 Bold", "微软雅黑 Regular", "微软雅黑", sans-serif;
+  background: #1e3e74;
 }
 /* 头部区域 */
-header {
-  position: relative;
-  height: 60px;
-  line-height: 60px;
-  border-bottom: 1px solid rgba(233, 233, 233, 1);
-}
 /deep/.el-tabs__nav {
-  background: #fff;
+  background: #2f5799;
 }
-header::before {
-  content: "";
-  clear: both;
-  position: absolute;
-  width: 4px;
-  height: 18px;
-  background-color: rgba(0, 121, 254, 1);
-  top: 50%;
-  margin-top: -9px;
-  left: 0;
+/deep/.is-active {
+  background: #06789e;
+  color: #fff;
 }
-header > span {
-  display: inline-block;
-  margin-left: 10px;
-  font-weight: 700;
-  font-style: normal;
-  font-size: 16px;
-  color: #999999;
+/deep/.is-top {
 }
-header .btns {
-  float: right;
-  display: inline-block;
+/deep/.el-tabs__item {
+  color: #fff;
 }
 .container {
   width: 100%;
   padding: 20px 30px;
-  background: #fff;
+  background: #0f325e;
+  border: 1px solid #3cdaff;
 }
-.screen {
-}
-.all {
-  background: #fff;
-  margin-top: 20px;
-  height: 280px;
-  width: 100%;
-  border: 1px solid rgba(233, 233, 233, 1);
-  padding: 0 30px;
-}
-.allHead {
-  margin-top: 10px;
-  height: 40px;
-  display: flex;
-  border-bottom: 1px solid rgba(233, 233, 233, 1);
-}
-.allHead .item {
-  cursor: pointer;
-  height: 30px;
-  line-height: 30px;
-  flex: 1;
-  font-size: 14px;
-  color: #999999;
-  text-align: center;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.allHead .item.active {
-  background-color: rgb(0, 121, 254);
-  color: #fff;
-  border-radius: 50%;
-}
-.allContent {
-  height: 195px;
-  margin-top: 20px;
-  overflow-y: scroll;
-}
-.allContent::-webkit-scrollbar {
-  width: 8px;
-  background-color: #f5f7f8;
-}
-.allContent::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: #cdcdcd;
-  -webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.3);
-}
-.allContent span {
-  cursor: pointer;
-  width: 80%;
-  height: 30px;
-  line-height: 30px;
-  padding-left: 5px;
-  border-radius: 5px;
-  display: inline-block;
-  margin-top: 10px;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 14px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.allContent span.active {
-  background-color: rgba(0, 121, 254, 1);
-  color: #fff;
-}
+
 .checkOut {
-  background: #fff;
+  background: rgb(0, 103, 198, 0.2);
   height: 600px;
   padding: 0 30px;
-  border: 1px solid rgba(233, 233, 233, 1);
-  overflow-y: scroll;
+  overflow: auto;
 }
 .checkOut .cHead {
   height: 70px;
-  border-bottom: 1px solid rgba(233, 233, 233, 1);
+  border-bottom: 1px solid #0f325e;
 }
 .checkOut .cHead p {
   margin: 0;
@@ -899,13 +777,27 @@ header .btns {
   font-style: normal;
   font-size: 28px;
   color: #ffffff;
-  background-color: rgba(0, 121, 254, 1);
   border-radius: 10px;
 }
 .checkOut .cContent {
   font-size: 16px;
   margin-top: 20px;
-  color: #333;
+  color: #fff;
+}
+/deep/.el-tree--highlight-current {
+  background: transparent;
+}
+/deep/.el-tree-node__content:hover {
+  background: #23426c;
+}
+/deep/
+  .el-tree--highlight-current
+  .el-tree-node.is-current
+  > .el-tree-node__content {
+  background: #436a9d;
+}
+/deep/.el-tree {
+  color: #fff;
 }
 .el-tabs {
   margin-top: 20px;
@@ -919,14 +811,15 @@ header .btns {
   height: calc(100vh - 350px);
   overflow: hidden;
   overflow-y: scroll;
+  background: rgb(102, 138, 204, 0.2);
 }
 .leftBox::-webkit-scrollbar {
-  width: 8px;
-  background-color: #f5f7f8;
+  width: 6px;
+  background-color: #436a9d;
 }
 .leftBox::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background-color: #cdcdcd;
+  background-color: #fff;
   -webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.3);
 }
 .rightBox {
