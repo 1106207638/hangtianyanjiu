@@ -21,6 +21,8 @@
                       <el-input
                         v-model="searchVal"
                         placeholder="请输入查询词条"
+                        size="medium "
+                        style="width: 550px"
                       ></el-input>
                       <el-button
                         style="
@@ -750,6 +752,9 @@ div {
 }
 /deep/.el-tabs__item {
   color: #fff;
+}
+/deep/input {
+  width: 400px;
 }
 .container {
   width: 100%;

@@ -4,36 +4,35 @@
     <!--    <Headers />-->
     <div class="containerr">
       <div class="container">
-        <header>
-          <span>航天新闻</span>
-          <div class="btns">
-            <el-button @click="goBack" v-if="!isDetail">
-              <i class="el-icon-arrow-left"></i>
-              返回
-            </el-button>
-          </div>
-        </header>
-        <div class="news_content" v-if="isDetail">
+        <header v-if="isDetail">
           <div>
             <el-input
-              style="width: 200px"
+              style="width: 400px"
               v-model="input"
               placeholder="请输入检索关键字"
-            ></el-input>
-            <el-button
-              style="margin-left: 10px"
-              type="primary"
-              icon="el-icon-search"
-              @click="search"
-              >搜索</el-button
             >
-            <el-button
-              type="primary"
-              icon="el-icon-refresh-right"
-              @click="refrech"
-              >重置</el-button
-            >
+            </el-input>
+            <el-button-group>
+              <el-button
+                style="margin-left: 10px; background: #00cfff"
+                type="primary"
+                size="medium"
+                icon="el-icon-search"
+                @click="search"
+                >搜索</el-button
+              >
+              <el-button
+                type="primary"
+                icon="el-icon-refresh-right"
+                style="background: #00add5"
+                size="medium"
+                @click="refrech"
+                >重置</el-button
+              >
+            </el-button-group>
           </div>
+        </header>
+        <div class="news_content" v-if="isDetail" style="margin-top: 20px">
           <div class="news_main">
             <div
               class="newsItem"
@@ -44,8 +43,10 @@
               <img :src="item.cover" alt="" />
               <div>
                 <p>{{ item.title }}</p>
-                <p style="height: 40px">{{ item.digest }}</p>
-                <p>
+                <p style="height: 40px">
+                  {{ item.digest }}
+                </p>
+                <p style="color: #7296c0">
                   <span>发布时间：</span
                   ><span style="margin-right: 10px">{{ item.createTime }}</span>
                   <span>发布人：</span><span>{{ item.author }}</span>
@@ -65,19 +66,90 @@
             </el-pagination>
           </div>
         </div>
-        <div class="news_content" v-if="!isDetail">
-          <div class="message_Hbox">
-            <span class="title">{{ newsObj.title }}</span>
-            <span class="date"
-              ><span style="margin-right: 30px; color: #999"
-                >发表时间：{{ newsObj.createTime }}</span
-              >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #999"
-                >作者：{{ newsObj.author }}</span
-              ></span
-            >
+        <div
+          class="news_content"
+          v-if="!isDetail"
+          style="display: flex; justify-content: space-between"
+        >
+          <div style="flex: 1">
+            <header class="message_Hbox">
+              <div class="btns">
+                <el-button
+                  @click="goBack"
+                  style="
+                    background: #0f325e;
+                    color: #ffffff;
+                    border: 1px solid #fff;
+                  "
+                >
+                  <i class="el-icon-arrow-left"></i>
+                  返回
+                </el-button>
+              </div>
+
+              <span class="title">{{ newsObj.title }}</span>
+              <span class="date"
+                ><span style="margin-right: 30px; color: #999"
+                  >发表时间：{{ newsObj.createTime }}</span
+                >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #999"
+                  >作者：{{ newsObj.author }}</span
+                ></span
+              >
+            </header>
+            <div class="message_content">
+              <span class="content" v-html="newsObj.content"></span>
+            </div>
           </div>
-          <div class="message_content">
-            <span class="content" v-html="newsObj.content"></span>
+          <div style="width: 400px; padding-left: 24px">
+            <div
+              class="new_news"
+              style="
+                height: 120px;
+                border-bottom: 1px solid #2f5799;
+                position: relative;
+              "
+            >
+              <div style="position: absolute; bottom: 20px">
+                <div style="border-left: 3px solid #00add5; height: 26px">
+                  <div
+                    style="
+                      font-size: 22px;
+                      font-family: Adobe Heiti Std;
+                      font-weight: bold;
+                      color: #ffffff;
+                      margin-left: 10px;
+                    "
+                  >
+                    最新新闻
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="newsItem"
+              @click="detail1(item)"
+              v-for="(item, index) in newsList"
+              :key="index"
+              style="padding: 26px 0; min-height: 0"
+            >
+              <img :src="item.cover" alt="" />
+              <div style="display: grid">
+                <p style="font-size: 14px">{{ item.title }}</p>
+                <p
+                  style="
+                    color: #7296c0;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-end;
+                  "
+                >
+                  <span style="display: block"
+                    >发布时间：{{ item.createTime }}</span
+                  >
+                  <span>发布人：{{ item.author }}</span>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -87,8 +159,9 @@
 
 <script>
 import { GetNewsList } from "../../api/api";
+import Header from "../../common/header.vue";
 export default {
-  components: {},
+  components: { Header },
   data() {
     return {
       input: "",
@@ -168,6 +241,9 @@ export default {
       this.isDetail = !this.isDetail;
       this.newsObj = item;
     },
+    detail1(item) {
+      this.newsObj = item;
+    },
     goBack() {
       this.isDetail = !this.isDetail;
     },
@@ -185,62 +261,62 @@ div {
 .page {
   box-sizing: border-box;
   font-family: "微软雅黑 Bold", "微软雅黑 Regular", "微软雅黑", sans-serif;
-  background: rgb(52, 87, 145);
+  background: #1e3e74;
+  word-wrap: break-word;
 }
 .containerr {
-  padding: 20px 30px;
-  padding-top: 28px;
+  padding: 10px 47px;
 }
 /deep/.containerr img {
   max-width: 100%;
+}
+/deep/.el-pager li {
+  background: #001529;
+  border-top: 1px solid #3cdaff;
+  border-bottom: 1px solid #3cdaff;
+}
+/deep/.el-pagination button {
+  background: #001529;
+  border: 1px solid #3cdaff;
+}
+/deep/.el-pagination span {
+  color: #fff;
+}
+/deep/.el-pagination input {
+  background: #001529;
+  border: 1px solid #3cdaff;
+  color: #fff;
 }
 /* 头部区域 */
 header {
   position: relative;
   height: 60px;
   line-height: 60px;
-  border-bottom: 1px solid rgba(233, 233, 233, 1);
 }
 
-header::before {
-  content: "";
-  clear: both;
-  position: absolute;
-  width: 4px;
-  height: 18px;
-  background-color: rgba(0, 121, 254, 1);
-  top: 50%;
-  margin-top: -9px;
-  left: 0;
-}
 .news_main {
-  margin-top: 20px;
+  margin-top: 28px;
 }
-header > span {
-  display: inline-block;
-  margin-left: 10px;
-  font-weight: 700;
-  font-style: normal;
-  font-size: 16px;
-  color: #999999;
-}
-header .btns {
-  float: right;
-  display: inline-block;
+.btns {
+  background: #0f325e;
+  position: absolute;
 }
 .container {
   width: 100%;
-  padding: 20px 30px;
-  background: #fff;
+  padding: 28px;
+  background: #0f325e;
+  border: 1px solid #3cdaff;
 }
-.news_content {
-  margin-top: 20px;
-}
+
 .newsItem {
   cursor: pointer;
   display: flex;
-  padding: 5px 0px;
-  border-bottom: 1px solid #ccc;
+  padding: 26px 24px;
+  min-height: 171px;
+  border-bottom: 1px solid #2f5799;
+}
+.newsItem:hover {
+  background: #183d6d;
 }
 .newsItem img {
   width: 150px;
@@ -258,7 +334,7 @@ header .btns {
   font-weight: 700;
   font-style: normal;
   font-size: 15px;
-  color: #000;
+  color: #fff;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -267,7 +343,8 @@ header .btns {
   margin-top: 10px;
   font-style: normal;
   font-size: 14px;
-  color: #000;
+
+  color: #7296c0;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -284,18 +361,18 @@ p {
   height: 120px;
   line-height: 60px;
   text-align: center;
-  border-bottom: 1px solid rgba(233, 233, 233, 1);
+  border-bottom: 1px solid #2f5799;
 }
 .message_Hbox .title {
   display: block;
   font-weight: 700;
   font-size: 20px;
-  color: #333333;
+  color: #fff;
 }
 .message_Hbox .date {
   display: block;
   font-size: 14px;
-  color: #333;
+  color: #fff;
 }
 .message_content {
   min-height: 500px;
@@ -316,7 +393,14 @@ p {
   font-style: normal;
   line-height: 28px;
   font-size: 13px;
-  color: #333;
+  color: #fff;
+}
+.content {
+  margin-top: 20px;
+}
+/deep/.content p {
+  background-color: #0f325e !important;
+  color: #fff !important;
 }
 .block {
   text-align: right;

@@ -40,7 +40,7 @@
             <img src="../assets/images/shoucang.png" alt="" />
             <span>收藏</span>
           </div>
-          <div @click="cancelC" v-else-if="star">
+          <div class="favorite" @click="cancelC" v-else-if="star">
             <img src="../assets/images/noshoucang.png" alt="" />
             <span>取消收藏</span>
           </div>
@@ -127,7 +127,7 @@
                 @click.stop="
                   open(item.id, index, item.bookmarkName, item.kgLabels, item)
                 "
-                style="color: #00cfff"
+                style="color: #67707c"
               ></i>
             </div>
             <p class="content threedian" style="margin-top: 30px">
@@ -561,6 +561,18 @@ export default {
     },
   },
   mounted() {
+    $("body").on(
+      "click",
+      ".left_catalog p.MsoToc1,.left_catalog p.MsoToc2,.left_catalog p.MsoToc3",
+      function () {
+        $(
+          ".left_catalog p.MsoToc1,.left_catalog p.MsoToc2,.left_catalog p.MsoToc3"
+        ).css({ background: "none" });
+        $(this).css({ background: "#2F3A44" });
+      }
+    );
+    //目录点击改变背景色
+
     this.getUserFloderList();
     this.getHign();
     var that = this;
@@ -704,6 +716,7 @@ export default {
       cancelCollection({
         bookCollecTionId: this.id,
       }).then((res) => {
+        console.log(res);
         var { data } = res;
         if (data.code == 200) {
           this.$message({
@@ -1191,6 +1204,9 @@ export default {
 </script>
 
 <style scoped>
+/deep/button:hover {
+  background: #00305f !important;
+}
 h2 {
   padding: 0;
   margin: 0;
@@ -1399,6 +1415,9 @@ a {
   font-weight: bold;
   color: #ffffff;
   margin-top: 30px;
+}
+/deep/.right .head i:hover {
+  color: #00cfff !important;
 }
 ul {
   list-style-type: none;

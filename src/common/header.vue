@@ -192,13 +192,6 @@
           <i class="el-icon-phone-outline"></i>
           需求反馈
         </div>
-        <div
-          :class="activeNav == 'Message' ? 'right_item active' : 'right_item'"
-          @click="message"
-        >
-          <i class="el-icon-bell"></i>
-          信息推送
-        </div>
 
         <div
           class="right_item"
@@ -285,6 +278,7 @@
               退出登录
             </li>
             <li class="el-dropdown-menu__item" @click="goUser">个人中心</li>
+            <li class="el-dropdown-menu__item" @click="message">信息推送</li>
             <div
               x-arrow=""
               class="popper__arrow"

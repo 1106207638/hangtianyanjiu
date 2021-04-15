@@ -12,6 +12,7 @@
         style="hright: 100vh"
       >
         <el-button
+          class="hoverbutton"
           size="small"
           icon="el-icon-arrow-left"
           @click="goback"
@@ -514,6 +515,7 @@ import CollDialog from "../../common/dialog/collectionFolder";
 import tree from "../ewTree";
 import pdf from "vue-pdf";
 import axios from "axios";
+import $ from "jquery";
 export default {
   beforeRouteUpdate(to, form, next) {
     next();
@@ -771,6 +773,16 @@ export default {
       .querySelector(".el-drawer__header span")
       .removeAttribute("tabindex");
     this.getMijiList();
+    $("body").on(
+      "click",
+      ".container p.MsoToc1,.container p.MsoToc2,.container p.MsoToc3",
+      function () {
+        $(
+          ".container p.MsoToc1,.container p.MsoToc2,.container p.MsoToc3"
+        ).css({ background: "none" });
+        $(this).css({ background: "#2F3A44" });
+      }
+    );
   },
   methods: {
     insertAfter(newElement, targetElement) {
@@ -1187,6 +1199,9 @@ export default {
 };
 </script>
 <style scoped>
+/deep/button:hover {
+  background: #00305f !important;
+}
 .bg-box {
   width: 100%;
 }
@@ -1282,6 +1297,9 @@ table {
   font-size: 16px;
   font-weight: normal;
   cursor: pointer;
+}
+.features ul li:hover {
+  color: #00cfff;
 }
 .detail {
   min-height: 360px;
