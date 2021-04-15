@@ -512,8 +512,18 @@ export default {
     this.getActiveList();
     var that = this;
     if (this.$store.state.changeShow) {
-      document.querySelector(".header").style.zoom = 1.5;
-      document.querySelector(".bannerBox").style.zoom = 1.5;
+      let bannersize = document.querySelectorAll(" .bannerBox p");
+      let banitem = document.querySelectorAll(".ban_item");
+
+      document.querySelector(".header .head_main").style.zoom = 1;
+      for (let i = 0; i < bannersize.length; i++) {
+        bannersize[i].style.fontSize = "23px";
+      }
+      for (let i = 0; i < banitem.length; i++) {
+        banitem[i].style.fontSize = "23px";
+      }
+
+      document.querySelector(".header").style.zoom = 1;
       document.querySelector(".hot").style.zoom = 1.5;
       document.querySelector(".big_cate").style.zoom = 1.5;
       document.querySelector(".category").style.zoom = 1.5;

@@ -4,6 +4,7 @@
   <div class="containerr">
     <div class="container">
       <el-tabs
+        style="border: 1px solid red"
         type="card"
         :tab-position="tabPosition"
         v-model="activeName"
@@ -116,11 +117,13 @@
                       <el-input
                         v-model="searchVal"
                         placeholder="请输入查询词条"
+                        size="medium "
+                        style="width: 550px"
                       ></el-input>
                       <el-button
                         style="
                           display: inline-block;
-                          margin-left: 5px;
+                          margin-left: 155px;
                           background: #00cfff;
                         "
                         type="primary"

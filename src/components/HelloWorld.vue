@@ -36,13 +36,18 @@
             right: 10px;
           "
         >
-          <div class="favorite" v-if="!star" @click="collect">
+          <div
+            class="favorite"
+            style="cursor: pointer"
+            v-if="!star"
+            @click="collect"
+          >
             <img src="../assets/images/shoucang.png" alt="" />
             <span>收藏</span>
           </div>
-          <div class="favorite" @click="cancelC" v-else-if="star">
+          <div class="favorite" v-else-if="star">
             <img src="../assets/images/noshoucang.png" alt="" />
-            <span>取消收藏</span>
+            <span>已收藏</span>
           </div>
         </div>
       </div>
@@ -620,7 +625,7 @@ export default {
     document.addEventListener("click", (e) => {
       if (that.name == "" || that.name == undefined) {
       } else {
-        console.log(that.name);
+        // console.log(that.name);
         var eles = document.querySelectorAll(`a[point=${that.name}]`);
         for (var i = 0; i < eles.length; i++) {
           eles[i].style.background = "none";
@@ -643,7 +648,7 @@ export default {
     getUserFloderList() {
       geteFloder({}).then((res) => {
         var { data } = res;
-        console.log({ data });
+        // console.log({ data });
         if (data.code == 200) {
           for (var i = 0; i < data.result.records.length; i++) {
             data.result.records[i].parentId = 9999999;
@@ -712,20 +717,36 @@ export default {
       this.getUserFlag();
     },
     // 取消收藏
-    cancelC() {
-      cancelCollection({
-        bookCollecTionId: this.id,
-      }).then((res) => {
-        console.log(res);
-        var { data } = res;
-        if (data.code == 200) {
-          this.$message({
-            type: "success",
-            message: "取消收藏成功",
+    cancelC(obj) {
+      this.$confirm("此操作将删除该收藏, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          cancelCollection({
+            folerid: this.$route.query.id,
+            kgdocid: this.$route.query.id,
+          }).then((res) => {
+            var { data } = res;
+            console.log(data);
+            if (data.code == 200) {
+              this.$message({
+                type: "success",
+                message: "取消收藏成功",
+              });
+              this.getCollFloderList();
+            } else {
+              this.$message.error(data.message);
+            }
           });
-          this.star = !this.star;
-        }
-      });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除",
+          });
+        });
     },
     // 收藏确认
     collectYes() {
@@ -737,6 +758,7 @@ export default {
           folderId: this.valueId,
         }).then((res) => {
           var { data } = res;
+          // console.log(data);
           // console.log(data);
           if (data.code == 200) {
             this.$message({
@@ -750,6 +772,7 @@ export default {
               type: "info",
               message: data.message,
             });
+            // console.log(data);
           }
         });
       }
@@ -1040,9 +1063,9 @@ export default {
       GetlistUrl({
         textid: this.id,
       }).then((res) => {
-        this.kgInformationFile = res;
-
         var { data } = res;
+        this.star = data.result.whetherTheCollection;
+        this.kgInformationFile = data;
         if (data.code == 200) {
           // 有笔记的情况下
           if (data.result.kgSaveTheBookmarks) {
@@ -1228,7 +1251,6 @@ a {
 }
 .left {
   max-width: 359px;
-  min-width: 359px;
 }
 .left .heads {
   background: #002140;
@@ -1296,6 +1318,7 @@ a {
   background: #022343;
   flex: 1;
   overflow: hidden;
+  width: 100%;
 }
 .main .heads {
   background: #00305f;
@@ -1324,7 +1347,6 @@ a {
   height: 100%;
   line-height: 64px;
   margin-right: 30px;
-  cursor: pointer;
 }
 .favorite img {
   width: 25px;
@@ -1341,7 +1363,6 @@ a {
 .right {
   text-align: center;
   max-width: 381px;
-  min-width: 381px;
 }
 .right .right_main {
   height: calc(100vh - 64px);
@@ -1353,7 +1374,8 @@ a {
 }
 .right li {
   margin-top: 30px;
-  width: 324px;
+  max-width: 324px;
+  min-width: 200px;
   height: 192px;
   padding: 26px 14px 28px 22px;
 }
@@ -1565,7 +1587,6 @@ li {
 }
 
 .leftCatalog {
-  width: 100%;
 }
 
 /deep/#main_content a,
