@@ -9,7 +9,6 @@
           kgInformationFile.type == 'doc' ||
           kgInformationFile.type == 'txt'
         "
-        style="hright: 100vh"
       >
         <el-button
           class="hoverbutton"
@@ -40,7 +39,7 @@
           <!-- 左侧目录展示 -->
         </div>
       </div>
-      <div class="main" style="background: #022343; height: 100vh">
+      <div class="main" style="background: #022343">
         <div class="head" style="height: 64px; background: #00305f">
           <el-button
             size="small"
@@ -1241,10 +1240,11 @@ table {
   flex: 1;
   min-width: 750px;
   position: relative;
+  height: calc(100vh - 195px);
 }
 .cont {
   padding: 0 45px;
-  height: calc(100vh - 64px);
+  height: calc(100vh - 64px - 195px);
 }
 .main .head {
   display: flex;
@@ -1408,6 +1408,7 @@ table {
 .left {
   background: #001529;
   max-width: 370px;
+  height: calc(100vh - 195px);
 }
 .left_catalog {
   max-width: 286px;
@@ -1438,7 +1439,7 @@ table {
   box-sizing: border-box;
   overflow: auto;
   background: #001529;
-  height: 100vh;
+  height: calc(100vh - 195px);
 }
 .rightt .username {
   font-size: 20px;

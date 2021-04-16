@@ -1349,7 +1349,6 @@ a {
   margin-right: 30px;
 }
 .favorite img {
-  width: 25px;
   height: 25px;
   margin-right: 5px;
   vertical-align: middle;
