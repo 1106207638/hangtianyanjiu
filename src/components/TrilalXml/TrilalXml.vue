@@ -9,6 +9,7 @@
           kgInformationFile.type == 'doc' ||
           kgInformationFile.type == 'txt'
         "
+        id="left_main"
       >
         <el-button
           class="hoverbutton"
@@ -39,7 +40,7 @@
           <!-- 左侧目录展示 -->
         </div>
       </div>
-      <div class="main" style="background: #022343">
+      <div class="main" style="background: #022343" id="main_main">
         <div class="head" style="height: 64px; background: #00305f">
           <el-button
             size="small"
@@ -135,7 +136,7 @@
           </div>
         </div>
       </div>
-      <div class="right" style="max-width: 370px">
+      <div class="right" style="max-width: 370px" id="right_main">
         <div class="features">
           <ul style="display: flex">
             <li
@@ -437,7 +438,7 @@
             style="overflow: auto"
           >
             <li v-for="(item, index) in commentList" :key="index">
-              <div class="head" style="border: 10px solid red">
+              <div class="head">
                 <img src="~@/assets/images/user.png" alt="" />
                 <div class="rightt">
                   <div style="display: flex">
@@ -521,6 +522,25 @@ export default {
     // this.isNum()
   },
   watch: {
+    isbig: {
+      handler: function () {
+        let left = document.querySelector(".left_catalog");
+        console.log(this.isbig);
+        this.$nextTick(function () {
+          if (this.isbig === true) {
+            console.log(left.innerHTML);
+            left.style.height = "50vh";
+            console.log("变大了");
+          } else {
+            console.log("变小了");
+            left.style.height = "70vh";
+          }
+        });
+      },
+      deep: true,
+      immediate: true,
+    },
+
     cententCatalog: {
       handler: function (val, oldval) {
         if (
@@ -531,20 +551,6 @@ export default {
         ) {
           this.$nextTick(() => {
             var aList = document.querySelectorAll("a");
-            var pList = document.querySelectorAll(".left_catalog p");
-            var fatherBox = document.querySelector(".left_catalog");
-            var str = "";
-            // for (var i = 0; i < pList.length; i++) {
-            //   str +=
-            //     "<p class='" +
-            //     pList[i].className +
-            //     "' >" +
-            //     pList[i].innerHTML +
-            //     "<hr />" +
-            //     "</p>";
-            // }
-            // console.log(str);
-            // fatherBox.innerHTML = str;
             for (var i = 0; i < aList.length; i++) {
               var href = aList[i].getAttribute("href");
               aList[i].setAttribute("href", "javascript:void();");
@@ -676,6 +682,7 @@ export default {
       this.isbig = this.$store.state.changeShow;
       return this.$store.state.changeShow;
     },
+
     /* 转树形数据 */
     optionData() {
       let cloneData = JSON.parse(JSON.stringify(this.treeList)); // 对源数据深度克隆
@@ -782,8 +789,43 @@ export default {
         $(this).css({ background: "#2F3A44" });
       }
     );
+
+    // if (this.$store.state.changeShow) {
+    //   let bannersize = document.querySelectorAll(" .bannerBox p");
+    //   let banitem = document.querySelectorAll(".ban_item");
+
+    //   document.querySelector(".header .head_main").style.zoom = 1;
+    //   for (let i = 0; i < bannersize.length; i++) {
+    //     bannersize[i].style.fontSize = "23px";
+    //   }
+    //   for (let i = 0; i < banitem.length; i++) {
+    //     banitem[i].style.fontSize = "23px";
+    //   }
+
+    //   document.querySelector("#left_main").style.zoom = 10.1;
+    //   document.querySelector("#main_main").style.zoom = 10.1;
+    //   document.querySelector("#right_main").style.zoom = 10.1;
+    // } else {
+    //   console.log("1111");
+    //   document.querySelector("#left_main").style.zoom = 0.1;
+    //   document.querySelector("#main_main").style.zoom = 0.1;
+    //   document.querySelector("#right_main").style.zoom = 0.1;
+    // }
   },
   methods: {
+    istag() {
+      console.log("this.isbig");
+
+      if (this.isbig === true) {
+        console.log(left.innerHTML);
+        left.style.height = "50vh";
+        console.log("变大了");
+      } else {
+        console.log("变小了");
+        left.style.height = "70vh";
+      }
+    },
+
     insertAfter(newElement, targetElement) {
       // newElement是要追加的元素 targetElement 是指定元素的位置
       var parent = targetElement.parentNode; // 找到指定元素的父节点
@@ -1150,9 +1192,7 @@ export default {
             obj.come = "微信";
           }
           this.kgInformationFile = obj;
-          console.log(obj.contents);
           this.contents = obj.contents;
-          console.log(obj.contents);
           this.cententCatalog = obj.cententCatalog;
           var obj1 = data.result.kgInformationFiles;
           for (var i = 0; i < obj1.length; i++) {
@@ -1176,7 +1216,6 @@ export default {
     },
     //   点击记笔记跳转到详情页
     goBook() {
-      console.log(this.kgInformationFile);
       if (window.localStorage.getItem("token")) {
         // console.log(this.kgInformationFile);
         if (this.kgInformationFile.source == "upload") {
@@ -1407,9 +1446,11 @@ table {
 }
 .left {
   background: #001529;
-  max-width: 370px;
+  width: 370px;
   height: calc(100vh - 195px);
+  overflow: auto;
 }
+
 .left_catalog {
   max-width: 286px;
   padding-left: 26px;

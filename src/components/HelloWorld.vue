@@ -249,7 +249,7 @@
 import Range from "../assets/js/Range";
 import SelectTree from "../common/dialog/select";
 import tree from "./ewTree";
-import { getAccessToDirectory, getWordToHtml } from "../api/api";
+import { getWordToHtml } from "../api/api";
 import $ from "jquery";
 
 import {
@@ -550,7 +550,13 @@ export default {
       deep: true, //对象内部的属性监听，也叫深度监听
     },
   },
-  created() {},
+  created() {
+    if (this.$store.state.changeShow) {
+      document.getElementsByTagName("body")[0].style.zoom = 1;
+    } else {
+      console.log("不存在");
+    }
+  },
   computed: {
     /* 转树形数据 */
     optionData() {
@@ -1221,6 +1227,9 @@ export default {
     },
     goback() {
       this.$router.go(-1);
+      if (this.$store.state.changeShow) {
+        document.getElementsByTagName("body")[0].style.zoom = 1.5;
+      }
     },
   },
 };

@@ -4,7 +4,6 @@
   <div class="containerr">
     <div class="container">
       <el-tabs
-        style="border: 1px solid red"
         type="card"
         :tab-position="tabPosition"
         v-model="activeName"

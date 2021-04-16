@@ -245,7 +245,7 @@
           >
             <ul>
               <li v-for="(item, index) in collList" :key="index">
-                <div class="name" style="border: 1px solid red">
+                <div class="name">
                   {{ item.folderName }}
                 </div>
                 <div class="bInfo">
