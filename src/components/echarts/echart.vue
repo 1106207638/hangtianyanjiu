@@ -2,14 +2,15 @@
 <template>
   <div class="page">
     <div class="view" v-if="echartIndex==1||echartIndex==2||echartIndex==4">
-      <div class="one" v-if="echartIndex==1">
-        <div class="contentBox">
-          <div class="tabs">
-            <div class="container">
-              <div class="content">
+      <div class="one"  v-if="echartIndex==1">
+        <div class="contentBox" >
+          <div class="tabs" >
+            <div class="container" >
+              <div class="content" >
                 <div v-for="(item,index) in equipmentList" :key="index"
                      :class="launch==item.value?'tabItem active':'tabItem'"
-                     @click="toggleLauch(item.value,item.children,item.name)">{{ item.name }}
+                     @click="toggleLauch(item.value,item.children,item.name)"  >{{ item.name }}
+                     
                 </div>
                 <el-upload
                     v-if="isEditc=='true'"
@@ -849,7 +850,7 @@
           <el-button type="primary" @click="dialogResult=false">确 定</el-button>
         </div>
       </el-dialog>
-    </div>
+    
 
   </div>
 </template>
@@ -4455,7 +4456,6 @@ export default {
 </script>
 <style scoped>
 .page {
-  background-color: #f2f2f2;
 }
 
 /* @import url(); 引入css类 */
@@ -4469,6 +4469,9 @@ export default {
   padding: 0 20px;
   margin: 0 auto;
   overflow: hidden;
+  border: 1px solid red;
+  display: flex;
+  align-items: flex-end;
 }
 
 div {
@@ -4488,7 +4491,11 @@ ul {
 }
 
 .tabs .tabItem.active {
-  background-color: #3b78ee;
+  background-color: #06789e;
+  width: 131px;
+  height: 57px;
+  border: 1px solid #3cdaff;
+  color: #fefefe;
 }
 
 .two .content {
@@ -4502,10 +4509,12 @@ ul {
   margin-right: 5px;
   text-align: center;
   cursor: pointer;
-  color: #fff;
+
+  color: #98c0f0;
   font-size: 30px;
   display: inline-block;
-  background-color: #08516a;
+  background: #2f5799;
+  border-radius: 6px 6px 0px 0px;
   z-index: 999;
 }
 
@@ -4699,7 +4708,7 @@ table tr td {
   color: #fff;
   font-size: 32px;
   display: inline-block;
-  background-color: #08516a;
+  background-color: red;
 }
 
 .toggleCate {

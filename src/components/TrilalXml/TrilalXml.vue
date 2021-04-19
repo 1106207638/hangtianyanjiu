@@ -525,7 +525,6 @@ export default {
     isbig: {
       handler: function () {
         let left = document.querySelector(".left_catalog");
-        console.log(this.isbig);
         this.$nextTick(function () {
           if (this.isbig === true) {
             console.log(left.innerHTML);
@@ -588,6 +587,13 @@ export default {
                   }
                 }
               };
+            }
+            let left = document.querySelector(".left_catalog");
+
+            if (this.isbig === true) {
+              left.style.height = "50vh";
+            } else {
+              left.style.height = "70vh";
             }
           });
         }
