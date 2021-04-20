@@ -25,9 +25,10 @@
                     :on-success="success"
                     :on-error="errors"
                 >
-                  <div class="tabItem" @click="EquipmentImport" v-if="isEditc=='true'" style="float: right">导入</div>
+                  <div class="tabItem" @click="EquipmentImport" v-if="isEditc=='true'" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;">导入</div>
                 </el-upload>
-                <div class="tabItem" style="float: right" @click="uploadTemplate" v-if="isEditc=='true'">下载模板</div>
+                <div class="tabItem" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="uploadTemplate" v-if="isEditc=='true'">下载模板</div>
+                <!-- <div  class="tabItem"  style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;">新增</div> -->
 
               </div>
             </div>
@@ -39,6 +40,7 @@
                      :class="sendIndex==index?'tabItem active':'tabItem'" @click="toggleSend(item,index)">
                   {{ item }}
                 </div>
+                <div class="tabItem" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="tableEdit()">新增与修改</div>
               </div>
             </div>
           </div>
@@ -67,8 +69,8 @@
                         </viewer>
                       </td>
                       <td v-if="isEditc=='true'">
-                        <el-button  type="primary" @click="tableEdit(item)">编辑</el-button>
-                        <el-button  type="danger" @click="tableDel(item)">删除</el-button>
+                        <el-button style="background:#00CFFF"  type="primary" @click="tableEdit(item)">编辑</el-button>
+                        <el-button style="background:#001529;color:#00CFFF;border:1px solid #00CFFF" type="danger" @click="tableDel(item)">删除</el-button>
                       </td>
                     </tr>
                   </table>
@@ -116,10 +118,10 @@
                     :on-success="success"
                     :on-error="errors"
                 >
-                  <div class="tabItem" @click="ExerciseImport" v-if="isEditc=='true'" style="float: right">导入</div>
+                  <div class="tabItem" @click="ExerciseImport" v-if="isEditc=='true'" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;">导入</div>
                 </el-upload>
-                <div class="tabItem" style="float: right" @click="exerciseTemplate" v-if="isEditc=='true'">下载模板</div>
-                <div class="tabItem" style="float: right" @click="addExercise" v-if="isEditc=='true'">新增</div>
+                <div class="tabItem" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="exerciseTemplate" v-if="isEditc=='true'">下载模板</div>
+                <div class="tabItem" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="addExercise" v-if="isEditc=='true'">新增</div>
 
               </div>
             </div>
@@ -208,7 +210,7 @@
         <div class="contentBox">
           <div class="tabs" style="padding-bottom: 5px">
             <div class="container">
-              <div class="content" style="padding-left: 0">
+              <div class="content article" style="padding-left: 0">
                 <div :class="launch==1?'tabItem active':'tabItem'" @click="toggleLauch(1)">太空垃圾的威胁</div>
                 <div :class="launch==2?'tabItem active':'tabItem'" @click="toggleLauch(2)">太空垃圾处理方法</div>
               </div>
@@ -310,7 +312,7 @@
     </div>
     <div class="view active" v-if="echartIndex==3||echartIndex==5||echartIndex==6">
       <div class="three" v-if="echartIndex==3">
-        <div class="contentBox">
+        <div class="contentBox" >
           <div class="tabs" style="padding-bottom: 5px">
             <div class="container">
               <div class="content">
@@ -318,9 +320,9 @@
                      :class="Threatenindex==index?'tabItem active':'tabItem'" @click="togglethreat(item,index)">
                   {{ item.typename }}
                 </div>
-                <div class="tabItem" @click="delThreaten" v-if="isEditc=='true'" style="float: right">删除</div>
-                <div class="tabItem" @click="editThreaten" v-if="isEditc=='true'" style="float: right">编辑</div>
-                <div v-if="isEditc=='true'" class="tabItem" style="float: right" @click="threatenAdd">新增</div>
+                <div class="tabItem" @click="delThreaten" v-if="isEditc=='true'" style="float: right;background: black;border-radius: 10px;color: #FFFFFF;border: 1px solid #03B8E6;">删除</div>
+                <div class="tabItem" @click="editThreaten" v-if="isEditc=='true'" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;">编辑</div>
+                <div v-if="isEditc=='true'" class="tabItem" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="threatenAdd">新增</div>
               </div>
             </div>
             <div class="container" style="margin-top: 10px;">
@@ -333,7 +335,7 @@
             </div>
           </div>
           <div class="content" style="display: flex;">
-            <p v-html="activeTable.contents" style="width:100%;height: calc(100vh - 280px);background-color: #fff;padding: 20px;overflow-y: scroll"></p>
+            <p v-html="activeTable.contents" style="width:100%;height: calc(100vh - 280px);padding: 20px;"></p>
           </div>
         </div>
       </div>
@@ -343,8 +345,8 @@
             <div class="content">
               <div :class="fiveTabIndex==1?'tabItem active':'tabItem' " @click="toggleFive(1)">发射图</div>
               <div :class="fiveTabIndex==2?'tabItem active':'tabItem'" @click="toggleFive(2)">统计图</div>
-              <div class="tabItem" style="float: right;" v-show="isChina" @click="wordBack">返回</div>
-              <div class="tabItem" style="float: right" @click="editSatellite" v-if="fiveTab&&isEditc=='true'">编辑视图
+              <div class="tabItem" style="float: right;background: black;border-radius: 10px;color: #FFFFFF;border: 1px solid #03B8E6;" v-show="isChina" @click="wordBack">返回</div>
+              <div class="tabItem" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="editSatellite" v-if="fiveTab&&isEditc=='true'">编辑视图
               </div>
               <!--              <div class="tabItem" v-if="isLeft&&!fiveTab&&isEditc=='true'" style="float: right" @click="editFsc" >编辑视图</div>-->
 
@@ -361,12 +363,12 @@
                   :on-success="success"
                   :on-error="errors"
               >
-                <div class="tabItem" v-if="isLeft&&!fiveTab&&isEditc=='true'" style="float: right"
+                <div class="tabItem" v-if="isLeft&&!fiveTab&&isEditc=='true'" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;"
                      @click="importTemplate">导入
                 </div>
                 <!--                <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>-->
               </el-upload>
-              <div class="tabItem" v-if="isLeft&&!fiveTab&&isEditc=='true'" style="float: right" @click="downTemplate">
+              <div class="tabItem" v-if="isLeft&&!fiveTab&&isEditc=='true'" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="downTemplate">
                 下载模板
               </div>
             </div>
@@ -450,12 +452,12 @@
                     :on-success="success"
                     :on-error="errors"
                 >
-                  <div class="tabItem" v-if="isEditc=='true'" style="float: right"
+                  <div class="tabItem" v-if="isEditc=='true'" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;"
                        @click="deployTemplate">导入
                   </div>
                 </el-upload>
-                <div class="tabItem" style="float: right" @click="downdeployment" v-if="isEditc=='true'">下载模板</div>
-                <div class="tabItem" style="float: right" @click="editDeploy" v-if="isEditc=='true'">编辑视图</div>
+                <div class="tabItem" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="downdeployment" v-if="isEditc=='true'">下载模板</div>
+                <div class="tabItem" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="editDeploy" v-if="isEditc=='true'">编辑视图</div>
               </div>
 
               <World  ref="world"  :data="satelliteData" @china="china" style="width: 100%; height: calc(100vh - 60px)"/>
@@ -4455,9 +4457,6 @@ export default {
 };
 </script>
 <style scoped>
-.page {
-}
-
 /* @import url(); 引入css类 */
 .container {
   width: 100%;
@@ -4469,11 +4468,23 @@ export default {
   padding: 0 20px;
   margin: 0 auto;
   overflow: hidden;
-  border: 1px solid red;
-  display: flex;
-  align-items: flex-end;
 }
-
+.content p {
+  background: rgba(0, 6, 17, 0.4);
+  overflow: auto;
+  scrollbar-width: none; /* Firefox */
+}
+/deep/.content p font {
+  background: rgba(0, 6, 17, 0.4) !important;
+  color: #fff !important;
+}
+/deep/.content p h1 {
+  background: rgba(0, 6, 17, 0.4) !important;
+  color: #fff !important;
+}
+::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
+}
 div {
   box-sizing: border-box;
 }
@@ -4489,10 +4500,11 @@ ul {
 .tabs {
   padding: 20px 0;
 }
-
+.article * {
+  background: #0f325e;
+}
 .tabs .tabItem.active {
   background-color: #06789e;
-  width: 131px;
   height: 57px;
   border: 1px solid #3cdaff;
   color: #fefefe;
@@ -4514,7 +4526,7 @@ ul {
   font-size: 30px;
   display: inline-block;
   background: #2f5799;
-  border-radius: 6px 6px 0px 0px;
+  border-radius: 6px;
   z-index: 999;
 }
 
@@ -4708,7 +4720,6 @@ table tr td {
   color: #fff;
   font-size: 32px;
   display: inline-block;
-  background-color: red;
 }
 
 .toggleCate {

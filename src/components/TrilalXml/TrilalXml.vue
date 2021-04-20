@@ -1581,6 +1581,12 @@ table {
 /deep/span.MsoHyperlink {
   text-decoration: none !important;
 }
+/deep/.WordSection1 p {
+  color: #fff;
+}
+/deep/.WordSection1 span {
+  color: #fff;
+}
 /deep/.MsoTocHeading span {
   font-size: 20px;
   font-family: Microsoft YaHei;

@@ -711,6 +711,7 @@ export default {
   mounted() {
     this.getSelect();
     this.getconditionSearch();
+    this.grade();
   },
   methods: {
     pormpt() {

@@ -75,7 +75,11 @@
           :data="cuttingEdgeList"
           :max-height="mheight"
           border:false
-          style="width: 100%; text-align: center !important"
+          style="
+            width: 100%;
+            text-align: center !important;
+            border: 1px solid red;
+          "
           :header-cell-style="{ color: '#CAEDFF' }"
           :cell-style="changeCellstyle"
         >
@@ -118,8 +122,12 @@
           v-if="isInOut"
           :data="inoutList"
           :max-height="mheight"
-          border
-          style="width: 100%; text-align: center !important"
+          border:false
+          style="
+            width: 100%;
+            text-align: center !important;
+            border: 1px solid red;
+          "
           :header-cell-style="{ color: '#CAEDFF' }"
           :cell-style="changeCellstyle"
         >
@@ -146,8 +154,12 @@
           v-if="ispersonnel"
           :data="personnelList"
           :max-height="mheight"
-          border
-          style="width: 100%; text-align: center !important"
+          border:false
+          style="
+            width: 100%;
+            text-align: center !important;
+            border: 1px solid red;
+          "
           :header-cell-style="{ color: '#CAEDFF' }"
           :cell-style="changeCellstyle"
         >
@@ -175,7 +187,7 @@
           v-if="isassessment"
           :data="cuttingEdgeList"
           :max-height="mheight"
-          border
+          border:false
           style="width: 100%; text-align: center !important"
           :header-cell-style="{ color: '#CAEDFF' }"
           :cell-style="changeCellstyle"

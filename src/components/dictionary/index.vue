@@ -122,7 +122,7 @@
                       <el-button
                         style="
                           display: inline-block;
-                          margin-left: 155px;
+                          margin-left: 5px;
                           background: #00cfff;
                         "
                         type="primary"
@@ -803,6 +803,16 @@ div {
   > .el-tree-node__content {
   background: #436a9d;
 }
+/deep/
+  .el-tree--highlight-current
+  .el-tree-node.is-expanded
+  > .el-tree-node__content {
+  background: #436a9d;
+}
+/deep/.el-tree-node:focus > .el-tree-node__content {
+  background: transparent;
+}
+
 /deep/.el-tree {
   color: #fff;
 }
