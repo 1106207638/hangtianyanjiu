@@ -15,7 +15,7 @@ export function translate(data) {
   return drequest({
     url: translateUrl,
     method: 'get',
-    params:data
+    params: data
   })
 }
 // 登录
@@ -42,7 +42,7 @@ export function userRule(data) {
   return drequest({
     url: userRuleURL,
     method: 'get',
-    params:data
+    params: data
   })
 }
 // 修改密码
@@ -65,7 +65,7 @@ export function getNav(query) {
   })
 }
 // 首页推荐
-const recommend='/navigation/promoteInformation'
+const recommend = '/navigation/promoteInformation'
 export function getComment(query) {
   return drequest({
     url: recommend,
@@ -74,7 +74,7 @@ export function getComment(query) {
   })
 }
 // 首页最静更新
-const news='/navigation/newestInformation'
+const news = '/navigation/newestInformation'
 export function getNews(query) {
   return drequest({
     url: news,
@@ -83,7 +83,7 @@ export function getNews(query) {
   })
 }
 // 首页我的足迹
-const footprint='/statisticInfo/footprintRecord'
+const footprint = '/statisticInfo/footprintRecord'
 export function getFootprint(query) {
   return drequest({
     url: footprint,
@@ -92,7 +92,7 @@ export function getFootprint(query) {
   })
 }
 //词云
-const ciyun='/statisticInfo/wordCloud'
+const ciyun = '/statisticInfo/wordCloud'
 export function getciyun(query) {
   return drequest({
     url: ciyun,
@@ -111,7 +111,7 @@ export function getInformation(query) {
 }
 
 // 活跃用户
-const activeUserUrl ='/statisticInfo/activeUser'
+const activeUserUrl = '/statisticInfo/activeUser'
 export function getActive(query) {
   return drequest({
     url: activeUserUrl,
@@ -120,7 +120,7 @@ export function getActive(query) {
   })
 }
 // 获取情报列表
-const cuttingEdgeurl ='statisticInfo/footprintRecord'
+const cuttingEdgeurl = 'statisticInfo/footprintRecord'
 export function getCuttingEdge(query) {
   return drequest({
     url: cuttingEdgeurl,
@@ -129,7 +129,7 @@ export function getCuttingEdge(query) {
   })
 }
 // 获取情报分类一级分类
-const getClassOrderURL ='/kgInformationlistController/TypeList'
+const getClassOrderURL = '/kgInformationlistController/TypeList'
 export function getClassOrder(query) {
   return drequest({
     url: getClassOrderURL,
@@ -156,7 +156,7 @@ export function Nationa(query) {
   })
 }
 // 根据tab和国家更新情报列表
-const togglecuttingEdgeurl ='/kgInformationlistController/kgInformationlist'
+const togglecuttingEdgeurl = '/kgInformationlistController/kgInformationlist'
 export function gettoggleCuttingEdge(query) {
   return drequest({
     url: togglecuttingEdgeurl,
@@ -251,7 +251,7 @@ export function getNoteSearch(query) {
   })
 }
 // 获取当前用户的标签（可选择，可新增，可删除）
-const flagUrl = '/KgLabelController/SelectAllbyUserId'  
+const flagUrl = '/KgLabelController/SelectAllbyUserId'
 export function Getflag(query) {
   return drequest({
     url: flagUrl,
@@ -263,14 +263,14 @@ export function Getflag(query) {
 var getCollUrl = '/KgDocCollectionFolderController/rootList'
 export function GetCollList(query) {
   return drequest({
-    url:getCollUrl,
-    method:'get',
+    url: getCollUrl,
+    method: 'get',
     params: query
   })
 }
 // 新建收藏文件夹
 var addFloderUrl = '/KgDocCollectionFolderController/add'
-export function addCollFloder (data) {
+export function addCollFloder(data) {
   return drequest({
     url: addFloderUrl,
     method: 'post',
@@ -281,8 +281,8 @@ export function addCollFloder (data) {
 const editColl = '/KgDocCollectionFolderController/edit'
 export function editCollName(data) {
   return drequest({
-    url:editColl,
-    method:'put',
+    url: editColl,
+    method: 'put',
     data
   })
 }
@@ -290,8 +290,8 @@ export function editCollName(data) {
 const lookURL = '/personalCenter/BrowsingList'
 export function getLook(query) {
   return drequest({
-    url:lookURL,
-    method:'get',
+    url: lookURL,
+    method: 'get',
     params: query
   })
 }
@@ -299,8 +299,8 @@ export function getLook(query) {
 const delLookUrl = '/personalCenter/BrowsingCleanall'
 export function delLook(query) {
   return drequest({
-    url:delLookUrl,
-    method:'delete',
+    url: delLookUrl,
+    method: 'delete',
     params: query
   })
 }
@@ -308,8 +308,8 @@ export function delLook(query) {
 const downloadRecordURL = '/personalCenter/updateDownloadRecord'
 export function downloadRecord(query) {
   return drequest({
-    url:downloadRecordURL,
-    method:'get',
+    url: downloadRecordURL,
+    method: 'get',
     params: query
   })
 }
@@ -317,8 +317,8 @@ export function downloadRecord(query) {
 const allFloderNote = '/KgMarkFolder/SelectAllFolderFile'
 export function getAllNote(query) {
   return drequest({
-    url:allFloderNote,
-    method:'get',
+    url: allFloderNote,
+    method: 'get',
     params: query
   })
 }
@@ -328,7 +328,7 @@ export function delFloder(data) {
   return drequest({
     url: delFloderUrl,
     method: 'delete',
-    params:data
+    params: data
   })
 }
 // 根据收藏夹id获取所有的文件
@@ -337,12 +337,12 @@ export function getCollFolderFile(data) {
   return drequest({
     url: queryUrl,
     method: 'get',
-    params:data
+    params: data
 
   })
 }
 // 添加当前用户的标签（可选择，可新增，可删除）
-const addflagUrl = '/KgLabelController/AddLabel'  
+const addflagUrl = '/KgLabelController/AddLabel'
 export function ADDflag(data) {
   return drequest({
     url: addflagUrl,
@@ -374,7 +374,7 @@ export function getAllCollection(data) {
   return drequest({
     url: getCollectUrl,
     method: 'get',
-    params:data
+    params: data
   })
 }
 // 收藏书籍
@@ -392,7 +392,7 @@ export function geteFloder(data) {
   return drequest({
     url: userFloder,
     method: 'get',
-    params:data
+    params: data
   })
 }
 // 获取军语一级分类
@@ -401,7 +401,7 @@ export function getMilitary(data) {
   return drequest({
     url: MilitarycateUrl,
     method: 'get',
-    params:data
+    params: data
   })
 }
 // 获取军语一级分类
@@ -410,7 +410,7 @@ export function gettwoMilitary(data) {
   return drequest({
     url: twoMilitarycateUrl,
     method: 'get',
-    params:data
+    params: data
   })
 }
 // 词典查询（根据首字母/军语/外文）
@@ -419,7 +419,7 @@ export function getDictionary(data) {
   return drequest({
     url: dictionary,
     method: 'get',
-    params:data
+    params: data
   })
 }
 // 查询所有的数据字典
@@ -428,7 +428,7 @@ export function getDataDictionary(data) {
   return drequest({
     url: dataS,
     method: 'get',
-    params:data
+    params: data
   })
 }
 // 根据关键词获取书籍列表
@@ -437,7 +437,7 @@ export function getBookNameList(data) {
   return drequest({
     url: bookNameList,
     method: 'get',
-    params:data
+    params: data
   })
 }
 // 高级搜索
@@ -455,7 +455,7 @@ export function conditionSearch(data) {
   return drequest({
     url: conditionSearchURL,
     method: 'get',
-    params:data
+    params: data
   })
 }
 // 取消收藏
@@ -464,7 +464,7 @@ export function cancelCollection(data) {
   return drequest({
     url: cancelcollectUrl,
     method: 'delete',
-    params:data
+    params: data
   })
 }
 // 删除笔记
@@ -477,7 +477,7 @@ export function delNote(data) {
   })
 }
 //关键字搜索笔记列表
-const searchlistUrl = '/KgSaveTheBookmarkController/SelectBookmarkName'  
+const searchlistUrl = '/KgSaveTheBookmarkController/SelectBookmarkName'
 export function GetSearchlistUrl(query) {
   return drequest({
     url: searchlistUrl,
@@ -511,7 +511,7 @@ export function AddNote(data) {
     url: addNote,
     method: 'post',
     headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-    data:data
+    data: data
   })
 }
 
@@ -557,7 +557,7 @@ export function focusClass(query) {
   return request({
     url: focusClassURL,
     method: 'get',
-    params:query
+    params: query
   })
 }
 // 获取关注分类(全部)
@@ -566,7 +566,7 @@ export function followlist(query) {
   return request({
     url: followlistURL,
     method: 'get',
-    params:query
+    params: query
   })
 }
 // 我的资料下载
@@ -575,7 +575,7 @@ export function downloadFile(query) {
   return drequest({
     url: downloadFileURL,
     method: 'get',
-    params:query,
+    params: query,
   })
 }
 // 删除我的资料
@@ -584,7 +584,7 @@ export function delData(query) {
   return drequest({
     url: delDataURL,
     method: 'delete',
-    params:query,
+    params: query,
   })
 }
 // 获取部门（树形结构）
@@ -593,7 +593,7 @@ export function getPeopelTree(query) {
   return request({
     url: treeURL,
     method: 'get',
-    params:query,
+    params: query,
   })
 }
 // 查询对应部门下的人员
@@ -602,7 +602,7 @@ export function Department(query) {
   return request({
     url: getDepartmentURL,
     method: 'get',
-    params:query,
+    params: query,
   })
 }
 // 分享文档
@@ -629,7 +629,7 @@ export function messageStatusUpdata(data) {
   return drequest({
     url: messageStatusURL,
     method: 'get',
-    params:data
+    params: data
   })
 }
 // 消息管理===意见未读
@@ -705,7 +705,7 @@ export function sendcomment(data) {
   })
 }
 // 文件工具下载列表
-const toolURL ='/lookTool/list'
+const toolURL = '/lookTool/list'
 export function getTool(data) {
   return drequest({
     url: toolURL,
@@ -714,10 +714,10 @@ export function getTool(data) {
   })
 }
 // 文件工具下载
-const filetoolURL ='/lookTool/downloadTool/'
+const filetoolURL = '/lookTool/downloadTool/'
 export function uploadTool(url) {
   return drequest({
-    url: filetoolURL+url,
+    url: filetoolURL + url,
     method: 'get',
   })
 }
@@ -817,7 +817,7 @@ export function getdeployment(data) {
   return drequest({
     url: getdeploymentURL,
     method: 'get',
-    params:data
+    params: data
   })
 }
 // 太空力量部署-添加基地
@@ -879,7 +879,7 @@ export function deleThreaten(data) {
   return drequest({
     url: deleThreatenURL,
     method: 'delete',
-    params:data
+    params: data
   })
 }
 // 新增太空领域威胁的二级（
@@ -892,7 +892,7 @@ export function addThreaten(data) {
   })
 }
 // 查询所有部门
-const allDeptURL ='/sysDepart/queryTreeList'
+const allDeptURL = '/sysDepart/queryTreeList'
 export function getAllDeptList(url) {
   return request({
     url: allDeptURL,
@@ -900,7 +900,7 @@ export function getAllDeptList(url) {
   })
 }
 // 用户注册
-const registerURL ='/user/userRegistration'
+const registerURL = '/user/userRegistration'
 export function register(data) {
   return drequest({
     url: registerURL,
@@ -909,7 +909,7 @@ export function register(data) {
   })
 }
 // 用户名称校验
-const userCheckURL ='/user/verifyUserName'
+const userCheckURL = '/user/verifyUserName'
 export function nameCheck(data) {
   return drequest({
     url: userCheckURL,
@@ -923,7 +923,7 @@ export function getCountryList(data) {
   return drequest({
     url: countryUrl,
     method: 'get',
-    params:data
+    params: data
   })
 }
 // 太空发射统计: 根据国家 / 时间 进行查询
@@ -936,48 +936,56 @@ export function LaunchStatistics(data) {
   })
 }
 // 获取对应类型下的所有类型
-const equipURL ='/mainEquipment/queryEquipModelByType'
+const equipURL = '/mainEquipment/queryEquipModelByType'
 export function equip(data) {
   return drequest({
     url: equipURL,
     method: 'get',
-    params:data
+    params: data
   })
 }
 // 分页查询对应类型以及型号下的所有数据
-const mainEquipmentUrl ='/mainEquipment/list'
+const mainEquipmentUrl = '/mainEquipment/list'
 export function mainEquipment(data) {
   return drequest({
     url: mainEquipmentUrl,
     method: 'get',
-    params:data
+    params: data
   })
 }
 // 对应类型 型号的统计数据
-const StatisticsURL ='/mainEquipment/queryStatisticResult'
+const StatisticsURL = '/mainEquipment/queryStatisticResult'
 export function Statistics(data) {
   return drequest({
     url: StatisticsURL,
     method: 'get',
-    params:data
+    params: data
   })
 }
 // 太空战略演习 - 查询所有战略演习
-const maneuversURL ='/strategyManoeuvre/queryAllStrategyManoeuvre'
+const maneuversURL = '/strategyManoeuvre/queryAllStrategyManoeuvre'
 export function maneuvers(data) {
   return drequest({
     url: maneuversURL,
     method: 'get',
-    params:data
+    params: data
   })
 }
 // 太空战略演习 - 查询所有战略演习
-const maneuversListURL ='/strategyManoeuvre/list'
+const maneuversListURL = '/strategyManoeuvre/list'
 export function maneuversList(data) {
   return drequest({
     url: maneuversListURL,
     method: 'get',
-    params:data
+    params: data
+  })
+}
+//测试用
+export function ceshiList(data) {
+  return drequest({
+    url: '/mainEquipment/selectModelNameList',
+    method: 'get',
+    params: data
   })
 }
 export const REFUND_LIST = '';

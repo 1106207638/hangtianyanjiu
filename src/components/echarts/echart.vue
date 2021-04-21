@@ -28,6 +28,9 @@
                   <div class="tabItem" @click="EquipmentImport" v-if="isEditc=='true'" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;">导入</div>
                 </el-upload>
                 <div class="tabItem" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="uploadTemplate" v-if="isEditc=='true'">下载模板</div>
+                                <div class="tabItem" @click="delequip" v-if="isEditc=='true'" style="float: right;background: black;border-radius: 10px;color: #FFFFFF;border: 1px solid #03B8E6;">删除标题</div>
+                <div v-if="isEditc=='true'" class="tabItem" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="equipAdd">新增标题</div>
+                <div class="tabItem" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="editequipment" v-if="isEditc=='true'">编辑标题</div>
                 <!-- <div  class="tabItem"  style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;">新增</div> -->
 
               </div>
@@ -40,7 +43,7 @@
                      :class="sendIndex==index?'tabItem active':'tabItem'" @click="toggleSend(item,index)">
                   {{ item }}
                 </div>
-                <div class="tabItem" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="tableEdit()">新增与修改</div>
+                <div class="tabItem" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="newtableEdit()">新增内容</div>
               </div>
             </div>
           </div>
@@ -308,7 +311,6 @@
           </div>
         </div>
       </div>
-
     </div>
     <div class="view active" v-if="echartIndex==3||echartIndex==5||echartIndex==6">
       <div class="three" v-if="echartIndex==3">
@@ -366,7 +368,6 @@
                 <div class="tabItem" v-if="isLeft&&!fiveTab&&isEditc=='true'" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;"
                      @click="importTemplate">导入
                 </div>
-                <!--                <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>-->
               </el-upload>
               <div class="tabItem" v-if="isLeft&&!fiveTab&&isEditc=='true'" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="downTemplate">
                 下载模板
@@ -412,24 +413,9 @@
                   </el-date-picker>
                 </div>
                 </div>
-                <!--              折线图区域-->
                 <Lines :datas="lineData" style="width: 100%;height:300px;padding-left:31px"/>
-                <!--                <div id="lineChart" ref="lineChart" style="width: 100%;height:300px;padding-left:31px">-->
-
-                <!--                </div>-->
-                <!--                <div class="searchHead">-->
-                <!--                  发射场统计-->
-                <!--                  &lt;!&ndash;                  <span style="float: right;padding-right: 20px;cursor: pointer" @click="editFsc">编辑</span>&ndash;&gt;-->
-                <!--                </div>-->
-                <!--              柱状图区域-->
-                <!--                <Bar :datas="lineDataAll" style="width: 100%;height:400px;padding-left:31px"/>-->
-                <!--                <div id="barChart" ref="barChart" style="width: 100%;height:300px;padding-left:31px">-->
-
-                <!--                </div>-->
               </div>
             </div>
-
-            <!--              线-->
             <div class="line"></div>
           </div>
         </div>
@@ -580,26 +566,6 @@
             <div v-for="(item,index) in launchRow" :key="index" style="display: flex;margin-top: 5px">
               <el-input style="margin-right: 5px" :disabled="true" v-model="item.key"></el-input>
               <el-input v-model="item.value"></el-input>
-              <!--              <el-button-->
-              <!--                  style="margin-left: 5px"-->
-              <!--                  icon="el-icon-minus"-->
-              <!--                  circle-->
-              <!--                  v-if="index != 0"-->
-              <!--                  @click="del(index)"-->
-              <!--              ></el-button>-->
-              <!--              <el-button-->
-              <!--                  style="margin-left: 5px"-->
-              <!--                  icon="el-icon-minus"-->
-              <!--                  circle-->
-              <!--                  v-else-->
-              <!--                  class="noneBtn"-->
-              <!--              ></el-button>-->
-              <!--              <el-button-->
-              <!--                  style="margin-left: 5px"-->
-              <!--                  icon="el-icon-plus"-->
-              <!--                  circle-->
-              <!--                  @click="add"-->
-              <!--              ></el-button>-->
             </div>
           </el-form>
           <div slot="footer" class="dialog-footer">
@@ -852,7 +818,31 @@
           <el-button type="primary" @click="dialogResult=false">确 定</el-button>
         </div>
       </el-dialog>
-    
+            <el-dialog :title="isEdit?'编辑':'新增'" :visible.sync="tableBox4" width="800px" :close-on-click-modal="false"
+                 :close-on-press-escape="false" :append-to-body="true" :modal-append-to-body="true">
+        <el-form :model="tableForm4"   ref="ruleForm">
+          <el-form-item label="一级分类" :label-width="formLabelWidth" prop="pid">
+            <el-select v-model="tableForm4.pid" placeholder="请选择">
+              
+              <el-option
+                  v-for="(item,index) in equipmentList"
+                  :key="index"
+                  :label="item.name"
+                  :value="item.value">
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="二级分类" :label-width="formLabelWidth" prop="typename">
+            <el-input v-model="equipModel" autocomplete="off"></el-input>
+          </el-form-item>
+
+
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="tableBox4 = false">取 消</el-button>
+          <el-button type="primary" @click="tableBoxYes2('ruleForm')">确 定</el-button>
+        </div>
+      </el-dialog>
 
   </div>
 </template>
@@ -898,6 +888,7 @@ import {
   editThreaten,
   addThreaten,
   deleThreaten,
+  ceshiList,
 } from "@/api/apis";
 
 export default {
@@ -921,6 +912,9 @@ export default {
   },
   data() {
     return {
+      dynamicTags: ["标签一", "标签二", "标签三"],
+      inputVisible: false,
+      inputValue: "",
       options: {
         licenseKey: "YOUR_KEY_HEERE",
         menu: "#menu",
@@ -931,6 +925,12 @@ export default {
         navigationTooltips: ["firstSlide", "secondSlide"], //导航小圆点的提示
       },
       rules: {
+        pid: [{ required: true, message: "请选择一级分类", trigger: "change" }],
+        typename: [
+          { required: true, message: "请输入二级分类", trigger: "blur" },
+        ],
+      },
+      rules1: {
         pid: [{ required: true, message: "请选择一级分类", trigger: "change" }],
         typename: [
           { required: true, message: "请输入二级分类", trigger: "blur" },
@@ -1482,6 +1482,7 @@ export default {
       tableBox1: false,
       tableBox2: false,
       tableBox3: false,
+      tableBox4: false,
       // 编辑表格弹出层的form
       tableForm: {
         equipName: "",
@@ -1520,6 +1521,11 @@ export default {
         company: "",
         scene: "",
         target: "",
+      },
+      tableForm4: {
+        name: "",
+        sendname: "",
+        content: "",
       },
       clickPie: [],
       pieBox: false,
@@ -2707,6 +2713,25 @@ export default {
     },
   },
   methods: {
+    handleClose(item) {
+      this.nowequipmentList.splice(this.nowequipmentList.indexOf(item), 1);
+    },
+
+    showInput() {
+      this.inputVisible = true;
+      this.$nextTick((_) => {
+        this.$refs.saveTagInput.$refs.input.focus();
+      });
+    },
+
+    handleInputConfirm() {
+      let inputValue = this.inputValue;
+      if (inputValue) {
+        this.nowequipmentList.push(inputValue);
+      }
+      this.inputVisible = false;
+      this.inputValue = "";
+    },
     componentsReady() {
       this.$refs.fullpage.init();
     },
@@ -2722,6 +2747,19 @@ export default {
         hasChild: "0",
         typename: "",
         contents: "",
+      };
+    },
+    //新增太空主要装备二级
+    equipAdd() {
+      this.tableBox4 = true;
+      this.isEdit = false;
+      this.tableForm = {
+        equipName: "",
+        launchCountry: "",
+        launchTime: "",
+        launchWay: "",
+        equipDescribe: "",
+        equipDescribeImg: [],
       };
     },
     // 删除太空领域威胁二级
@@ -2753,6 +2791,37 @@ export default {
         this.$message.error("一级分类不可删除！");
       }
     },
+
+    //删除太空装备二级
+    delequip() {
+      if (this.activeTable.typename) {
+        this.$confirm(
+          "此操作将永久删除" + this.activeTable.typename + ", 是否继续?",
+          "提示",
+          {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning",
+          }
+        )
+          .then(() => {
+            deleThreaten({ id: this.activeTable.id }).then((res) => {
+              var { data } = res;
+              if (data.code == 200) {
+                this.$message({
+                  type: "success",
+                  message: "删除成功!",
+                });
+                this.getclassThreaten();
+              }
+            });
+          })
+          .catch(() => {});
+      } else {
+        this.$message.error("一级分类不可删除！");
+      }
+    },
+    // ceshilist() {},
     // 编辑太空领域威胁
     editThreaten(data) {
       if (this.activeTable.id) {
@@ -2766,6 +2835,16 @@ export default {
           typename: this.activeTable.typename,
           contents: this.activeTable.contents,
         };
+      } else {
+        this.$message.error("一级分类不允许编辑");
+      }
+    },
+    //编辑太空装备
+    editequipment() {
+      if (this.nowequipmentList != []) {
+        this.tableBox4 = true;
+        this.isEdit = true;
+        console.log(this.nowequipmentList);
       } else {
         this.$message.error("一级分类不允许编辑");
       }
@@ -3372,6 +3451,7 @@ export default {
       this.isEdit = true;
       this.tableBox = true;
       var data = JSON.parse(JSON.stringify(datas));
+      console.log(data);
       this.tableForm = {
         id: data.id,
         equipType: data.equipType,
@@ -3383,6 +3463,10 @@ export default {
         equipDescribe: data.equipDescribe,
         equipDescribeImg: data.equipDescribeImg,
       };
+    },
+    newtableEdit() {
+      this.isEdit = true;
+      this.tableBox = true;
     },
     tableDel(data) {
       this.$confirm("此操作将永久删除该行, 是否继续?", "提示", {
@@ -3411,6 +3495,7 @@ export default {
     tableBoxYes() {
       var formdata = this.tableForm;
       for (var key in formdata) {
+        console.log(key);
         if (key.indexOf("Img") != -1) {
           if (formdata[key].length == 0) {
             formdata[key] = "";
@@ -4412,6 +4497,7 @@ export default {
     toggleSend(index, indexx) {
       this.sendIndex = indexx;
       this.equipModel = index;
+      console.log(this.equipModel);
       this.getmainEquipment();
       this.pageno = 1;
       this.getStatistic();
@@ -4462,6 +4548,23 @@ export default {
   width: 100%;
   height: 100%;
   margin: 0 auto;
+}
+
+/* elementUI的标签样式 */
+.el-tag + .el-tag {
+  margin-left: 10px;
+}
+.button-new-tag {
+  margin-left: 10px;
+  height: 32px;
+  line-height: 30px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.input-new-tag {
+  width: 90px;
+  margin-left: 10px;
+  vertical-align: bottom;
 }
 
 .content {
