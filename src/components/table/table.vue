@@ -76,6 +76,7 @@
           :max-height="mheight"
           border:false
           style="width: 100%; text-align: center !important"
+          ref="leftTabel"
           :header-cell-style="{ color: '#CAEDFF' }"
           :cell-style="changeCellstyle"
         >
@@ -413,7 +414,12 @@ export default {
     // 获取情报列表
     // this.getFootprint()
     this.getTabs();
-    console.log(document.getElementsByTagName("body")[0].style.zoom);
+  },
+  updated() {
+    this.$nextTick(() => {
+      console.log(this.$refs.leftTabel);
+      this.$refs.leftTabel.doLayout();
+    });
   },
   methods: {
     changeCellstyle(row) {
@@ -573,7 +579,6 @@ export default {
           for (var i = 0; i < datas.length; i++) {
             datas[i].width = "";
           }
-          console.log(datas);
           this.sendClassList = datas;
           this.toggleCuttingEdge();
         } else {
@@ -601,7 +606,6 @@ export default {
         InAndOut({ year: this.year, id: this.isActive }).then((res) => {
           var { data } = res;
           if (data.code == 200) {
-            console.log(data);
             var datas = data.result[0];
             var arr = [];
             for (var key in datas) {
@@ -613,7 +617,6 @@ export default {
                 });
               }
             }
-            console.log(arr);
             this.attributeList = arr;
             this.inoutList = data.result;
           }
@@ -667,7 +670,6 @@ export default {
                 }
                 tableData.push(obj);
               }
-              console.log(tableData);
               var obj = {};
               var resultObj = [];
               for (var t = 0; t < tableData.length; t++) {
@@ -1091,5 +1093,9 @@ td {
 /deep/.el-table--border td,
 .el-table--border th {
   border-right: 1px solid rgb(73, 191, 209, 0.4);
+}
+
+/deep/.el-table__fixed::before {
+  height: 0 !important;
 }
 </style>
