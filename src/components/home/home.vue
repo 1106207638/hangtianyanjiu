@@ -22,6 +22,7 @@
                   @click="gonews(item.id)"
                   alt=""
                 />
+                <!-- banner图的图片文字 -->
                 <div class="digest">
                   <p>{{ item.digest }}</p>
                 </div>
@@ -29,6 +30,7 @@
             </el-carousel-item>
           </el-carousel>
         </div>
+        <!-- banner右边 -->
         <div class="ban__right">
           <div class="ban_right" style="display: flex">
             <div
@@ -228,57 +230,7 @@
                   </div>
                 </div>
               </div>
-
-              <!--              <div class="prev" style="width:2% ;text-align: center;position: relative;" >-->
-              <!--                <img src="~@/assets/images/dir.svg" @click="prev" style="cursor:pointer;position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%) rotate(-45deg);" alt="">-->
-              <!--              </div>-->
-              <!--              <div class="content_center" v-show="show"  style="display: flex;justify-content:flex-start;width: 96%" >-->
-              <!--                <transition :name="slidename" v-for="(item,index) in informationList" :key="index"  >-->
-              <!--                  <div v-show="show" class="content_item" >-->
-              <!--                    <p>-->
-              <!--                      <i class="el-icon-menu"></i>-->
-              <!--                      {{item.name}}-->
-              <!--                    <ul class="hover-row">-->
-              <!--                      <li :class="item1.name==item.name?'active':''" v-for="(item1,index1) in informationLists" :key="index1"><button></button></li>-->
-              <!--                    </ul>-->
-              <!--                    </p>-->
-              <!--                    <ul v-for="(item1,index1) in item.child" :key="index1">-->
-              <!--                      <li   :key="index1" :title="item1.title" @click="goTxml(item1)">-->
-              <!--                        <div>-->
-              <!--                        </div>-->
-              <!--                        {{item1.title}}</li>-->
-              <!--                    </ul>-->
-              <!--                  </div>-->
-              <!--                </transition>-->
-
-              <!--              </div>-->
-              <!--              <div v-show="!show" class="content_center" style="display: flex;justify-content:flex-start;max-width: 96%" >-->
-              <!--                <transition :name="slidename" v-for="(item,index) in informationList" :key="index">-->
-
-              <!--                  <div v-show="!show" class="content_item"  >-->
-              <!--                    <p>-->
-              <!--                      <i class="el-icon-menu"></i>-->
-              <!--                      {{item.name}} <ul class="hover-row">-->
-              <!--                    <li :class="item1.name==item.name?'active':''" v-for="(item1,index1) in informationLists" :key="index1"><button></button></li>-->
-              <!--                  </ul></p>-->
-              <!--                    <ul v-for="(item1,index1) in item.child" :key="index1">-->
-              <!--                      <li  :key="index1" :title="item1.title"  @click="goTxml(item1)">-->
-              <!--                        <div >-->
-              <!--                          <i class="el-icon-notebook-2"></i>-->
-              <!--                        </div>-->
-              <!--                        {{item1.title}}</li>-->
-
-              <!--                    </ul>-->
-              <!--                  </div>-->
-              <!--                </transition>-->
-              <!--              </div>-->
-              <!--              <div class="next" style="width:2%;  text-align: center;position: relative;">-->
-              <!--                <img src="~@/assets/images/dir.svg"  @click="next" style="cursor:pointer;position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%) rotate(135deg);" alt="">-->
-              <!--              </div>-->
             </div>
-            <!--            <div class="cate classBox">-->
-            <!--              <div :class="cateIndex==item.name?'cateItem active':'cateItem'" @click="toggleCate(item.name)" v-for="(item,index) in allCate2" :key="index">{{item.name}}</div>-->
-            <!--            </div>-->
           </div>
         </div>
         <!-- 词云 -->
@@ -489,6 +441,22 @@ export default {
           name: "航天二",
           path: require("../../assets/images/timg.jpg"),
         },
+        {
+          name: "航天二",
+          path: require("../../assets/images/timg.jpg"),
+        },
+        {
+          name: "航天二",
+          path: require("../../assets/images/timg.jpg"),
+        },
+        {
+          name: "航天二",
+          path: require("../../assets/images/timg.jpg"),
+        },
+        {
+          name: "航天二",
+          path: require("../../assets/images/timg.jpg"),
+        },
       ],
     };
   },
@@ -514,7 +482,7 @@ export default {
     if (this.$store.state.changeShow) {
       let bannersize = document.querySelectorAll(" .bannerBox p");
       let banitem = document.querySelectorAll(".ban_item");
-
+      console.log(bannersize);
       document.querySelector(".header .head_main").style.zoom = 1;
       for (let i = 0; i < bannersize.length; i++) {
         bannersize[i].style.fontSize = "23px";
@@ -586,7 +554,6 @@ export default {
       } else {
         this.cateIndex = index;
         var datas = this.allCates;
-        console.log(datas);
         for (var i = 0; i < datas.length; i++) {
           if (datas[i].name == index) {
             this.informationList = JSON.parse(
@@ -696,7 +663,6 @@ export default {
     // 我的更新
     getFootprint() {
       getFootprint({}).then((res) => {
-        console.log(res);
         if (res.status == 250) {
           // this.$message.error('登录超时，请重新登录')
           if (window.localStorage.getItem("token")) {
@@ -719,7 +685,6 @@ export default {
       getInformation().then((res) => {
         var { data } = res;
         if (data.code == 200) {
-          console.log(data);
           var datas = data.result;
           this.allCates = datas;
           this.cateIndex = datas[0].name;
@@ -727,64 +692,6 @@ export default {
           this.informationList = datas[0].child;
           this.allCate1 = datas.slice(8, 13);
           this.allCate2 = datas.slice(13, 21);
-          // var newArr = []
-          // var obj1 = {
-          //   name:'太空战略政策法规',
-          //   id:'1',
-          //   child:[]
-          // }
-          // var obj2 = {
-          //   name:'太空组织人员',
-          //   id:'2',
-          //   child:[]
-          // }
-          // var obj3 = {
-          //   name:'太空技术装备',
-          //   id:'3',
-          //   child:[]
-          // }
-          // var obj4 = {
-          //   name:'太空活动',
-          //   id:'4',
-          //   child:[]
-          // }
-          // var obj5 = {
-          //   name:'太空潜力',
-          //   id:'5',
-          //   child:[]
-          // }
-          // var obj6 = {
-          //   name:'太空战略评估',
-          //   id:'6',
-          //   child:[]
-          // }
-          // for(var i = 0; i< datas.length;i++) {
-          //   if(datas[i].name=='太空战略'||datas[i].name=='太空法规'||datas[i].name=='太空军民融合'||datas[i].name=='太空体系'||datas[i].name=='太空政策') {
-          //     obj1.child.push(datas[i])
-          //   }
-          //   if(datas[i].name=='太空国家'||datas[i].name=='太空地区'||datas[i].name=='太空组织'||datas[i].name=='太空领导人'||datas[i].name=='太空人员') {
-          //     obj2.child.push(datas[i])
-          //   }
-          //   if(datas[i].name=='太空新技术'||datas[i].name=='太空装备') {
-          //     obj3.child.push(datas[i])
-          //   }
-          //   if(datas[i].name=='太空演习'||datas[i].name=='太空重大活动') {
-          //     obj4.child.push(datas[i])
-          //   }
-          //   if(datas[i].name=='太空投资'||datas[i].name=='太空能力') {
-          //     obj5.child.push(datas[i])
-          //   }
-          //   if(datas[i].name=='太空领域威胁挑战'||datas[i].name=='太空安全评估') {
-          //     obj6.child.push(datas[i])
-          //   }
-          //   if(datas[i].name == '太空国家') {
-          //     this.activeDifference= datas[i].id
-          //   }
-          // }
-          // newArr.push(obj1,obj2,obj3,obj4,obj5,obj6)
-          // this.allCate = newArr
-          // this.informationList = JSON.parse(JSON.stringify(newArr[0].child))
-          // this.informationLists = JSON.parse(JSON.stringify(newArr[0].child))
         }
       });
     },
@@ -820,15 +727,7 @@ export default {
       } else {
         this.myChart.clear();
       }
-      // 词云图需要额外引入 词云图js
-      // https://oisanjavax.github.io/echarts-wordcloud/dist/echarts-wordcloud.min.js
-      // mock数据
       let data = [];
-
-      // var img  = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAKO0lEQVR4Xu2dC8weRRWGn0oUEIGCRYsKWBRFLV4QBYOiKFRFripNxXqtICICio0YuYiQgKZYrnIJhoCICgG12CrYqKAWlFivoIj1gihGRQraeFfyfu7+/v36XWZmZ3dnvj0n+dPSf+bMOe+87M7MnnNmBiadRmBGp70352mbAM8EtgPmAI8C7gHuBn4DrJmw+XkMsEPh028LH1t3sQ0CPAF4JzAf2HEMAl8HvgB8FrirdbTcDXg6sA/wEkB/3x7YdEB3+XUt8El31XFbNkmA2cAZwJsDXfgxcAlwMfDXQB11dpsJHA8sArb1HEjkfi+wzLNf5eZNEeBwYAmwRWWL4Y/A+cB5wJ8i6KuqQj69u5j8zSsq+zjwtoo6vLo3QYCzgWO9rHJr/ABwYkEGtx7xW720eHzr6RZL9No7CLg/lsJReuomgB7XR9TsyA+BtwO31DxOv/ozgffVNOZqQOQSyWuVOgkgcARSU6L370cbGOyxwOeB3Wse6zvA3sCf6xynLgIc0MaCBrgAOLpGwHYtdiW+i7xQk1YArwrt7NKvDgIInDsArYrbEG0bRcDYcnCxHY2td5w+LZ4Xj2sU+vs6CPAl4OWhBkXq903glREfn68HroxkW4iafYGVIR3H9YlNgEOBq8cN2tDvvwu8LMJqWvv6SxuyedgwvwaeWsf5R0wC6KTrp4BO+lKRVcCeFYxpay0zyORaXgUxCXAycGoFsOvqehWgR7ivaMGnPfkjfTvW2H4X4Ecx9ccigD50/BzYLKZxEXUdU5wcuqrcGbgZ2Ma1Q0PttLZ5YcyxYhFA26+jYhpWg665wO0OekVmtZvl0LaNJocBn4o1cAwCbA3o8+bGsYwyPSMR0JP2KcC/Y+AUgwBNn/jF8Dt3Hfq4FmVnEoMAv5wW6JA7sLnYr22hYgwqS1UC7Acsr2yFKQhBYGGMQJKqBFBEi45ITZpH4HvAc6oOW4UA2iL9vqoB1r8SAgo5u6mKhioEOA5YWmVw61sZgU8Dr6uipQoBvgU8v8rg1rcyAv8EdG6xNlRTKAF03q+VqEn7CCjc7txQM0IJYHv/UMTj96u0GAwlwG3AbvF9MY2BCDyjCMLx7h5CAB1A/Mp7JOtQJwIfCQ1QDSGA3jkK9TZJB4Hgk8EQAtwIKETJJC0EXlx8wvayypcACo54ENjIaxRr3AQCQRHRvgRIKUSqCVBzGkOnsspZ8BJfAnwMeIfXCNa4SQSUSPI1nwF9CaDFRkpBnz6+dqGtUvGO9HHUhwBPzixH3weHSWmrbGkdDTtHC/kQQDF/WmiYpI2AciG+4mqiDwGUEHmgq2Jr1xoCOqNRvQIncSWAtn1KVU417NvJ2Y40UnKOsoicxJUAyq75hpNGa5QCAqq99AsXQ1wJ8AHgdBeF1iYJBFRv6CwXS1wJkELGr4s/1uZ/CChYZw8XMFwI8LDi/a86fib5IKA6Db8bZ64LAVQK5dZxiuz3ySHwLpcCWi4EUJLki5Jzzwwah8ANwCvGNRpHgLcCql1nkicCqjT21VGmjyLAo4GftVjrJ0/I07JaiaQqVfv3YWaNIsAVwBvS8sesCUDgQ8ApvgRQvL+2EiaTgcDQg6FhT4Drgf0nw3fzoihv9+pBSAwigEKMo9ahsSlIAoGBeYSDCPCZopZ/ElabEdEQ+D7w7H5t/QTYCfgJoNM/k8lDYB7w5elu9RNAxZadvyVPHj4T75G+6aiC6pRMJ4D+rrNjhRSZTC4COhfQ7Ss9mU4AJRZ4RZROLkYT7Zkiu3Vn0wYEuKi4eGGivTfnepFdyh/onQ6WTwCFfP0B2MoA6gQCurjr8ukEsJCvTsz7lJOKGlb08NQTwAo+dIsAyhvQx74HyleAHf12iwDyVh/6riwJoIwSe/93iwQqOH2YCGBn/92a+NJbhY3vKAIsiFl+vJtYZuv1ViJAqjd9ZItqRobPEwF0G1bIlSoZ+WmmDkHgOBHg28DzDKJOInCOCHA3sF0n3TenrxcB7gN07YtJ9xBYLQL8t3t+m8cFAmuMAN3mwn1GgG4ToPcxaF1it2N2fEoadX+dCGC3fjWKeVKD3SsCWOn3pOakUWPuFAFW9EeKNmqCDdYmAreJAAoNemObVtjYrSFwnQhwEqAMUpPuIXCaCKBEAb0GTLqHwAIRYCZwf/d8N4+BXcqQMN0BFOUyYoM1GwR0/rNlSYBrgYH549m4Y4b6IrAMOKgkwDHAOb4arH3WCPTKyJUEeDxwT9bumPG+COwM9A6CSlkFvMBXi7XPEgHVgHiaLJ9OALsNPMu5DDJ6MbCknwCzgXuD1FmnnBD4D6C5VjLwek8A/fdNwF45eWO2eiPwOeCQsld/iZiDi5Ji3lqtQzYIPBdYPYwAIsQaYE427pihPgjoCa9ycVPS/wTQLw4HLvHRam2zQUB3Pq8cR4BHALog0opFZTOvToYuH1T9ddATQNpOAM5wUmuNckHgSYCqh68nwwigRioVr04m+SPw4eJ/6g08GUUALRZGXjaQPy6d8ECnfs8C/jHI21EEUPvLAFWUMskTgX8B2vb9YJj54wigsjFikC0I8yTA+4EzR5k+jgDq+1rgmjz977TVen3rzqCR4kIAKbjQ9176cQPb72tFYG3xtS/KvYGy9OFFAokWEyZpI6AagDrwcVrAuz4B5PITi8XE5mn733nrjgYucEXBhwDSeQCgWDKTNBFYrxK4i4m+BJDOE4HTXJRbm0YRWAq8x3fEEAJoDEWTHO87mLWvDQFt9bTl85ZQAmig8wC9b0zaReCDwKmhJlQhgMa8FFgUOrj1q4zAVGxfqKaqBDAShCJfvZ8yuj9RVU0MAsiGY4Gzqxpj/Z0Q+BtwYP/1b049BzSKRQCp3ge42srOh06FUz/l8wnnW51aOzSKSQANp8OiLwLKOjGJi8DtwGuUzRNTbWwCyLYtipOohTEN7bguvV5rudCzDgKUczW/2CXY0XE4exXC9Rbg5nAVo3vWSQCNrKRTrVT3rsuBCdYr3I4AtOirTeomQGm4jihPBzatzZPJUazq7Zr4G5pwqSkCyJdtisDEo4BNmnAuszFUpkffWfRBpzFpkgClUwovU2UyJaBs3JinaQ90BaDs7MZrNbVBgHIqtD4Q449Me25qtU6RVucDd9Q6ygjlbRKgNEupyrq5VKvdLdsCosFx/wJcDChWv5ei3aakQIDp/h9aEEG1CydN7gLOKi7p0oleEpIaAUpQti3K176pLGWSBFr+RjwIKCfvojr38v5m/b9HqgSY7tPugA6V9FTo1bVJXHRkqzD6G4FbErd1gwohqdur9cJ+wDxgD2CHBAzWQY0mWrn3VwF61GcjOTwBRoGp285EBP3sBsxt4Ao8pc5rwvWjymq6dzFbyZ0Ag4DfrHhV6HWxU0GIxxV/auupj1XDRIkUOn/XVXrak+tHK3X9m7Kl9SVO7/WJkUkkgMvkzCqIIDLoY5UmXJNc67m7i2FNt+kqAZrGOdnxjADJTk0zhhkBmsE52VEeAmv0SlvfFLheAAAAAElFTkSuQmCC"
-      // var maskImage = new Image();
-      // maskImage.src = img
-      // 随机颜色
       let randcolor = () => {
         let r = 100 + ~~(Math.random() * 100);
         let g = 135 + ~~(Math.random() * 100);
@@ -838,17 +737,6 @@ export default {
       // 基于准备好的dom，初始化echarts实例
       let myChart = this.$echarts.init(this.$refs.myChart);
       this.myChart = myChart;
-      // var width = document.body.clientWidth
-      // var zoom = width/1920
-      // var ci = this.$refs.myChart
-      // var proportion = 1/zoom
-      // var domList = [ci]//
-      // domList.forEach(item=>{
-      //   item.style.zoom = proportion
-      //   item.style.transform = "scale("+ zoom +")"
-      //   item.style.transformOrigin = "0%0%"
-      //   item.style.width = proportion*100 +'%'
-      // })
       // 绘制图表
       myChart.setOption({
         tooltip: {
@@ -863,7 +751,6 @@ export default {
                 `;
           },
         },
-        // backgroundColor: "rgba(15,50,94)",
         series: [
           {
             type: "wordCloud",
@@ -996,17 +883,6 @@ ul {
   height: 448px;
   position: relative;
 }
-/*.hot_box_left .hot_item ul:before {*/
-/*  content:"";*/
-/*  width: 2px;*/
-/*  height: 100%;*/
-/*  position: absolute;*/
-/*  clear: both;*/
-/*  top: 0;*/
-/*  right: 0;*/
-/*  height: 100%;*/
-/*  background: rgb(219, 219, 219);*/
-/*}*/
 .hot_box_left .hot_item:last-child ul:before {
   display: none;
 }
@@ -1018,15 +894,11 @@ ul {
   height: 100%;
   padding: 10px 30px;
   padding-bottom: 20px;
-  /*border: 1px solid rgb(115, 138, 177);*/
-  /*padding: 0 30px;*/
 }
 .hot_item:last-child {
   border: 0;
 }
 .hot_item > p {
-  /*margin-left: 30px;*/
-  /*width: 100%;*/
   border-bottom: 2px solid #1e3e74;
   font-weight: 700;
   font-style: normal;

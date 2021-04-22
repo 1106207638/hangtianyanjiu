@@ -75,11 +75,7 @@
           :data="cuttingEdgeList"
           :max-height="mheight"
           border:false
-          style="
-            width: 100%;
-            text-align: center !important;
-            border: 1px solid red;
-          "
+          style="width: 100%; text-align: center !important"
           :header-cell-style="{ color: '#CAEDFF' }"
           :cell-style="changeCellstyle"
         >
@@ -123,11 +119,7 @@
           :data="inoutList"
           :max-height="mheight"
           border:false
-          style="
-            width: 100%;
-            text-align: center !important;
-            border: 1px solid red;
-          "
+          style="width: 100%; text-align: center !important"
           :header-cell-style="{ color: '#CAEDFF' }"
           :cell-style="changeCellstyle"
         >
@@ -155,11 +147,7 @@
           :data="personnelList"
           :max-height="mheight"
           border:false
-          style="
-            width: 100%;
-            text-align: center !important;
-            border: 1px solid red;
-          "
+          style="width: 100%; text-align: center !important"
           :header-cell-style="{ color: '#CAEDFF' }"
           :cell-style="changeCellstyle"
         >
