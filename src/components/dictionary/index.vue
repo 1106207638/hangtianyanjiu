@@ -871,10 +871,11 @@ div {
   font-size: 14px;
   color: #fff;
   white-space: nowrap;
-  margin-left: 10px;
-  margin-top: 10px;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 .class_item.active {
-  background: #f0f7ff;
+  background: rgb(102, 138, 204, 0.2);
 }
 </style>
