@@ -128,6 +128,8 @@
                 </el-upload>
                 <div class="tabItem" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="exerciseTemplate" v-if="isEditc=='true'">下载模板</div>
                 <div class="tabItem" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="addExercise" v-if="isEditc=='true'">新增</div>
+                                <div class="tabItem" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="addbiaoti1" v-if="isEditc=='true'">新1增标题</div>
+
 
               </div>
             </div>
@@ -849,6 +851,17 @@
           <el-button type="primary" @click="tableBoxYes2('ruleForm')">确 定</el-button>
         </div>
       </el-dialog>
+      <el-dialog title="新增标签" :visible.sync="openbiaoti1">
+  <el-form :model="form">
+    <el-form-item label="标签名称" :label-width="formLabelWidth">
+      <el-input v-model="tableForm1.manoeuvreName" autocomplete="off"></el-input>
+    </el-form-item>
+  </el-form>
+  <div slot="footer" class="dialog-footer">
+    <el-button @click="addNewtitle1 = false">取 消</el-button>
+    <el-button type="primary" @click="tableBoxYes1">确 定</el-button>
+  </div>
+</el-dialog>
 
   </div>
 </template>
@@ -1485,6 +1498,7 @@ export default {
       isEdit: false,
       // 编辑表格的弹出层
       tableBox: false,
+      addNewtitle1: false,
       tableBox1: false,
       tableBox2: false,
       tableBox3: false,
@@ -2685,16 +2699,16 @@ export default {
           count: 12,
         },
       ],
+      openbiaoti1: false,
+      biaoti1text: [],
     };
   },
-  //生命周期 - 创建完成（访问当前this实例）
   created() {
     this.action = window._CONFIG["baseURL"] + "satelliteLaunching/importExcel";
     this.action1 = window._CONFIG["baseURL"] + "mainEquipment/importExcel";
     this.action2 = window._CONFIG["baseURL"] + "strategyManoeuvre/importExcel";
     this.action3 = window._CONFIG["baseURL"] + "spaceStrength/importExcel";
   },
-  //生命周期 - 挂载完成（访问DOM元素）
   mounted() {
     var that = this;
     this.getNum();
@@ -2719,6 +2733,30 @@ export default {
     },
   },
   methods: {
+    addbiaoti1() {
+      this.openbiaoti1 = true;
+      this.tableForm1 = {
+        manoeuvreName: "",
+        manoeuvreTime: "",
+        manoeuvreCountry: "",
+        manoeuvreSite: "",
+        manoeuvreSiteImg: [],
+        manoeuvreLevel: "",
+        manoeuvreTarget: "",
+        manoeuvreTargetImg: [],
+        manoeuvreScene: "",
+        manoeuvreSceneImg: [],
+        manoeuvreTroops: "",
+        manoeuvreTroopsImg: [],
+        manoeuvreCrews: "",
+        manoeuvreCrewsImg: [],
+        manoeuvreContent: "",
+        manoeuvreContentImg: [],
+      };
+    },
+    biaoti1ok() {
+      console.log(this.biaoti1text);
+    },
     handleClose(item) {
       this.nowequipmentList.splice(this.nowequipmentList.indexOf(item), 1);
     },
@@ -3648,7 +3686,8 @@ export default {
         });
       }
       this.tableBox1 = false;
-      this.geteManeuversList();
+      this.openbiaoti1 = false;
+      this.getmaneuvers();
     },
     // 修改太空战略演习table
     tableBoxYes3() {
@@ -3799,6 +3838,7 @@ export default {
     },
     // 美国天、地基太空态势感知系统编辑./新增
     tableBoxYes2(formName) {
+      console.log(formName);
       this.$refs[formName].validate((valid) => {
         if (valid) {
           if (this.isEdit) {
