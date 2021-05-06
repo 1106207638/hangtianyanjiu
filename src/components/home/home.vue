@@ -1111,6 +1111,7 @@ ul {
   height: 40px;
   line-height: 28px;
   display: flex;
+
 }
 .boxItem span:nth-child(1) {
   position: relative;
@@ -1154,16 +1155,7 @@ ul {
   border: none;
   color: #fff;
 }
-/*.boxItem span:nth-child(1):before {*/
-/*  content:"";*/
-/*  clear: both;*/
-/*  position: absolute;*/
-/*  width: 1px;*/
-/*  height:14px;*/
-/*  background:rgba(113, 113, 113, 0.850980392156863);*/
-/*  left:13px;*/
-/*  top:26px;*/
-/*}*/
+
 .content_item .content_box:last-child span:nth-child(1):before {
   display: none;
 }

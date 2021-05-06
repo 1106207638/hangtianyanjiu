@@ -437,8 +437,12 @@
             v-infinite-scroll="load"
             style="overflow: auto"
           >
-            <li v-for="(item, index) in commentList" :key="index">
-              <div class="head">
+            <li
+              v-for="(item, index) in commentList"
+              :key="index"
+              style="border-bottom: 1px solid #787878"
+            >
+              <div class="head1">
                 <img src="~@/assets/images/user.png" alt="" />
                 <div class="rightt">
                   <div style="display: flex">
@@ -447,7 +451,7 @@
                     </el-rate>
                   </div>
                   <p class="contentt">{{ item.appraise }}</p>
-                  <div style="display: flex">
+                  <div style="padding-bottom: 10px">
                     <span class="createTime">{{ item.createTime }}</span>
                   </div>
                 </div>
@@ -1440,7 +1444,7 @@ table {
 }
 .head {
   width: 100%;
-  height: 64px;
+  min-height: 64px;
 }
 .head span {
   color: #fff;

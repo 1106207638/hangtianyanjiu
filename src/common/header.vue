@@ -814,7 +814,7 @@ div {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  justify-content: center;
+  justify-content: space-between;
 
   height: 145px;
   line-height: 145px;

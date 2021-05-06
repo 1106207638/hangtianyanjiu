@@ -61,6 +61,9 @@
                       <td width="40%">装备描述</td>
                       <td v-if="isEditc=='true'" width="15%">操作</td>
                     </tr>
+                    <tr v-if="equipList.length === 0" >
+                     <td colspan='6'>暂无数据</td> 
+                    </tr>
                     <tr v-for="(item,index) in equipList" :key="index">
                       <td>{{ item.equipName }}</td>
                       <td>{{ item.launchCountry }}</td>
@@ -144,6 +147,9 @@
                 操作
               </td>
             </tr>
+            <tr v-if="maneuversList.length === 0" >
+                     <td colspan='6'>暂无数据</td> 
+                    </tr>
             <tr v-for="(item,index) in maneuversList" :key="index">
               <td>{{ item.manoeuvreTime }}</td>
               <td>{{ item.manoeuvreCountry }}</td>
@@ -2827,7 +2833,6 @@ export default {
       if (this.activeTable.id) {
         this.tableBox2 = true;
         this.isEdit = true;
-        console.log(this.activeTable.id);
         this.tableForm2 = {
           id: this.activeTable.id,
           pid: this.activeTable.pid,
@@ -2844,7 +2849,6 @@ export default {
       if (this.nowequipmentList != []) {
         this.tableBox4 = true;
         this.isEdit = true;
-        console.log(this.nowequipmentList);
       } else {
         this.$message.error("一级分类不允许编辑");
       }
@@ -2892,7 +2896,6 @@ export default {
       getdeployment().then((res) => {
         var { data } = res;
         if (data.code == 200) {
-          console.log(data);
           var datas = data.result;
           var arr = [];
           for (var i = 0; i < datas.length; i++) {
@@ -2924,13 +2927,11 @@ export default {
       this.tableForm1.manoeuvreCrewsImg = file;
     },
     getFile6(file) {
-      console.log(file);
       this.tableForm1.manoeuvreContentImg = file;
     },
     // 太空发射编辑
     equipEdit(obj) {
       this.tableBox = true;
-      console.log(obj);
     },
     // 太空发射删除
     epuipDelete(obj) {},
@@ -3118,11 +3119,8 @@ export default {
     // 文件上传失败
     errors(error, file, fileList) {
       this.$refs.upload.clearFiles();
-      console.log(error);
     },
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
-    },
+    handleRemove(file, fileList) {},
     beforeAvatarUpload(file) {
       let fileName = file.name;
       let pos = fileName.lastIndexOf(".");
@@ -3288,6 +3286,7 @@ export default {
             }
           }
           this.equipList = datas;
+          console.log(this.equipList);
           this.total = data.result.total;
         }
       });
@@ -3451,7 +3450,6 @@ export default {
       this.isEdit = true;
       this.tableBox = true;
       var data = JSON.parse(JSON.stringify(datas));
-      console.log(data);
       this.tableForm = {
         id: data.id,
         equipType: data.equipType,
@@ -3495,7 +3493,6 @@ export default {
     tableBoxYes() {
       var formdata = this.tableForm;
       for (var key in formdata) {
-        console.log(key);
         if (key.indexOf("Img") != -1) {
           if (formdata[key].length == 0) {
             formdata[key] = "";
@@ -3847,7 +3844,6 @@ export default {
             });
           }
         } else {
-          console.log("error submit!!");
           return false;
         }
       });
@@ -4211,12 +4207,9 @@ export default {
     editFsc() {
       this.LaunchBox = true;
     },
-    editchange(val) {
-      console.log(val);
-    },
+    editchange(val) {},
     init() {
       this.$nextTick(() => {
-        console.log(document.getElementById("div1"));
         const editor = new E(document.getElementById("div1"));
         // 或者 const editor = new E( document.getElementById('div1') )
         editor.create();
@@ -4353,7 +4346,6 @@ export default {
         this.satelliteData[this.activeIndex] = obj;
       } else if (this.isEdit && this.echartIndex == 6) {
         editdeployment(obj).then((res) => {
-          console.log(res);
           var { data } = res;
           if (data.code == 200) {
             this.$message({
@@ -4497,7 +4489,6 @@ export default {
     toggleSend(index, indexx) {
       this.sendIndex = indexx;
       this.equipModel = index;
-      console.log(this.equipModel);
       this.getmainEquipment();
       this.pageno = 1;
       this.getStatistic();

@@ -57,7 +57,17 @@
               </el-tree>
               {{ isSearch }}
               <div v-show="isearch">
-                <div v-show="dictionaryList.length == 0">暂无数据</div>
+                <div
+                  v-show="dictionaryList.length == 0"
+                  style="
+                    font-size: 18px;
+                    color: #fff;
+                    margin-top: 20px;
+                    text-align: center;
+                  "
+                >
+                  暂无数据
+                </div>
                 <div v-show="dictionaryList.length != 0">
                   <div
                     :class="
@@ -151,7 +161,17 @@
               >
               </el-tree>
               <div v-show="isearch">
-                <div v-show="dictionaryList.length == 0">暂无数据</div>
+                <div
+                  v-show="dictionaryList.length == 0"
+                  style="
+                    font-size: 18px;
+                    color: #fff;
+                    margin-top: 20px;
+                    text-align: center;
+                  "
+                >
+                  暂无数据
+                </div>
                 <div v-show="dictionaryList.length != 0">
                   <div
                     :class="
@@ -849,8 +869,10 @@ div {
   height: 26px;
   cursor: pointer;
   font-size: 14px;
-  color: #606266;
+  color: #fff;
   white-space: nowrap;
+  margin-left: 10px;
+  margin-top: 10px;
 }
 .class_item.active {
   background: #f0f7ff;

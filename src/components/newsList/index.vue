@@ -408,6 +408,9 @@ p {
 .autor {
   font-size: 14px;
 }
+/deep/.content span {
+  color: #fff !important;
+}
 /deep/video {
   display: block;
   max-width: 80% !important;

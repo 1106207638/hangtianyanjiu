@@ -135,7 +135,10 @@
                 style="color: #67707c"
               ></i>
             </div>
-            <p class="content threedian" style="margin-top: 30px">
+            <p
+              class="content threedian"
+              style="margin-top: 30px; display: inline-block"
+            >
               <i class="el-icon-reading" style="width: 19px; height: 17px"></i
               ><span class="lable">原文：</span>
               {{ item.bookmarkValue }}
@@ -1176,39 +1179,29 @@ export default {
       var selectedText = selectionObj.toString();
       var selectionObj = window.getSelection();
       var rangeObj = selectionObj.getRangeAt(0);
-      // console.log(rangeObj);
       var docFragment = rangeObj.cloneContents();
-      // console.log(docFragment.parentNode);
       var testDiv = document.createElement("div");
       testDiv.appendChild(docFragment);
       var selectHtml = testDiv.innerHTML;
       var range = getRange();
-
+      console.log(range);
       if (range.collapsed == false) {
         var parentHtml = $(range.startContainer.parentElement).parents("a");
-        // console.log(parentHtml);
         var parentHtml1 = range.endContainer.parentElement.outerHTML;
         if (parentHtml.length != 0) {
-          if (
-            selectHtml.indexOf("</a>") != -1 ||
-            selectHtml.indexOf("<a") != -1 ||
-            parentHtml[0].nodeName == "A"
-          ) {
-            return this.$message.error("此处已有标签，请删除后再试");
-          } else {
-            this.show = true;
-            this.range = range;
-          }
+          this.show = true;
+          this.range = range;
         } else {
-          if (
-            selectHtml.indexOf("</a>") != -1 ||
-            selectHtml.indexOf("<a") != -1
-          ) {
-            return this.$message.error("此处已有标签，请删除后再试");
-          } else {
-            this.show = true;
-            this.range = range;
-          }
+          // if (
+          //   selectHtml.indexOf("</a>") != -1 ||
+          //   selectHtml.indexOf("<a") != -1
+          // ) {
+          //   return this.$message.error("此处已有标签，请删除后再试");
+          // } else {
+
+          // }
+          this.show = true;
+          this.range = range;
         }
       } else {
         alert("请选择相应的文本");
@@ -1371,6 +1364,7 @@ a {
 .right {
   text-align: center;
   max-width: 381px;
+  min-width: 380px;
 }
 .right .right_main {
   height: calc(100vh - 64px);
@@ -1384,7 +1378,7 @@ a {
   margin-top: 30px;
   max-width: 324px;
   min-width: 200px;
-  height: 192px;
+  min-height: 192px;
   padding: 26px 14px 28px 22px;
 }
 .right li:hover {
