@@ -135,28 +135,40 @@
                 style="color: #67707c"
               ></i>
             </div>
-            <p
-              class="content threedian"
-              style="margin-top: 30px; display: inline-block"
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: flex-start;
+              "
             >
-              <i class="el-icon-reading" style="width: 19px; height: 17px"></i
-              ><span class="lable">原文：</span>
-              {{ item.bookmarkValue }}
-            </p>
-            <p class="content note" style="margin-top: 22px">
-              <i class="el-icon-edit-outline"></i
-              ><span class="lable">笔记：</span>
-              {{ item.bookmarkName }}
-            </p>
-            <p class="content note tag" style="margin-top: 22px">
-              <i class="el-icon-collection-tag"></i
-              ><span class="lable">标签：</span>
-              <span class="tag_box">
-                <el-tag v-for="(item1, index) in item.kgLabels" :key="index">{{
-                  item1.labelName
-                }}</el-tag>
-              </span>
-            </p>
+              <p
+                class="content threedian"
+                style="margin-top: 30px; display: inline-block"
+              >
+                <i class="el-icon-reading"></i><span class="lable">原文：</span>
+                {{ item.bookmarkValue }}
+              </p>
+              <p class="content note" style="margin-top: 22px">
+                <i class="el-icon-edit-outline"></i
+                ><span class="lable">笔记：</span>
+                {{ item.bookmarkName }}
+              </p>
+              <p class="content note tag" style="margin-top: 22px">
+                <i class="el-icon-collection-tag"></i
+                ><span class="lable">标签：</span>
+                <span class="tag_box">
+                  <button
+                    class="lable_button"
+                    v-for="(item1, index) in item.kgLabels"
+                    :key="index"
+                  >
+                    {{ item1.labelName }}
+                  </button>
+                </span>
+              </p>
+            </div>
           </li>
         </ul>
       </div>
@@ -1405,9 +1417,6 @@ a {
   color: #a0a0a0;
   text-align: left;
 }
-.right .content.tag {
-  display: flex;
-}
 .right .tag .tag_box {
   flex: 1;
 }
@@ -1606,5 +1615,16 @@ li {
   white-space: normal !important;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+}
+.lable_button {
+  border: 1px solid transparent;
+  outline: none;
+  border: 1px solid #00cfff;
+  border-radius: 4px;
+  background: rgb(0, 207, 255, 0.2);
+  font-size: 16px;
+  font-weight: normal;
+  color: #00cfff;
+  padding: 0px 8px;
 }
 </style>
