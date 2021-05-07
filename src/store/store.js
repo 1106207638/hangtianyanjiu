@@ -6,48 +6,51 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
     state: {
         count: 0,
-        changeShow:false,
-        isZoom:true,
-        password:'',
-        isSmall : true
+        changeShow: false,
+        isZoom: true,
+        password: '',
+        isSmall: true,
+        andBig: true,
+        andSmall: true
+
     },
     mutations: {
-        increment (state,value) {
+        increment(state, value) {
             state.changeShow = value
             state.isHeader = !state.isHeader
         },
-        toggleZoom (state,value) {
+        toggleZoom(state, value) {
             state.isZoom = true
         },
-        toggleZoom1 (state,value) {
+        toggleZoom1(state, value) {
             state.isZoom = false
         },
-        editPassword(state,value) {
+        editPassword(state, value) {
             state.password = value
         },
-        small(state,value) {
+        small(state, value) {
             state.isSmall = true
         },
-        big(state,value) {
+        big(state, value) {
             state.isSmall = false
         }
     },
-    actions:{
-        editPW(context,value) {
-            context.commit('editPassword',value)
+    actions: {
+        editPW(context, value) {
+            context.commit('editPassword', value)
         },
-        init(context,value) {
-            context.commit('increment',value)
+        init(context, value) {
+            context.commit('increment', value)
         },
-        toggle(context,value) {
-            context.commit('toggleZoom',value)
+        toggle(context, value) {
+            context.commit('toggleZoom', value)
         },
-        toggleSmall(context,value) {
-            context.commit('small',value)
+        toggleSmall(context, value) {
+            context.commit('small', value)
         },
-        toggleBig(context,value) {
-            context.commit('big',value)
+        toggleBig(context, value) {
+            context.commit('big', value)
         },
     }
 })
-export default  store
+export default store

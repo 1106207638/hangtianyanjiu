@@ -2754,9 +2754,7 @@ export default {
         manoeuvreContentImg: [],
       };
     },
-    biaoti1ok() {
-      console.log(this.biaoti1text);
-    },
+    biaoti1ok() {},
     handleClose(item) {
       this.nowequipmentList.splice(this.nowequipmentList.indexOf(item), 1);
     },
@@ -3324,7 +3322,6 @@ export default {
             }
           }
           this.equipList = datas;
-          console.log(this.equipList);
           this.total = data.result.total;
         }
       });
@@ -3838,7 +3835,6 @@ export default {
     },
     // 美国天、地基太空态势感知系统编辑./新增
     tableBoxYes2(formName) {
-      console.log(formName);
       this.$refs[formName].validate((valid) => {
         if (valid) {
           if (this.isEdit) {
