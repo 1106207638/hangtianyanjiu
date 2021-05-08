@@ -2877,6 +2877,10 @@ export default {
         manoeuvreContentImg: [],
       };
     },
+<<<<<<< HEAD
+=======
+    biaoti1ok() {},
+>>>>>>> e1e9c0ca13f8641fcaddc050c137c12a4c65cdbd
     handleClose(item) {
       this.nowequipmentList.splice(this.nowequipmentList.indexOf(item), 1);
     },
@@ -3597,7 +3601,6 @@ export default {
             }
           }
           this.equipList = datas;
-          console.log(this.equipList);
           this.total = data.result.total;
         }
       });
@@ -4112,7 +4115,6 @@ export default {
     },
     // 美国天、地基太空态势感知系统编辑./新增
     tableBoxYes2(formName) {
-      console.log(formName);
       this.$refs[formName].validate((valid) => {
         if (valid) {
           if (this.isEdit) {

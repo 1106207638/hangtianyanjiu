@@ -2,7 +2,7 @@
 <template>
   <!-- 头部区域 -->
   <div class="header">
-    <div class="head_main" v-show="headers">
+    <div class="head_main" v-show="headertitle == true">
       <div class="logo">
         <img src="~@/assets/images/logo1.png" @click="logo" alt="" />
         <span>航天（实验）情报研究与服务平台</span>
@@ -54,13 +54,13 @@
       <div class="btnss" v-if="isZoom">
         <el-button
           :type="issmall == true ? 'primary' : ''"
-          @click="small"
+          @click="small1"
           icon="el-icon-zoom-out"
           ><span style="margin-left: 10px">PC模式</span></el-button
         >
         <el-button
           :type="issmall == false ? 'primary' : ''"
-          @click="big"
+          @click="big1"
           icon="el-icon-zoom-in"
           ><span style="margin-left: 10px">研讨模式</span></el-button
         >
@@ -86,7 +86,6 @@
           @click="itemMousemove($event)"
           @mouseleave="mouseLeave"
         >
-          <!--          <el-dropdown :popper-append-to-body="false"  @command="handleCommand1">-->
           <span class="el-dropdown-link"> 情报视图 </span>
           <ul
             data-v-6a1e17a8=""
@@ -161,15 +160,6 @@
               ></div>
             </div>
           </ul>
-          <!--            <el-dropdown-menu slot="dropdown">-->
-          <!--              <el-dropdown-item  command="1">太空发射图</el-dropdown-item>-->
-          <!--              <el-dropdown-item  command="2">太空主要装备图</el-dropdown-item>-->
-          <!--              <el-dropdown-item  command="3">太空战略演习图</el-dropdown-item>-->
-          <!--              <el-dropdown-item  command="4">太空领域威胁挑战图</el-dropdown-item>-->
-          <!--              <el-dropdown-item  command="5">太空安全危机处置图</el-dropdown-item>-->
-          <!--              <el-dropdown-item  command="6">太空力量部署图</el-dropdown-item>-->
-          <!--            </el-dropdown-menu>-->
-          <!--          </el-dropdown>-->
         </div>
         <div
           :class="activeNav == 'Dictionary' ? 'left_item active' : 'left_item'"
@@ -289,7 +279,11 @@
           <!--              <el-dropdown-item command="1">退出</el-dropdown-item>-->
           <!--            </el-dropdown-menu>-->
         </div>
-        <div class="right_item pc" v-show="!headers && urlType" @click="small">
+        <div
+          class="right_item pc"
+          v-show="!headertitle && urlType"
+          @click="small"
+        >
           PC模式
         </div>
       </div>
@@ -320,6 +314,8 @@ export default {
   inject: ["reload", "isLogin"],
   data() {
     return {
+      shiyan: "1",
+      headertitle: true,
       isshow: false,
       input: "",
       isLogin: false,
@@ -432,7 +428,17 @@ export default {
       this.isrule = false;
     }
   },
+  updated() {
+    if (this.$route.name == "Echarts") {
+      this.headertitle = false;
+    }
+    console.log(this.shiyan);
+  },
   methods: {
+    small1() {
+      this.shiyan = "23";
+      console.log(this.shiyan);
+    },
     reloads() {
       this.isrule = false;
       this.$store.commit("editPassword", "");
@@ -473,14 +479,7 @@ export default {
         var blob = new Blob([data]);
         var a = document.createElement("a");
         var blobUrl = window.URL.createObjectURL(blob);
-        //得到后台传到前台的文件名
-        // var filename = xmlreq.getResponseHeader("content-disposition");
-        // if(filename){
-        // a.download = filename.match(/filename="(\S*)"/)[1];
-        // }else{
         a.download = name;
-        // }
-
         a.href = blobUrl;
         a.click();
       };
@@ -495,15 +494,11 @@ export default {
         }
       }
       window.open(url);
-      // this.down(url,name)
-
-      // uploadTool(url).then((res)=>{
-      //
-      // })
     },
     handleCommand1(id) {
       this.indexEchart = id;
       this.isshow = false;
+      this.headertitle = false;
       document.querySelector(".aaaaaa").style.display = "none";
       if (id == 1) {
         this.$router.push("/view/5");
@@ -572,13 +567,11 @@ export default {
         window.localStorage.getItem("token") != "" &&
         window.localStorage.getItem("token") != null
       ) {
-        // this.feedback = true
         this.$router.push("/FeedBack");
       } else {
         this.$message.error("请登录后再试");
         this.Logindialog = true;
       }
-      // this.$emit('openFack')
     },
     // 搜索
     search() {
@@ -599,6 +592,7 @@ export default {
     },
     home() {
       this.$router.push("/");
+      this.headertitle = true;
     },
     // 高级搜索
     senior() {
@@ -793,6 +787,26 @@ export default {
       // document.body.style.cssText += '; -moz-transform: scale(1.5);-moz-transform-origin: 0 0; ';
       this.$store.dispatch("init", true);
       this.$store.dispatch("toggleBig", true);
+    },
+    big1() {
+      let bannersize = document.querySelectorAll(" .bannerBox p");
+      let banitem = document.querySelectorAll(".ban_item");
+
+      if (this.$route.name == "home") {
+        for (let i = 0; i < bannersize.length; i++) {
+          bannersize[i].style.fontSize = "23px";
+        }
+        for (let i = 0; i < banitem.length; i++) {
+          banitem[i].style.fontSize = "23px";
+        }
+        document.querySelector(".hot_box_left").style.zoom = 1.5;
+        document.querySelector(".category").style.zoom = 1.5;
+        document.querySelector(".bigciyun").style.zoom = 1.5;
+        document.querySelector(".lastBom").style.zoom = 1.5;
+      } else {
+        this.headertitle = false;
+        document.getElementsByTagName("body")[0].style.zoom = 1.5;
+      }
     },
   },
 };

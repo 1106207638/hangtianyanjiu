@@ -235,7 +235,7 @@
         </div>
         <!-- 词云 -->
         <footer class="footer ciYun">
-          <div class="left cici" style="">
+          <div class="left cici">
             <div
               class="big_cate"
               style="
@@ -245,7 +245,7 @@
               "
             >
               <p
-                class="class left"
+                class="class left bigciyun"
                 style="
                   margin-top: 20px;
                   margin-bottom: -2px;
@@ -261,8 +261,7 @@
             <div id="value" ref="myChart"></div>
           </div>
         </footer>
-        <div class="lastBom">
-          <div class="big_cate"></div>
+        <div class="lastBom" style="border: 1px solid red">
           <div
             class="hot category"
             style="
@@ -1111,7 +1110,6 @@ ul {
   height: 40px;
   line-height: 28px;
   display: flex;
-
 }
 .boxItem span:nth-child(1) {
   position: relative;
