@@ -882,6 +882,51 @@ export function deleThreaten(data) {
     params: data
   })
 }
+// 删除太空战略演习
+const deleteexerciseURL = '/strategyManoeuvre/deleteStrategyManoeuvre'
+export function deleteexercise(data) {
+  return drequest({
+    url: deleteexerciseURL,
+    method: 'get',
+    params: data
+  })
+}
+//修改太空战略演习二级
+const modifyview2URL = '/strategyManoeuvre/updateStrategyManoeuvre'
+export function modifyview2(oldValue, newValue) {
+  return drequest({
+    url: modifyview2URL,
+    method: 'get',
+    params: oldValue, newValue
+  })
+}
+//删除太空主要装备二级
+const deleteview1URL = '/mainEquipment/deleteEquipModelByType'
+export function deleteview1(type, value) {
+  return drequest({
+    url: deleteview1URL,
+    method: 'get',
+    params: type, value
+  })
+}
+// 修改太空装备二级
+const updateview1URL = '/mainEquipment/updateEquipModelByType'
+export function updateview1(type, oldValue, newValue) {
+  return drequest({
+    url: updateview1URL,
+    method: 'get',
+    params: type, oldValue, newValue
+  })
+}
+//新增太空主要装备二级
+const newview1URL = '/mainEquipment/addEquipModelByType'
+export function newview1(type, value) {
+  return drequest({
+    url: newview1URL,
+    method: 'get',
+    params: type, value
+  })
+}
 // 新增太空领域威胁的二级（
 const addThreatenURL = '/kgInformationChallengeimg/add'
 export function addThreaten(data) {

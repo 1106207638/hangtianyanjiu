@@ -28,9 +28,9 @@
                   <div class="tabItem" @click="EquipmentImport" v-if="isEditc=='true'" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;">导入</div>
                 </el-upload>
                 <div class="tabItem" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="uploadTemplate" v-if="isEditc=='true'">下载模板</div>
-                                <div class="tabItem" @click="delequip" v-if="isEditc=='true'" style="float: right;background: black;border-radius: 10px;color: #FFFFFF;border: 1px solid #03B8E6;">删除标题</div>
-                <div v-if="isEditc=='true'" class="tabItem" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="equipAdd">新增标题</div>
-                <div class="tabItem" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="editequipment" v-if="isEditc=='true'">编辑标题</div>
+                                <!-- <div class="tabItem" @click="delequip" v-if="isEditc=='true'" style="float: right;background: black;border-radius: 10px;color: #FFFFFF;border: 1px solid #03B8E6;">删除标题</div> -->
+                <div v-if="isEditc=='true'" class="tabItem" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="view1xiugai=true">编辑标题</div>
+                <!-- <div class="tabItem" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="editequipment" v-if="isEditc=='true'">编辑标题</div> -->
                 <!-- <div  class="tabItem"  style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;">新增</div> -->
 
               </div>
@@ -127,9 +127,9 @@
                   <div class="tabItem" @click="ExerciseImport" v-if="isEditc=='true'" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;">导入</div>
                 </el-upload>
                 <div class="tabItem" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="exerciseTemplate" v-if="isEditc=='true'">下载模板</div>
-                <div class="tabItem" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="addExercise" v-if="isEditc=='true'">新增</div>
-                                <div class="tabItem" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="addbiaoti1" v-if="isEditc=='true'">新1增标题</div>
-
+                <div class="tabItem" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="addExercise" v-if="isEditc=='true'">新增内容</div>
+                <div class="tabItem" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="view2xiugai=true" v-if="isEditc=='true'">标题管理</div>
+<!-- <div class="tabItem" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="addbiaoti1" v-if="isEditc=='true'">新增标题</div> -->
 
               </div>
             </div>
@@ -330,9 +330,10 @@
                      :class="Threatenindex==index?'tabItem active':'tabItem'" @click="togglethreat(item,index)">
                   {{ item.typename }}
                 </div>
-                <div class="tabItem" @click="delThreaten" v-if="isEditc=='true'" style="float: right;background: black;border-radius: 10px;color: #FFFFFF;border: 1px solid #03B8E6;">删除</div>
-                <div class="tabItem" @click="editThreaten" v-if="isEditc=='true'" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;">编辑</div>
-                <div v-if="isEditc=='true'" class="tabItem" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="threatenAdd">新增</div>
+                <!-- <div class="tabItem" @click="delThreaten" v-if="isEditc=='true'" style="float: right;background: black;border-radius: 10px;color: #FFFFFF;border: 1px solid #03B8E6;">删除</div> -->
+                <!-- <div class="tabItem" @click="editThreaten" v-if="isEditc=='true'" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;">编辑</div> -->
+<div class="tabItem" @click="view3xiugai=true" v-if="isEditc=='true'" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;">编辑</div>
+                <!-- <div v-if="isEditc=='true'" class="tabItem" style="float: right;background: #03B8E6;border-radius: 10px;color: #FFFFFF;" @click="threatenAdd">新增</div> -->
               </div>
             </div>
             <div class="container" style="margin-top: 10px;">
@@ -862,7 +863,91 @@
     <el-button type="primary" @click="tableBoxYes1">确 定</el-button>
   </div>
 </el-dialog>
+<el-dialog title="修改" :visible.sync="view3xiugai">
+  一级标题 
+  <div class="onebiaoti">
+<div v-for="(item,index) in classThreatenList" :key="index"
+                     :class="Threatenindex==index?' listactive':'list'" @click="togglethreat(item,index)">
+                  {{ item.typename }}
+                </div>
+  </div>
+  二级标题
+  <div class="twobiaoti"><div v-for="(item,index) in sendclassThreatenList" :key="index"
+                     :class="sendThreatenIndex==index?'listactive':'list'" @click="togglesendthreat(item,index)">
+                  {{ item.typename }}
+                </div></div>
+  <div slot="footer" class="dialog-footer">
+        <el-button @click="threatenAdd">新 增</el-button>
+                <el-button @click="editThreaten">修 改</el-button>
+        <el-button @click="delThreaten">删 除</el-button>    
+  </div>
+</el-dialog>
+<el-dialog title="标题编辑" :visible.sync="view2xiugai">
+  一级标题 
+  <div class="onebiaoti">
+<div :class="exercise==item?' listactive':'list'" v-for="(item,index) in maneuverClass"
+                     :key="index" @click="Exercisetoggle(item)">{{ item }}
+                </div>
+  </div>
+  <div slot="footer" class="dialog-footer">
+        <el-button @click="addbiaoti1">新 增</el-button>
+                <el-button @click="view2modify=true,newview2modify=''">修 改</el-button>
+        <el-button @click="delThreaten2">删 除</el-button>    
+  </div>
+</el-dialog>
+<el-dialog title="修改标题" :visible.sync="view2modify">
+  <div style="margin-bottom:10px">旧标题名称：{{exercise}}</div>
+  <div>新标题名称：<el-input v-model="newview2modify" placeholder="请输入内容"></el-input></div>
+    <div slot="footer" class="dialog-footer">
+                <el-button @click="view2modifyyes(exercise,newview2modify)">确 定</el-button>
+        <el-button @click="view2modify=false">取 消</el-button>    
+  </div>
+</el-dialog>
 
+<el-dialog title="编辑标题" :visible.sync="view1xiugai">
+  一级标题 
+  <div class="onebiaoti">
+<div v-for="(item,index) in equipmentList" :key="index"
+                     :class="launch==item.value?'listactive':'list'"
+                     @click="toggleLauch(item.value,item.children,item.name)"  >{{ item.name }}                     
+                </div>
+  </div>
+  二级标题
+  <div class="twobiaoti"><div v-for="(item,index) in nowequipmentList" :key="index"
+                     :class="sendIndex==index?'listactive':'list'" @click="toggleSend(item,index)">
+                  {{ item }}
+                </div></div>
+  <div slot="footer" class="dialog-footer">
+        <el-button @click="view1new1=true,view1new=''">新 增</el-button>
+                <el-button @click="view1modify=true">修 改</el-button>
+        <el-button @click="delThreaten1">删 除</el-button>    
+  </div>
+</el-dialog>
+<el-dialog title="新增标题" :visible.sync="view1new1">
+  请选择一级标题 
+  <div class="onebiaoti">
+<div v-for="(item,index) in equipmentList" :key="index"
+                     :class="launch==item.value?'listactive':'list'"
+                     @click="toggleLauch(item.value,item.children,item.name)"  >{{ item.name }}    {{launch}}                 
+                </div>
+  </div>
+  请输入二级标题
+  <el-input v-model="view1new" placeholder="请输入内容"></el-input>
+
+  <div slot="footer" class="dialog-footer">
+        <el-button @click="newview1ok()">确 定</el-button>    
+                <el-button @click="view1new=false">取 消</el-button>    
+  </div>
+</el-dialog>
+<el-dialog title="修改标题" :visible.sync="view1modify">
+  <div style="margin-bottom:10px">旧标题名称：{{equipModel}}</div>
+
+  <div>新标题名称：<el-input v-model="newview1modify" placeholder="请输入内容"></el-input></div>
+    <div slot="footer" class="dialog-footer">
+                <el-button @click="view1modifyyes()">确 定</el-button>
+        <el-button @click="view1modify=false">取 消</el-button>    
+  </div>
+</el-dialog>
   </div>
 </template>
 
@@ -907,7 +992,11 @@ import {
   editThreaten,
   addThreaten,
   deleThreaten,
-  ceshiList,
+  deleteexercise,
+  modifyview2,
+  newview1,
+  deleteview1,
+  updateview1,
 } from "@/api/apis";
 
 export default {
@@ -931,6 +1020,19 @@ export default {
   },
   data() {
     return {
+      newview1biaoti1: "",
+      view1modify: false,
+      view1new1: false,
+      view1new: "",
+      newview1biaoti: false,
+      view1xiugai: false,
+      newview2modify: "",
+      newview1modify: "",
+      view2modify: false,
+      view3List: "",
+      view2List: "",
+      view3xiugai: false,
+      view2xiugai: false,
       dynamicTags: ["标签一", "标签二", "标签三"],
       inputVisible: false,
       inputValue: "",
@@ -2733,8 +2835,29 @@ export default {
     },
   },
   methods: {
+    newview1ok() {
+      if (this.view1new == "") {
+        this.$message.error("标题名称不能为空");
+      } else {
+        newview1({ type: this.launch, value: this.view1new }).then((res) => {
+          let { data } = res;
+          if (data.code == 200) {
+            this.$message({
+              type: "success",
+              message: "添加成功!",
+            });
+          } else {
+            this.$message.error(data.message);
+          }
+          this.view1xiugai = false;
+          this.view1new1 = false;
+          history.go(0);
+        });
+      }
+    },
     addbiaoti1() {
       this.openbiaoti1 = true;
+      this.view2xiugai = false;
       this.tableForm1 = {
         manoeuvreName: "",
         manoeuvreTime: "",
@@ -2753,9 +2876,6 @@ export default {
         manoeuvreContent: "",
         manoeuvreContentImg: [],
       };
-    },
-    biaoti1ok() {
-      console.log(this.biaoti1text);
     },
     handleClose(item) {
       this.nowequipmentList.splice(this.nowequipmentList.indexOf(item), 1);
@@ -2806,6 +2926,81 @@ export default {
         equipDescribeImg: [],
       };
     },
+    view2modifyyes(oldValue, newValue) {
+      if (this.newview2modify == "") {
+        this.$message.error("标题名称不能为空");
+      } else {
+        this.$confirm(
+          "确定修改" +
+            this.exercise +
+            "为" +
+            this.newview2modify +
+            ", 是否继续?",
+          "提示",
+          {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning",
+          }
+        ).then(() => {
+          modifyview2({ oldValue: oldValue, newValue: newValue }).then(
+            (res) => {
+              let { data } = res;
+              if (data.code == 200) {
+                this.$message({
+                  type: "success",
+                  message: "修改成功!",
+                });
+              } else {
+                this.$message.error(data.message);
+              }
+              this.view2modify = false;
+              this.view2xiugai = false;
+            }
+          );
+        });
+        this.geteManeuversList();
+      }
+    },
+    view1modifyyes() {
+      if (this.newview1modify == "") {
+        this.$message.error("标题名称不能为空");
+      } else {
+        this.$confirm(
+          "确定修改" +
+            this.equipModel +
+            "为" +
+            this.newview1modify +
+            ", 是否继续?",
+          "提示",
+          {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning",
+          }
+        ).then(() => {
+          updateview1({
+            type: this.launch,
+            oldValue: this.equipModel,
+            newValue: this.newview1modify,
+          }).then((res) => {
+            let { data } = res;
+            if (data.code == 200) {
+              this.$message({
+                type: "success",
+                message: "修改成功!",
+              });
+            } else {
+              this.$message.error(data.message);
+            }
+            this.view1modify = false;
+            this.view1xiugai = false;
+            // history.go(0);
+          });
+        });
+      }
+    },
+
     // 删除太空领域威胁二级
     delThreaten() {
       if (this.activeTable.typename) {
@@ -2831,11 +3026,73 @@ export default {
             });
           })
           .catch(() => {});
+        this.view3xiugai = false;
       } else {
         this.$message.error("一级分类不可删除！");
       }
     },
 
+    delThreaten2() {
+      if (this.exercise) {
+        this.$confirm(
+          "此操作将永久删除" + this.exercise + ", 是否继续?",
+          "提示",
+          {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning",
+          }
+        )
+          .then(() => {
+            deleteexercise({ value: this.exercise }).then((res) => {
+              var { data } = res;
+              if (data.code == 200) {
+                this.$message({
+                  type: "success",
+                  message: "删除成功!",
+                });
+                this.getclassThreaten();
+                this.getmaneuvers();
+              }
+            });
+          })
+          .catch(() => {});
+        this.view3xiugai = false;
+      } else {
+        this.$message.error("一级分类不可删除！");
+      }
+    },
+    delThreaten1() {
+      if (this.sendIndex) {
+        this.$confirm(
+          "此操作将永久删除" + this.sendIndex + ", 是否继续?",
+          "提示",
+          {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning",
+          }
+        )
+          .then(() => {
+            console.log(this.launch);
+            deleteview1({ type: this.launch, value: this.sendIndex }).then(
+              (res) => {
+                var { data } = res;
+                if (data.code == 200) {
+                  this.$message({
+                    type: "success",
+                    message: "删除成功!",
+                  });
+                }
+                history.go(0);
+              }
+            );
+          })
+          .catch(() => {});
+      } else {
+        this.$message.error("一级分类不可删除！");
+      }
+    },
     //删除太空装备二级
     delequip() {
       if (this.activeTable.typename) {
@@ -2868,6 +3125,21 @@ export default {
     // ceshilist() {},
     // 编辑太空领域威胁
     editThreaten(data) {
+      if (this.activeTable.id) {
+        this.tableBox2 = true;
+        this.isEdit = true;
+        this.tableForm2 = {
+          id: this.activeTable.id,
+          pid: this.activeTable.pid,
+          hasChild: "0",
+          typename: this.activeTable.typename,
+          contents: this.activeTable.contents,
+        };
+      } else {
+        this.$message.error("一级分类不允许编辑");
+      }
+    },
+    editThreaten2(data) {
       if (this.activeTable.id) {
         this.tableBox2 = true;
         this.isEdit = true;
@@ -3024,6 +3296,7 @@ export default {
     },
     Exercisetoggle(str) {
       this.exercise = str;
+      console.log(str);
       this.pageno = 1;
       this.geteManeuversList();
     },
@@ -3659,6 +3932,7 @@ export default {
             }
             this.tableBox1 = false;
             this.getmaneuverss();
+            this.getmaneuvers();
             // this.getsatellite()
             // 刷新当前的视图
           }
@@ -3858,6 +4132,7 @@ export default {
                 });
                 this.tableBox2 = false;
                 this.getclassThreaten();
+                this.view3xiugai = false;
               } else {
                 this.$message.info(data.message);
               }
@@ -3878,6 +4153,7 @@ export default {
                 });
                 this.tableBox2 = false;
                 this.getclassThreaten();
+                this.view3xiugai = false;
               } else {
                 this.$message.error(data.message);
               }
@@ -4580,7 +4856,32 @@ export default {
   height: 100%;
   margin: 0 auto;
 }
+/deep/.content p {
+  color: #fff;
+}
+.onebiaoti {
+  display: flex;
+}
 
+.onebiaoti div {
+  margin: 5px 10px;
+  padding: 3px 6px;
+  border: 1px solid #dcdfe6;
+  cursor: pointer;
+}
+.twobiaoti {
+  display: flex;
+}
+.twobiaoti div {
+  margin: 5px 10px;
+  padding: 3px 6px;
+  border: 1px solid #dcdfe6;
+  cursor: pointer;
+}
+.listactive {
+  border-color: #c6e2ff;
+  background-color: #ecf5ff;
+}
 /* elementUI的标签样式 */
 .el-tag + .el-tag {
   margin-left: 10px;
